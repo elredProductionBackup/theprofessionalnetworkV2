@@ -2,6 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import ComingSoonPopup from './ComingSoonPopup';
+import { useRouter } from 'next/navigation';
 
 const Footer = () => {
   return (
@@ -20,7 +21,7 @@ const Footer = () => {
     <FooterLink text="Home" />
     <FooterLink text="About" />
     <FooterLink text="Apply" />
-    <FooterLink text="FAQ" />
+    <FooterLink text="FAQs" />
   </div>
 
   {/* Middle Navigation */}
@@ -75,13 +76,14 @@ const Footer = () => {
         />
 
         is one amongst many networks trademarked and operated by{" "}
-        
-        <span
-          onClick={() => window.open("https://rextonedigital.com", "_blank")}
-          className="underline text-[#67686B] font-medium cursor-pointer"
-        >
-          Rextone Digital
-        </span>{" "}
+<a
+  href="https://rextonedigital.com"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="underline text-[#67686B] font-medium cursor-pointer"
+>
+  Rextone Digital
+</a>{" "}
         
         Pvt. Ltd.
       </p>
@@ -105,24 +107,46 @@ const Footer = () => {
 };
 
 const FooterLink = ({ text }) => {
+  const router = useRouter();
+
   const firstLetter = text.charAt(0);
   const restOfText = text.slice(1);
 
   const handleClick = () => {
-    if (text === "FAQ") {
-      window.dispatchEvent(new Event('openFaqPopup'));
+    if (text === "FAQs") {
+      window.dispatchEvent(new Event("openFaqPopup"));
+      return;
     }
+
     if (text === "Apply") {
-      window.dispatchEvent(new Event('openApplyPopup'));
+      window.dispatchEvent(new Event("openApplyPopup"));
+      return;
     }
+
     if (text === "Privacy Policy") {
-      window.dispatchEvent(new Event('openPrivacyPopup'));
+      window.dispatchEvent(new Event("openPrivacyPopup"));
+      return;
     }
+
     if (text === "Terms of Service") {
-      window.dispatchEvent(new Event('openTermsPopup'));
+      window.dispatchEvent(new Event("openTermsPopup"));
+      return;
     }
+
     if (text === "Disclaimer") {
-      window.dispatchEvent(new Event('openDisclaimerPopup'));
+      window.dispatchEvent(new Event("openDisclaimerPopup"));
+      return;
+    }
+
+    // Route pages
+    if (text === "Home") {
+      router.push("/");
+      return;
+    }
+
+    if (text === "About") {
+      router.push("/about");
+      return;
     }
   };
 
@@ -132,8 +156,10 @@ const FooterLink = ({ text }) => {
         <span className="font-inter-display font-medium md:text-[28px] text-[19px] leading-[120%] tracking-[-1.3px] align-middle text-[#333336] group-hover:text-[#c01823] transition-colors">
           <span className="relative inline-block">
             {firstLetter}
+
             <span className="absolute -bottom-1 left-0 w-[14px] h-[1.5px] bg-[#c01823] group-hover:w-full transition-all duration-300 ease-out"></span>
           </span>
+
           {restOfText}
         </span>
       </div>

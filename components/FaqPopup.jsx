@@ -42,7 +42,7 @@ const FaqPopup = () => {
       />
       
       {/* Popup Content */}
-      <div className="relative bg-white w-[1150px] h-[90vh] rounded-[30px] p-10 flex flex-col shadow-2xl overflow-hidden z-10">
+      <div className="relative bg-white w-[1150px] h-[90vh] rounded-[30px] p-[10px] md:p-10 flex flex-col shadow-2xl overflow-hidden z-10">
         {/* Close Button */}
         <button 
           onClick={() => setIsOpen(false)}
@@ -54,17 +54,17 @@ const FaqPopup = () => {
           </svg>
         </button>
 
-        <h2 className="font-inter-display text-[35px] font-medium text-[#8a8a91] text-center mb-10" style={{ letterSpacing: '-1.4px' }}>FAQ</h2>
+        <h2 className="font-inter-display text-[24px] md:text-[35px] font-medium text-[#8a8a91] text-center mb-10 mt-[20px] md:mt-[0px]" style={{ letterSpacing: '-1.4px' }}>FAQ</h2>
         
         <div className="flex-grow overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="border-t border-b border-[#E8E8E8]  -mb-px cursor-pointer"
+              className="border-t border-b border-[#E8E8E8] cursor-pointer pl-[12px] pr-[12px]"
             >
               {/* Question Row */}
               <div
-                className="flex items-center justify-between min-h-[100px] font-inter-display md:text-[28px] text-[18px] text-[#333336] font-medium md:px-[20px] gap-[10px] md:gap-0"
+                className="flex items-center justify-between min-h-[74px] md:min-h-[100px] font-inter-display md:text-[28px] text-[18px] text-[#333336] font-medium gap-[10px] md:gap-0"
                 style={{ letterSpacing: '-0.5px' }}
                 onClick={() => toggleExpand(index)}
               >
