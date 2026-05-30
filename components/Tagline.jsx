@@ -1,6 +1,6 @@
 export default function Tagline() {
   return (
-    <section className="relative min-h-[500px] md:min-h-screen md:h-auto flex flex-col items-center justify-center md:justify-center text-white text-center px-4 md:px-[40px] overflow-hidden">
+    <section className="relative min-h-[500px] md:min-h-screen md:h-auto flex flex-col items-center justify-center md:justify-center text-white text-center md:pt-[60px] px-4 md:px-[40px] overflow-hidden">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center z-0"
@@ -9,7 +9,7 @@ export default function Tagline() {
         <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
       </div>
 
-      <div className="relative z-10 flex flex-col h-full items-center justify-center pt-[100px] md:pt-0 pb-[40px]  md:pb-0 gap-[82px] md:gap-[163px]">
+      <div className="relative z-10 flex flex-col h-full items-center justify-center pt-[100px] md:pt-0 pb-[40px]  md:pb-0 gap-[82px] md:gap-[100px]">
         {/* Upper Tagline */}
         <div className="w-full md:w-[90%] max-w-[1350px]">
           <h2

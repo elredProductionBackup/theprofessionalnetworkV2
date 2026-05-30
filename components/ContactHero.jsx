@@ -71,7 +71,7 @@ export default function ContactHero() {
           </p>
 
           <a
-           href="mailto:info@theprofessional.network?subject=I%20have%20a%20question"
+           href="mailto:info@theprofessional.network"
             className="group relative font-medium text-2xl md:text-[48px] font-inter tracking-[-1.2px]"
           >
             Contact us

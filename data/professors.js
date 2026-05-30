@@ -42,8 +42,8 @@ export const professors = [
     school: "IMD Switzerland",
     image: "/professor-profile/gautam.png",
     schoolLogo: "/professor-school/imd-uni.png",
-    linkedinLink: "https://www.linkedin.com/in/daveweiner2",
-    schoolLink: "https://www.berkeley.edu/",
+    linkedinLink: "https://www.linkedin.com/in/goutam-challagalla-161118bb/",
+    schoolLink: "https://www.imd.org/faculty/professors/goutam-challagalla/",
     location: "HBS Classroom - Taj Lands End, Mumbai",
     description: ""
   },
@@ -56,7 +56,7 @@ export const professors = [
   "schoolLogo": "/professor-school/danny-school.jpg",
   "linkedinLink": "https://www.linkedin.com/in/dannywarshay",
   "schoolLink": "https://dannywarshay.com/",
-  "location": "HBS Classroom - Taj Lands End, Mumbai",
+  "location": "Mumbai",
   "description": "See, Solve, Scale<br /><br />Danny Warshay is a Professor and Executive Director of the Nelson Center for Entrepreneurship at Brown University. He leads creative and thought-provoking workshops on entrepreneurship around the world. He began his entrepreneurial pursuits while an undergraduate at Brown as a member of the startup leadership team of Clearview Software, which was acquired by Apple. Since then, he has co-founded and sold companies in fields ranging from software and advanced materials to consumer products and media. His course at Brown, The Entrepreneurial Process, has been recognized as the highest-rated course on campus.<br /><br /> Based on this course, Danny has written the award-winning book <a href=\"https://dannywarshay.com/see-solve-scale-resources\" target=\"_blank\" style=\"color: #0270FF; text-decoration: none;\">SEE SOLVE SCALE: How Anyone Can Turn an Unsolved Problem into a Breakthrough Success</a>. Danny received an A.B. in History, magna cum laude, from Brown University and an M.B.A. from Harvard Business School, and he is a Fellow of the Royal Society of Arts. In addition to spending time with his wife and three children, Danny loves the mental and physical challenges and rewards of vinyasa yoga. He is also an avid (and tortured) Cleveland sports fan. Learn more about Danny Warshay on his website: <a href=\"https://dannywarshay.com/\" target=\"_blank\" style=\"color: #0270FF; text-decoration: none;\">DannyWarshay.com</a> <br /><br /> I invite all of my workshop participants to join the LinkedIn Warshay Innovation Network. The private advising would be on the need, case by case time commitments."
 }
 ];

@@ -8,8 +8,7 @@ export default function VisionSection() {
   
             {/* Paragraph 1 */}
             <p className="font-inter text-5xl sm:text-4xl lg:text-[56px] font-semibold leading-[110%] tracking-[-3px]">
-              Our vision is to bring top academic and business minds together to
-              solve problems, generate ideas, and collaborate with intent.
+              Our vision is to bring top academic and professional minds together to solve problems, generate ideas, and collaborate with intent.
             </p>
   
             {/* Paragraph 2 */}

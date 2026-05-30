@@ -41,7 +41,7 @@ const Footer = () => {
   <SocialLink
     text="Email"
     noBorderBottom={true}
-    href="mailto:info@theprofessional.network?subject=I%20have%20a%20question"
+    href="mailto:info@theprofessional.network"
   />
 </div>
 </div>

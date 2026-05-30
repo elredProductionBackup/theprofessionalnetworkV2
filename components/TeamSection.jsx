@@ -117,7 +117,7 @@ export default function TeamSection() {
               </a>
 
               <a
-                href="mailto:info@theprofessional.network?subject=I%20have%20a%20question"
+                href="mailto:info@theprofessional.network"
                 className="group relative font-medium font-inter text-2xl md:text-[28px] tracking-[-1.2px] text-[#333336] hover:text-[#C01522] transition"
               >
                 contact page
