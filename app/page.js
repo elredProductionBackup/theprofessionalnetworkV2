@@ -11,8 +11,8 @@ export default function Home() {
     <main className="min-h-screen">
       <Hero />
       <Tagline />
-      <Different />
-      <WhatWeAre />
+      {/* <Different /> */}
+      {/* <WhatWeAre /> */}
       <Firstprinciple />
       <Membership />
     </main>

@@ -94,12 +94,14 @@ const ProfessorPopup = ({ prof, onClose }) => {
                     className={isExpanded ? '' : 'line-clamp-3'}
                     dangerouslySetInnerHTML={{ __html: prof.description || '' }}
                   />
-                  <button
-                    onClick={() => setIsExpanded(!isExpanded)}
-                    className="text-[#c01823] font-semibold cursor-pointer hover:underline mt-1"
-                  >
-                    {isExpanded ? 'View Less' : 'View More'}
-                  </button>
+                  {prof.description?.trim() && (
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="text-[#c01823] font-semibold cursor-pointer hover:underline mt-1"
+      >
+        {isExpanded ? "View Less" : "View More"}
+      </button>
+    )}
                 </div>
               </div>
 

@@ -111,7 +111,7 @@ const FaqPopup = () => {
             </span>
             <div className="w-px h-[50px] bg-[#D0D0D0] hidden md:block"></div>
             <div className="w-[250px] h-[1px] bg-[#D0D0D0] md:hidden"></div>
-            <a href="/" className="font-inter-display text-[22px] text-[#333336] underline underline-offset-4 hover:opacity-70 transition-opacity font-medium">
+            <a href="mailto:info@theprofessional.network?subject=I%20have%20a%20question" className="font-inter-display text-[22px] text-[#333336] underline underline-offset-4 hover:opacity-70 transition-opacity font-medium">
               contact us
             </a>
           </div>

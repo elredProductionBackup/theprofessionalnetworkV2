@@ -14,8 +14,8 @@ export default function TeamSection() {
       image: "/team/anushka.jpg", 
       scale: "scale-140",
     },
-    { name: "Zahra", role: "Lead Curator", image: "/team/zahra.png" },
-    { name: "Malaika", role: "Project Manager", image: "/team/malaika.png" },
+    { name: "Zahra", role: "Program Lead", image: "/team/zahra.png" },
+    { name: "Malaika", role: "Product Manager", image: "/team/malaika-img.jpg" },
     { name: "Uttam", role: "Lead Design", image: "/team/uttam.png" },
     {
       name: "Ritika",
@@ -117,7 +117,7 @@ export default function TeamSection() {
               </a>
 
               <a
-                href="#"
+                href="mailto:info@theprofessional.network?subject=I%20have%20a%20question"
                 className="group relative font-medium font-inter text-2xl md:text-[28px] tracking-[-1.2px] text-[#333336] hover:text-[#C01522] transition"
               >
                 contact page

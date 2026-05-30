@@ -28,7 +28,7 @@ export default function JoinSection() {
             {/* Button */}
             <button 
               onClick={() => window.dispatchEvent(new Event('openApplyPopup'))}
-              className="hidden md:flex mt-10 w-fit px-10 py-2.5 border border-black rounded-full text-2xl font-medium font-inter cursor-pointer hover:bg-black hover:text-white transition"
+              className="hidden md:flex mt-10 w-fit px-10 py-2.5 border border-black rounded-full text-2xl font-medium font-inter cursor-pointer hover:bg-black text-[#000] hover:text-white transition"
             >
               Apply
             </button>

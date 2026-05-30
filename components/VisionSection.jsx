@@ -19,7 +19,7 @@ export default function VisionSection() {
             </p>
   
             {/* Signature Block */}
-            <div className="mt-16 lg:mt-24 ml-10 md:ml-0">
+            <div className="mt-16 lg:mt-24  md:ml-0">
               
               {/* Signature (script style) */}
               <p className="text-4xl sm:text-3xl signature">

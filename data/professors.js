@@ -37,11 +37,11 @@ export const professors = [
   },
   {
     name: "Goutam Challagalla",
-    date: "End October",
+    date: "24th October, Sunday",
     topic: "Customer discovery",
     school: "IMD Switzerland",
     image: "/professor-profile/gautam.png",
-    schoolLogo: "/professor-school/gautam-school.png",
+    schoolLogo: "/professor-school/imd-uni.png",
     linkedinLink: "https://www.linkedin.com/in/daveweiner2",
     schoolLink: "https://www.berkeley.edu/",
     location: "HBS Classroom - Taj Lands End, Mumbai",

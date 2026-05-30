@@ -10,15 +10,19 @@ export default function Navbar() {
   const router = useRouter();
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  
+const navigateTo = (path, label) => {
+  setIsOpen(false);
 
-  const navigateTo = (path, label) => {
-    setIsOpen(false);
-    if (label === "FAQs") {
-      window.dispatchEvent(new Event('openFaqPopup'));
-    } else {
-      router.push(path);
-    }
-  };
+  if (label === "FAQs") {
+    window.dispatchEvent(new Event("openFaqPopup"));
+  } else if (label === "Contact") {
+    window.location.href =
+      "mailto:info@theprofessional.network?subject=I%20have%20a%20question";
+  } else {
+    router.push(path);
+  }
+};
 
   const menuOptions = [
     { label: "Home", path: "/" },
@@ -61,17 +65,28 @@ export default function Navbar() {
           </button>
           
           {/* Menu Options */}
-          <div className="flex flex-col gap-6 items-end">
-            {menuOptions.map((option) => (
-              <button 
-                key={option.label}
-                onClick={() => navigateTo(option.path, option.label)}
-                className="text-white font-inter-display font-medium text-[28px] leading-[120%] tracking-[-0.04em] text-right hover:opacity-70 transition-opacity"
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
+<div className="flex flex-col gap-6 items-end">
+  {menuOptions.map((option) =>
+    option.label === "Contact" ? (
+      <a
+        key={option.label}
+        href="mailto:info@theprofessional.network?subject=I%20have%20a%20question"
+        onClick={() => setIsOpen(false)}
+        className="text-white font-inter-display font-medium text-[28px] leading-[120%] tracking-[-0.04em] text-right hover:opacity-70 transition-opacity"
+      >
+        {option.label}
+      </a>
+    ) : (
+      <button
+        key={option.label}
+        onClick={() => navigateTo(option.path, option.label)}
+        className="text-white font-inter-display font-medium text-[28px] leading-[120%] tracking-[-0.04em] text-right hover:opacity-70 transition-opacity"
+      >
+        {option.label}
+      </button>
+    )
+  )}
+</div>
         </div>
       </div>
 
