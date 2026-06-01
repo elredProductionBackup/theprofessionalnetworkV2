@@ -37,7 +37,7 @@ export const professors = [
   },
   {
     name: "Goutam Challagalla",
-    date: "24th October, Sunday",
+    date: "25th October, Sunday",
     topic: "Customer discovery",
     school: "IMD Switzerland",
     image: "/professor-profile/gautam.png",
