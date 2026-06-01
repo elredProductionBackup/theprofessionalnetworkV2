@@ -39,7 +39,7 @@ const navigateTo = (path, label) => {
         </div>
         <button 
           onClick={toggleMenu}
-          className="fixed top-4 right-4 md:top-8 md:right-8 z-50 p-2 group"
+          className="fixed top-4 right-4 md:top-8 md:right-8 z-50 p-2 group cursor-pointer"
           aria-label="Toggle Menu"
         >
           <div className="w-12 h-1 bg-red-600 mb-2 transition-all"></div>
@@ -57,7 +57,7 @@ const navigateTo = (path, label) => {
           {/* Close Button */}
           <button 
             onClick={toggleMenu}
-            className="self-end text-white p-2 mb-12 hover:rotate-90 transition-all"
+            className="self-end text-white p-2 mb-12 hover:rotate-90 transition-all cursor-pointer"
           >
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M10 10L30 30M30 10L10 30" stroke="white" strokeWidth="2" strokeLinecap="round"/>
@@ -72,7 +72,7 @@ const navigateTo = (path, label) => {
         key={option.label}
         href="mailto:info@theprofessional.network"
         onClick={() => setIsOpen(false)}
-        className="text-white font-inter-display font-medium text-[28px] leading-[120%] tracking-[-0.04em] text-right hover:opacity-70 transition-opacity"
+        className="text-white font-inter-display font-medium text-[28px] leading-[120%] tracking-[-0.04em] text-right hover:opacity-70 transition-opacity "
       >
         {option.label}
       </a>
@@ -80,7 +80,7 @@ const navigateTo = (path, label) => {
       <button
         key={option.label}
         onClick={() => navigateTo(option.path, option.label)}
-        className="text-white font-inter-display font-medium text-[28px] leading-[120%] tracking-[-0.04em] text-right hover:opacity-70 transition-opacity"
+        className="text-white font-inter-display font-medium text-[28px] leading-[120%] tracking-[-0.04em] text-right hover:opacity-70 transition-opacity cursor-pointer"
       >
         {option.label}
       </button>
