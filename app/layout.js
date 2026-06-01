@@ -81,7 +81,7 @@ export default function RootLayout({ children }) {
         className={`${brittany.variable} ${geistSans.variable} ${geistMono.variable} ${inter.variable} ${interTight.variable} ${playfair.variable} antialiased`}
         >
 
-        <Suspense fallback={null}><RefreshRedirect/></Suspense>
+        {/* <Suspense fallback={null}><RefreshRedirect/></Suspense> */}
         <Navbar/>
         {children}
         <Footer/>
