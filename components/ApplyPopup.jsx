@@ -28,7 +28,7 @@ const ApplyPopupContent = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [submitting, setSubmitting] = useState(false);
-  const [companyLocked, setCompanyLocked] = useState(false);
+
   const [submitted, setSubmitted] = useState(false);
   const searchParams = useSearchParams();
 
@@ -57,14 +57,11 @@ const ApplyPopupContent = () => {
         try {
           const res = await axios.get(`${BASE_URL}/smartOffice/getReferral?ref=${referId}`);
           console.log(res,'res')
-          const title = res.data?.result?.[0]?.title;
           const networkClusterCode = res.data?.result?.[0]?.networkClusterCode;
           setFormData((prev) => ({
             ...prev,
-            ...(title && { companyName: title }),
-            ...(networkClusterCode && { networkClusterCode: networkClusterCode }),
+            ...(networkClusterCode && { networkClusterCode }),
           }));
-          if (title) setCompanyLocked(true);
         } catch (err) {
           console.error("Referral fetch failed:", err);
         }
@@ -192,7 +189,8 @@ const ApplyPopupContent = () => {
                 className="flex-grow overflow-y-auto pr-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] flex flex-col"
               >
                 {/* Header */}
-                <div className="mb-12 mt-4 text-center">
+                <div className="mb-12 mt-4 text-center flex flex-col items-center gap-4">
+                  <img src="/awfis.png" alt="Awfis" className="h-14 object-contain" />
                   <h2 className="font-inter-display text-[30px] md:text-[40px] font-medium text-white leading-[110%] tracking-[-1px] md:tracking-[-2px]">
                     Apply
                   </h2>
@@ -206,7 +204,7 @@ const ApplyPopupContent = () => {
                   <FormField label="Linkedin Profile" placeholder="Linkedin Profile" type="text" pattern="(https?://)?(www\.)?linkedin\.com/.*" title="Enter a valid LinkedIn URL (e.g. linkedin.com/in/yourname)" value={formData.linkedIn} onChange={(v) => handleChange("linkedIn", v)} />
                   <FormField label="Contact Number*" placeholder="Contact Number" type="tel" pattern="[0-9]*" value={formData.contact} onChange={(v) => handleChange("contact", v)} />
                   <FormField label="City*" placeholder="City" value={formData.city} onChange={(v) => handleChange("city", v)} />
-                  <FormField label="Company Name" placeholder="Company Name" minLength={2} value={formData.companyName} onChange={(v) => handleChange("companyName", v)} readOnly={companyLocked} />
+                  <FormField label="Company Name" placeholder="Company Name" minLength={2} value={formData.companyName} onChange={(v) => handleChange("companyName", v)} />
                   <FormField label="Your title in the company" placeholder="Your title in the company" minLength={2} value={formData.userTitle} onChange={(v) => handleChange("userTitle", v)} />
                   <FormField label="Years of cumulative experience*" placeholder="Years of cumulative experience" isSelect={true} value={formData.exp} onChange={(v) => handleChange("exp", v)} />
                   <FormField label="Company website" placeholder="Company website" type="text" pattern="(https?://)?([a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}(/[^\s]*)?" title="Enter a valid URL (e.g. www.example.com or https://example.com)" value={formData.websiteURL} onChange={(v) => handleChange("websiteURL", v)} />
