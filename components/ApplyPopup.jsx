@@ -30,6 +30,7 @@ const ApplyPopupContent = () => {
   const [submitting, setSubmitting] = useState(false);
 
   const [submitted, setSubmitted] = useState(false);
+  const [hasReferId, setHasReferId] = useState(false);
   const searchParams = useSearchParams();
 
   // URL param check
@@ -51,6 +52,7 @@ const ApplyPopupContent = () => {
     }
 
     if (referId) {
+      setHasReferId(true);
       setFormData((prev) => ({ ...prev, referalID: referId }));
 
       const fetchReferral = async () => {
@@ -190,7 +192,7 @@ const ApplyPopupContent = () => {
               >
                 {/* Header */}
                 <div className="mb-12 mt-4 text-center flex flex-col items-center gap-4">
-                  <img src="/awfis.png" alt="Awfis" className="h-14 object-contain" />
+                  {hasReferId && <img src="/awfis.png" alt="Awfis" className="h-14 object-contain" />}
                   <h2 className="font-inter-display text-[30px] md:text-[40px] font-medium text-white leading-[110%] tracking-[-1px] md:tracking-[-2px]">
                     Apply
                   </h2>
