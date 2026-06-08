@@ -52,7 +52,7 @@ const ApplyPopupContent = () => {
     }
 
     if (referId) {
-      setHasReferId(true);
+      if (referId === "XQjmoIQKRDYH") setHasReferId(true);
       setFormData((prev) => ({ ...prev, referalID: referId }));
 
       const fetchReferral = async () => {
