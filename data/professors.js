@@ -45,15 +45,20 @@ export const professors = [
     linkedinLink: "https://www.linkedin.com/in/goutam-challagalla-161118bb/",
     schoolLink: "https://www.imd.org/faculty/professors/goutam-challagalla/",
     location: "HBS Classroom - Taj Lands End, Mumbai",
-    description: `Scores of business books had promoted the wisdom that if a business embraced sustainability – doing good for the planet and society – customers and profits will follow. But, as the experience of companies show, it’s not so simple. And, worse, this thinking has led to a backlash.
+description: `
+<p>Scores of business books had promoted the wisdom that if a business embraced sustainability – doing good for the planet and society – customers and profits will follow. But, as the experience of companies show, it’s not so simple.</p>
 
-What can companies do? Give up on sustainability? Slow down? Neither of these responses will solve the ‘sustainability’ problems that are present today and will be present in the future. Our research shows that companies can thrive with sustainability if they flip their conventional sustainability thinking. Rather than ask, “how can we make our offerings more sustainable?” companies should ask, “how can we use sustainability as a catalyst to drive customer value. This makes it an innovation game, with sustainability being the critical enabler. Viewed through this lens, sustainability becomes an intrinsic, value-generating element of an offering rather than an add-on feature with potential costs for both companies and customers. Even customers who don’t care about sustainability will seek these products simply because they’re better than the alternatives. 
+<p>What can companies do? Give up on sustainability? Slow down? Neither of these responses will solve the sustainability problems that are present today and will be present in the future.</p>
 
-Learning objectives
-• Why is there a backlash and slowdown in sustainability?
-• The real impact or evidence of the business case of sustainability
-• Facing uncomfortable truths regarding sustainability
-• Turning the tables - using sustainability to create real customer value and willingness to pay`
+<p><strong>Learning Objectives</strong></p>
+
+<ul>
+  <li>Why is there a backlash and slowdown in sustainability?</li>
+  <li>The real impact or evidence of the business case of sustainability</li>
+  <li>Facing uncomfortable truths regarding sustainability</li>
+  <li>Turning the tables - using sustainability to create real customer value and willingness to pay</li>
+</ul>
+`
   },
  {
   "name": "Danny Warshay",

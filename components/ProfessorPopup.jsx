@@ -89,7 +89,7 @@ const ProfessorPopup = ({ prof, onClose }) => {
                 <p className="text-[16px] font-semibold text-[#333333] mb-1.5 leading-[135%]">
                   {prof.topic}
                 </p>
-                <div className="text-[14px] text-[#656A6B] leading-[150%]">
+                {/* <div className="text-[14px] text-[#656A6B] leading-[150%]">
                   <div 
                     className={isExpanded ? '' : 'line-clamp-3'}
                     dangerouslySetInnerHTML={{ __html: prof.description || '' }}
@@ -102,7 +102,31 @@ const ProfessorPopup = ({ prof, onClose }) => {
         {isExpanded ? "View Less" : "View More"}
       </button>
     )}
-                </div>
+                </div> */}
+                <div className="text-[14px] text-[#656A6B] leading-[150%]">
+  <div
+    className={`prose prose-sm max-w-none text-[#656A6B]
+      [&_p]:mb-3
+      [&_ul]:list-disc
+      [&_ul]:pl-5
+      [&_ol]:list-decimal
+      [&_ol]:pl-5
+      [&_li]:mb-1
+      ${isExpanded ? "" : "line-clamp-3"}`}
+    dangerouslySetInnerHTML={{
+      __html: prof.description || "",
+    }}
+  />
+
+  {prof.description?.trim() && (
+    <button
+      onClick={() => setIsExpanded(!isExpanded)}
+      className="text-[#c01823] font-semibold cursor-pointer hover:underline mt-2"
+    >
+      {isExpanded ? "View Less" : "View More"}
+    </button>
+  )}
+</div>
               </div>
 
               {/* Location & Date Footer */}
