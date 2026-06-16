@@ -37,15 +37,23 @@ export const professors = [
   },
   {
     name: "Goutam Challagalla",
-    date: "End October",
-    topic: "Customer discovery",
+    date: "17th October, Sunday",
+    topic: "Turn conventional thinking on sustainability on its head to make money with it ",
     school: "IMD Switzerland",
     image: "/professor-profile/gautam.png",
-    schoolLogo: "/professor-school/gautam-school.png",
-    linkedinLink: "https://www.linkedin.com/in/daveweiner2",
-    schoolLink: "https://www.berkeley.edu/",
+    schoolLogo: "/professor-school/imd-uni.png",
+    linkedinLink: "https://www.linkedin.com/in/goutam-challagalla-161118bb/",
+    schoolLink: "https://www.imd.org/faculty/professors/goutam-challagalla/",
     location: "HBS Classroom - Taj Lands End, Mumbai",
-    description: ""
+    description: `Scores of business books had promoted the wisdom that if a business embraced sustainability – doing good for the planet and society – customers and profits will follow. But, as the experience of companies show, it’s not so simple. And, worse, this thinking has led to a backlash.
+
+What can companies do? Give up on sustainability? Slow down? Neither of these responses will solve the ‘sustainability’ problems that are present today and will be present in the future. Our research shows that companies can thrive with sustainability if they flip their conventional sustainability thinking. Rather than ask, “how can we make our offerings more sustainable?” companies should ask, “how can we use sustainability as a catalyst to drive customer value. This makes it an innovation game, with sustainability being the critical enabler. Viewed through this lens, sustainability becomes an intrinsic, value-generating element of an offering rather than an add-on feature with potential costs for both companies and customers. Even customers who don’t care about sustainability will seek these products simply because they’re better than the alternatives. 
+
+Learning objectives
+• Why is there a backlash and slowdown in sustainability?
+• The real impact or evidence of the business case of sustainability
+• Facing uncomfortable truths regarding sustainability
+• Turning the tables - using sustainability to create real customer value and willingness to pay`
   },
  {
   "name": "Danny Warshay",
@@ -56,7 +64,7 @@ export const professors = [
   "schoolLogo": "/professor-school/danny-school.jpg",
   "linkedinLink": "https://www.linkedin.com/in/dannywarshay",
   "schoolLink": "https://dannywarshay.com/",
-  "location": "HBS Classroom - Taj Lands End, Mumbai",
+  "location": "Mumbai",
   "description": "See, Solve, Scale<br /><br />Danny Warshay is a Professor and Executive Director of the Nelson Center for Entrepreneurship at Brown University. He leads creative and thought-provoking workshops on entrepreneurship around the world. He began his entrepreneurial pursuits while an undergraduate at Brown as a member of the startup leadership team of Clearview Software, which was acquired by Apple. Since then, he has co-founded and sold companies in fields ranging from software and advanced materials to consumer products and media. His course at Brown, The Entrepreneurial Process, has been recognized as the highest-rated course on campus.<br /><br /> Based on this course, Danny has written the award-winning book <a href=\"https://dannywarshay.com/see-solve-scale-resources\" target=\"_blank\" style=\"color: #0270FF; text-decoration: none;\">SEE SOLVE SCALE: How Anyone Can Turn an Unsolved Problem into a Breakthrough Success</a>. Danny received an A.B. in History, magna cum laude, from Brown University and an M.B.A. from Harvard Business School, and he is a Fellow of the Royal Society of Arts. In addition to spending time with his wife and three children, Danny loves the mental and physical challenges and rewards of vinyasa yoga. He is also an avid (and tortured) Cleveland sports fan. Learn more about Danny Warshay on his website: <a href=\"https://dannywarshay.com/\" target=\"_blank\" style=\"color: #0270FF; text-decoration: none;\">DannyWarshay.com</a> <br /><br /> I invite all of my workshop participants to join the LinkedIn Warshay Innovation Network. The private advising would be on the need, case by case time commitments."
 }
 ];

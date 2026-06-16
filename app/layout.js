@@ -42,21 +42,21 @@ const playfair = Playfair_Display({
 export const metadata = {
   metadataBase: new URL("https://theprofessionalnetwork.vercel.app"),
 
-  title: "Professional Network",
+  title: "Professionals Network",
   description: "A network of ambitious professionals",
 
   openGraph: {
-    title: "Professional Network",
+    title: "Professionals Network",
     description: "A network of ambitious professionals",
     url: "https://theprofessionalnetwork.vercel.app",
     siteName: "Professional Network",
 
     images: [
       {
-        url: "https://theprofessionalnetwork.vercel.app/assets/og.webp",
+        url: "https://theprofessionalnetwork.vercel.app/assets/tpn-og-minds.webp",
         width: 1200,
         height: 630,
-        alt: "Professional Network",
+        alt: "Professionals Network",
       },
     ],
 
@@ -65,9 +65,9 @@ export const metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Professional Network",
+    title: "Professionals Network",
     description: "A network of ambitious professionals",
-    images: ["https://theprofessionalnetwork.vercel.app/assets/og.webp"],
+    images: ["https://theprofessionalnetwork.vercel.app/assets/tpn-og-minds.webp"],
   },
 };
 
@@ -81,7 +81,7 @@ export default function RootLayout({ children }) {
         className={`${brittany.variable} ${geistSans.variable} ${geistMono.variable} ${inter.variable} ${interTight.variable} ${playfair.variable} antialiased`}
         >
 
-        <Suspense fallback={null}><RefreshRedirect/></Suspense>
+        {/* <Suspense fallback={null}><RefreshRedirect/></Suspense> */}
         <Navbar/>
         {children}
         <Footer/>

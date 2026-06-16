@@ -37,15 +37,14 @@ const Firstprinciple = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="md:py-20 pb-[50px] px-2 md:px-4 bg-white font-inter flex flex-col items-center justify-center overflow-hidden ">
+    <section ref={sectionRef} className="mt-[50px] md:mt-[100px] pb-[50px] px-2 md:px-4 bg-white font-inter flex flex-col items-center justify-center overflow-hidden">
       <div className="max-w-7xl mx-auto text-center mb-[50px]">
-        <h2 className="text-[35px] md:text-[72px] mb-[30px] tracking-[-0.46px] ">
+        {/* <h2 className="text-[35px] md:text-[72px] mb-[30px] tracking-[-0.46px] ">
           <span className="italic font-medium text-[#656a6b] font-kepler text-[32px] md:text-[72px] leading-[110%] tracking-[-0.46px] align-middle">Deep</span>{""}
           <span className="font-extrabold text-[#c01823] font-mencken text-[32px] md:text-[72px] leading-[110%] tracking-[-0.46px] align-middle">Learning</span>
-        </h2>
-        <p className="text-[13px] md:text-[25px] text-[#333333] lg:w-[1080px] md:h-[62px] leading-[120%] font-semibold font-inter ">
-          A series of problem solving workshops held by the worlds best professors. The workshops
-          are being designed to be a collaborative feedback loop and not a monologue
+        </h2> */}
+        <p className="text-[13px] md:text-[25px] text-[#333333] lg:w-[1080px] font-semibold font-inter">
+          A series of problem solving workshops held by the worlds best professors.
         </p>
       </div>
       <div className="max-w-[1100px] w-full mx-auto flex flex-wrap justify-center gap-[10px] md:gap-[25px]">
@@ -71,7 +70,7 @@ const Firstprinciple = () => {
 const ProfessorCard = ({ prof, onClick }) => {
   return (
     <div 
-      className="prof-card flex flex-col bg-white border-[1px] md:border-[1.91px] border-[#E5E5E5] overflow-hidden w-[calc(50%-10px)] max-w-[178px] h-auto min-h-[260px] md:w-full md:max-w-[350px] md:min-h-[490px] cursor-pointer hover:shadow-lg transition-shadow group"
+      className="prof-card  flex flex-col bg-white border-[1px] md:border-[1.91px] border-[#E5E5E5] overflow-hidden w-[calc(50%-10px)] max-w-[178px] h-auto min-h-[260px] md:w-full md:max-w-[350px] md:min-h-[490px] cursor-pointer hover:shadow-lg transition-shadow group "
       onClick={onClick}
     >
       {/* Image Area */}
@@ -103,9 +102,20 @@ const ProfessorCard = ({ prof, onClick }) => {
       {/* Content Area */}
       <div className="p-2 md:p-5 flex flex-col items-center text-center flex-grow bg-white w-full">
         <div className="flex items-center justify-center h-auto w-full mb-[5px] md:mb-[10px]">
-          <p className="prof-topic text-[11px] md:text-[18px] font-medium leading-[1.2] text-[#333333] font-inter-display tracking-[-0.5px]">
+          {/* <p className="prof-topic text-[11px] md:text-[18px] font-medium leading-[1.2] text-[#333333] font-inter-display tracking-[-0.5px]">
             {prof.name === "Jonathan Levav" ? prof.topic.split(" by")[0] : prof.topic}
-          </p>
+          </p> */}
+          <p
+  className={`prof-topic font-medium leading-[1.2] text-[#333333] font-inter-display tracking-[-0.5px] ${
+    prof.name === "Goutam Challagalla"
+      ? "text-[11px] md:text-[18px]"
+      : "text-[11px] md:text-[18px]"
+  }`}
+>
+  {prof.name === "Jonathan Levav"
+    ? prof.topic.split(" by")[0]
+    : prof.topic}
+</p>
         </div>
         
         {/* School Info */}
