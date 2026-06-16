@@ -1,3 +1,4 @@
+'use client'
 export default function Membership() {
   return (
     <section id="membership" className="pb-[40px] md:py-[70px] bg-white flex flex-col items-center text-center ">
@@ -13,13 +14,20 @@ export default function Membership() {
         </h2>
 
         {/* Price and Note */} 
-        <div className="flex flex-col gap-3 md:gap-6">
+        <div className="flex flex-col items-center gap-3 md:gap-6">
           <h3 className="font-inter-display font-medium text-[28px] lg:text-[50px] md:text-[40px] leading-[100%] tracking-[-1px] md:tracking-[-2.6px] text-[#333333]">
             INR 2 lakhs + tax
           </h3>
           <p className="font-inter-display font-medium text-[16px] lg:text-[28px] md:text-[20px] leading-[120%] md:leading-[100%] text-[#666666] max-w-[300px] md:max-w-[850px] mx-auto">
             Invoice can be issued to enterprise or individual, as preferred
           </p>
+                      {/* Button */}
+            <button 
+              onClick={() => window.dispatchEvent(new Event('openApplyPopup'))}
+              className=" md:flex mt-10 w-fit px-4 py-1 md:px-10 md:py-2.5 border border-black rounded-full text-[16px] md:text-2xl font-medium font-inter cursor-pointer hover:bg-black text-[#000] hover:text-white transition"
+            >
+              Apply
+            </button>
         </div>
 
         {/* Footer info */}

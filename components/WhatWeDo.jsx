@@ -1,6 +1,6 @@
 export default function WhatWeDoSection() {
     return (
-      <section className="bg-white text-black md:h-screen -z-10">
+      <section className="bg-white text-black n -z-10">
         <div className=" mx-auto px-4 md:px-10 py-14 lg:py-28">
   
           {/* MAIN 2 COLUMN GRID */}

@@ -16,7 +16,7 @@ export default function About() {
         <div
           className="absolute inset-0 bg-cover bg-[500px] md:bg-center"
           style={{
-            backgroundImage: "url('/assets/about.png')", // put image in /public
+            backgroundImage: "url('/assets/about.webp')", // put image in /public
           }}
         />
 

@@ -18,7 +18,7 @@ export default function ValuesSection() {
           {values.map((item, i) => (
             <div key={i} className="group">
               {/* TITLE */}
-              <h3 className="text-[32px] tracking-[-1.5px] font-inter font-medium  mb-6 relative z-100 text-gray-700">
+              <h3 className="text-[32px] tracking-[-1.5px] font-inter font-medium  mb-6 relative z-39 text-gray-700">
                 {item.title}
               </h3>
 

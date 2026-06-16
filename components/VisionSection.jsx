@@ -8,8 +8,7 @@ export default function VisionSection() {
   
             {/* Paragraph 1 */}
             <p className="font-inter text-5xl sm:text-4xl lg:text-[56px] font-semibold leading-[110%] tracking-[-3px]">
-              Our vision is to bring top academic and business minds together to
-              solve problems, generate ideas, and collaborate with intent.
+              Our vision is to bring top academic and professional minds together to solve problems, generate ideas, and collaborate with intent.
             </p>
   
             {/* Paragraph 2 */}
@@ -19,7 +18,7 @@ export default function VisionSection() {
             </p>
   
             {/* Signature Block */}
-            <div className="mt-16 lg:mt-24 ml-10 md:ml-0">
+            <div className="mt-16 lg:mt-24  md:ml-0">
               
               {/* Signature (script style) */}
               <p className="text-4xl sm:text-3xl signature">

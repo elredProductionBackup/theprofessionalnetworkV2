@@ -49,6 +49,16 @@
   font-weight: 500;
   font-style: normal;
 }
+@font-face {
+  font-family: "Kepler";
+  src: url("/fonts/KeplerStd-ScnItSubh.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+.font-kepler {
+  font-family: "Kepler", serif;
+}
 
 @theme inline {
   --color-background: var(--background);
