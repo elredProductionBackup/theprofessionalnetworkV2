@@ -25,7 +25,7 @@ export const professors = [
   },
   {
     name: "Jonathan Levav",
-    date: "27th September, Sunday",
+    date: "15th November, Sunday",
     topic: "Understanding consumer’s judgments and choices by using tools from experimental psychology and behavioural economics.",
     school: "Stanford Business School",
     image: "/professor-profile/jon.jpg",
@@ -37,7 +37,7 @@ export const professors = [
   },
   {
     name: "Goutam Challagalla",
-    date: "17th October, Sunday",
+    date: "17th October, Saturday",
     topic: "Turn conventional thinking on sustainability on its head to make money with it ",
     school: "IMD Switzerland",
     image: "/professor-profile/gautam.png",
