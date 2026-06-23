@@ -46,7 +46,7 @@ export const metadata = {
   description: "A network of ambitious professionals",
 
   openGraph: {
-    title: "Professionals Network",
+    title: "The Professionals Network",
     description: "A network of ambitious professionals",
     url: "https://theprofessionalnetwork.vercel.app",
     siteName: "Professional Network",
@@ -65,7 +65,7 @@ export const metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Professionals Network",
+    title: "The Professionals Network",
     description: "A network of ambitious professionals",
     images: ["https://theprofessionalnetwork.vercel.app/assets/tpn-og.webp"],
   },
