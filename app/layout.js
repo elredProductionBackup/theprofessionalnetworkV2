@@ -42,7 +42,7 @@ const playfair = Playfair_Display({
 export const metadata = {
   metadataBase: new URL("https://theprofessionalnetwork.vercel.app"),
 
-  title: "Professionals Network",
+  title: "The Professionals Network",
   description: "A network of ambitious professionals",
 
   openGraph: {
