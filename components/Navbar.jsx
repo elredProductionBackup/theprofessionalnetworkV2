@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import logo from '../public/assets/tpn-logo.svg'
+import logo from '../public/assets/thepn-logo.svg'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);

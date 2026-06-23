@@ -53,7 +53,7 @@ export const metadata = {
 
     images: [
       {
-        url: "https://theprofessionalnetwork.vercel.app/assets/tpn-og-minds.webp",
+        url: "https://theprofessionalnetwork.vercel.app/assets/tpn-og.webp",
         width: 1200,
         height: 630,
         alt: "Professionals Network",
@@ -67,7 +67,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Professionals Network",
     description: "A network of ambitious professionals",
-    images: ["https://theprofessionalnetwork.vercel.app/assets/tpn-og-minds.webp"],
+    images: ["https://theprofessionalnetwork.vercel.app/assets/tpn-og.webp"],
   },
 };
 
