@@ -70,8 +70,8 @@ const Footer = () => {
         <Image
           src="/assets/footer-logo.svg"
           alt="Professional Network"
-          width={170}
-          height={13}
+          width={190}
+          height={15}
           className="inline-block align-baseline mr-1"
         />
 
