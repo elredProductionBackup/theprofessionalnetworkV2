@@ -6,8 +6,10 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { brittany } from "./fonts";
-import FaqPopup from "@/components/FaqPopup"; 
-import ApplyPopup from "@/components/ApplyPopup"; 
+import FaqPopup from "@/components/FaqPopup";
+import ApplyPopup from "@/components/ApplyPopup";
+import LinkedinInsight from "@/components/LinkedinInsight";
+import MetaPixel from "@/components/MetaPixel"; 
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -77,6 +79,10 @@ import RefreshRedirect from "@/components/RefreshRedirect";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <LinkedinInsight />
+        <MetaPixel />
+      </head>
       <body
         className={`${brittany.variable} ${geistSans.variable} ${geistMono.variable} ${inter.variable} ${interTight.variable} ${playfair.variable} antialiased`}
         >
