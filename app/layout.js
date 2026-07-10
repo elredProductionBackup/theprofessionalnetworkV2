@@ -80,7 +80,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <LinkedinInsight />
         <MetaPixel />
       </head>
       <body
@@ -94,6 +93,7 @@ export default function RootLayout({ children }) {
         <FaqPopup/>
         <ApplyPopup/>
         <HomeButton/>
+        <LinkedinInsight />
       </body>
     </html>
   );
