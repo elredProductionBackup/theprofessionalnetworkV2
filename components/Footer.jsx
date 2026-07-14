@@ -2,12 +2,13 @@
 import React from 'react';
 import Image from 'next/image';
 import ComingSoonPopup from './ComingSoonPopup';
+import PrivacyPolicyPopup from './PrivacyPolicyPopup';
 import { useRouter } from 'next/navigation';
 
 const Footer = () => {
   return (
     <footer className="bg-white border-t flex items-center justify-center flex-col border-zinc-100 font-inter ">
-      <ComingSoonPopup eventName="openPrivacyPopup" />
+      <PrivacyPolicyPopup eventName="openPrivacyPopup" />
       <ComingSoonPopup eventName="openTermsPopup" />
       <ComingSoonPopup eventName="openDisclaimerPopup" />
       <div className="w-full md:pt-0 text-[#333336]">

@@ -90,7 +90,7 @@ const ApplyPopupContent = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen || submitted) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
@@ -98,7 +98,7 @@ const ApplyPopupContent = () => {
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, [isOpen]);
+  }, [isOpen, submitted]);
 
   const handleChange = (key, value) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
@@ -112,8 +112,7 @@ const ApplyPopupContent = () => {
       console.log("Submit success:", res.data);
       setIsOpen(false);
       setFormData(INITIAL_FORM);
-      setSubmitted(true);
-      setTimeout(() => setSubmitted(false), 2000);
+      setSubmitted(true); // opens the thank-you popup
     } catch (err) {
       console.error("Submit failed:", err);
     } finally {
@@ -123,18 +122,9 @@ const ApplyPopupContent = () => {
 
   return (
     <>
-    <AnimatePresence>
-      {submitted && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[200] bg-white text-black px-8 py-4 rounded-full shadow-xl text-[16px] font-inter font-medium"
-        >
-          Form submitted successfully!
-        </motion.div>
-      )}
-    </AnimatePresence>
+    {/* Thank-you popup shown after successful submission */}
+    <ThankYouPopup open={submitted} onClose={() => setSubmitted(false)} logo={referralImage} />
+
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
@@ -230,6 +220,104 @@ const ApplyPopupContent = () => {
       )}
     </AnimatePresence>
     </>
+  );
+};
+
+/* ------------------------------------------------------------------ */
+/*  Thank-you popup — shown after a successful submission.             */
+/*  Matches the Apply modal styling (bg image, dark overlay, border).  */
+/* ------------------------------------------------------------------ */
+const ThankYouPopup = ({ open, onClose, logo }) => {
+  return (
+    <AnimatePresence>
+      {open && (
+        <div className="fixed inset-0 z-[120] flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            onClick={onClose}
+          />
+
+          {/* Content */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="relative w-full max-w-[560px] rounded-[30px] p-4 flex flex-col shadow-2xl z-10 overflow-hidden"
+            style={{
+              backgroundImage: "url('/applybg.png')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            {/* Dark Overlay */}
+            <div className="absolute inset-0 bg-black/70 z-0" />
+
+            {/* Inner Container */}
+            <div className="relative z-10 w-full border border-[#999999] rounded-[24px] px-6 py-12 md:px-10 md:py-14 flex flex-col items-center text-center">
+              {/* Close Button */}
+              <button
+                onClick={onClose}
+                className="absolute md:top-6 md:right-6 top-3 right-3 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer"
+              >
+                <RxCross2 className="text-white w-4 h-4 opacity-70" />
+              </button>
+
+              {logo && <img src={logo} alt="Logo" className="h-12 object-contain mb-6" />}
+
+              {/* Success check */}
+              <motion.svg
+                width="76"
+                height="76"
+                viewBox="0 0 76 76"
+                fill="none"
+                className="mb-8"
+              >
+                <motion.circle
+                  cx="38"
+                  cy="38"
+                  r="36"
+                  stroke="#FF4400"
+                  strokeWidth="2"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                />
+                <motion.path
+                  d="M23 39 L34 50 L54 27"
+                  stroke="#FF4400"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.4, delay: 0.45, ease: "easeOut" }}
+                />
+              </motion.svg>
+
+              <h2 className="font-inter-display font-medium text-[30px] md:text-[40px] text-white leading-[110%] tracking-[-1px] md:tracking-[-2px] mb-4">
+                Thank you
+              </h2>
+
+              <p className="font-inter font-normal text-[15px] md:text-[18px] text-[#CCCCCC] leading-[150%] max-w-[380px] mb-10">
+                Your application has been received. Our team will review it and get back to you shortly.
+              </p>
+
+              <button
+                onClick={onClose}
+                className="px-12 py-3 border border-white rounded-full text-[#CCCCCC] text-[18px] md:text-[20px] leading-[140%] font-inter font-medium hover:bg-white hover:text-black transition-all transform active:scale-[0.98]"
+              >
+                Done
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 };
 

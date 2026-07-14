@@ -1,6 +1,4 @@
-import { Suspense } from "react";
 import { Geist, Geist_Mono, Inter, Inter_Tight, Playfair_Display } from "next/font/google";
-import localFont from "next/font/local";
 
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -72,7 +70,7 @@ export const metadata = {
 };
 
 import HomeButton from "@/components/HomeButton";
-import RefreshRedirect from "@/components/RefreshRedirect";
+import Script from "next/script";
 
 export default function RootLayout({ children }) {
   return (
@@ -88,6 +86,21 @@ export default function RootLayout({ children }) {
         <FaqPopup/>
         <ApplyPopup/>
         <HomeButton/>
+
+        {/* Google tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-9T6P0J7FS0"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-9T6P0J7FS0');
+          `}
+        </Script>
+
       </body>
     </html>
   );

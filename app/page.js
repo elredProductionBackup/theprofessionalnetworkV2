@@ -5,6 +5,7 @@ import WhatWeAre from "@/components/WhatWeAre";
 import Firstprinciple from "@/components/Firstprinciple";
 import Membership from "@/components/Membership";
 import Footer from "@/components/Footer";
+import SessionsCarousel from "@/components/SessionsCarousel";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       {/* <Hero /> */}
       {/* <Different /> */}
       {/* <WhatWeAre /> */}
+      {/* <SessionsCarousel/> */}
       <Firstprinciple />
       <Membership />
     </main>
