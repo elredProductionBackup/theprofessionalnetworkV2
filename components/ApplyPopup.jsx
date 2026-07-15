@@ -189,18 +189,18 @@ const ApplyPopupContent = () => {
                   </h2>
                 </div>
 
-                {/* Form Fields */}
+                {/* Form Fields — every field is required (label contains "*") */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
                   <FormField label="First Name*" placeholder="First Name" minLength={2} value={formData.firstname} onChange={(v) => handleChange("firstname", v)} />
                   <FormField label="Last Name*" placeholder="Last Name" minLength={2} value={formData.lastname} onChange={(v) => handleChange("lastname", v)} />
                   <FormField label="Email*" placeholder="Email" type="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" value={formData.email} onChange={(v) => handleChange("email", v)} />
-                  <FormField label="Linkedin Profile" placeholder="Linkedin Profile" type="text" pattern="(https?://)?(www\.)?linkedin\.com/.*" title="Enter a valid LinkedIn URL (e.g. linkedin.com/in/yourname)" value={formData.linkedIn} onChange={(v) => handleChange("linkedIn", v)} />
+                  <FormField label="Linkedin Profile*" placeholder="Linkedin Profile" type="text" pattern="(https?://)?(www\.)?linkedin\.com/.*" title="Enter a valid LinkedIn URL (e.g. linkedin.com/in/yourname)" value={formData.linkedIn} onChange={(v) => handleChange("linkedIn", v)} />
                   <FormField label="Contact Number*" placeholder="Contact Number" type="tel" pattern="[0-9]*" value={formData.contact} onChange={(v) => handleChange("contact", v)} />
                   <FormField label="City*" placeholder="City" value={formData.city} onChange={(v) => handleChange("city", v)} />
-                  <FormField label="Company Name" placeholder="Company Name" minLength={2} value={formData.companyName} onChange={(v) => handleChange("companyName", v)} />
-                  <FormField label="Your title in the company" placeholder="Your title in the company" minLength={2} value={formData.userTitle} onChange={(v) => handleChange("userTitle", v)} />
+                  <FormField label="Company Name*" placeholder="Company Name" minLength={2} value={formData.companyName} onChange={(v) => handleChange("companyName", v)} />
+                  <FormField label="Your title in the company*" placeholder="Your title in the company" minLength={2} value={formData.userTitle} onChange={(v) => handleChange("userTitle", v)} />
                   <FormField label="Years of cumulative experience*" placeholder="Years of cumulative experience" isSelect={true} value={formData.exp} onChange={(v) => handleChange("exp", v)} />
-                  <FormField label="Company website" placeholder="Company website" type="text" pattern="(https?://)?([a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}(/[^\s]*)?" title="Enter a valid URL (e.g. www.example.com or https://example.com)" value={formData.websiteURL} onChange={(v) => handleChange("websiteURL", v)} />
+                  <FormField label="Company website*" placeholder="Company website" type="text" pattern="(https?://)?([a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}(/[^\s]*)?" title="Enter a valid URL (e.g. www.example.com or https://example.com)" value={formData.websiteURL} onChange={(v) => handleChange("websiteURL", v)} />
                 </div>
 
                 {/* Submit Button */}
@@ -224,14 +224,36 @@ const ApplyPopupContent = () => {
 };
 
 /* ------------------------------------------------------------------ */
-/*  Thank-you popup — shown after a successful submission.             */
-/*  Matches the Apply modal styling (bg image, dark overlay, border).  */
+/*  Thank-you popup — light card shown after a successful submission.  */
 /* ------------------------------------------------------------------ */
+const STEPS = [
+  {
+    n: 1,
+    title: "We review your application",
+    desc: "Within three working days — we keep the room small on purpose.",
+  },
+  {
+    n: 2,
+    title: "A short call",
+    desc: "A quick conversation to make sure it's the right fit — both ways.",
+  },
+  {
+    n: 3,
+    title: "You're in",
+    desc: "Onboarding, your membership invoice, and details for the next workshop.",
+  },
+];
+
+const ACCENT = "#C8202E";
+
 const ThankYouPopup = ({ open, onClose, logo }) => {
   return (
     <AnimatePresence>
       {open && (
         <div className="fixed inset-0 z-[120] flex items-center justify-center p-4">
+          {/* Cookie script font for the "Thank you!" headline */}
+          <style>{`@import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');`}</style>
+
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -247,69 +269,66 @@ const ThankYouPopup = ({ open, onClose, logo }) => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-[560px] rounded-[30px] p-4 flex flex-col shadow-2xl z-10 overflow-hidden"
-            style={{
-              backgroundImage: "url('/applybg.png')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
+            className="relative z-10 w-full max-w-[420px] max-h-[90vh] overflow-y-auto rounded-[24px] bg-white shadow-2xl [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
           >
-            {/* Dark Overlay */}
-            <div className="absolute inset-0 bg-black/70 z-0" />
-
-            {/* Inner Container */}
-            <div className="relative z-10 w-full border border-[#999999] rounded-[24px] px-6 py-12 md:px-10 md:py-14 flex flex-col items-center text-center">
+            <div className="relative px-5 py-7 sm:px-8 sm:py-8">
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="absolute md:top-6 md:right-6 top-3 right-3 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer"
+                aria-label="Close"
+                className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-500 transition-colors hover:bg-neutral-200 cursor-pointer"
               >
-                <RxCross2 className="text-white w-4 h-4 opacity-70" />
+                <RxCross2 className="h-4 w-4" />
               </button>
 
-              {logo && <img src={logo} alt="Logo" className="h-12 object-contain mb-6" />}
+              {logo && <img src={logo} alt="Logo" className="mx-auto mb-4 h-9 object-contain" />}
 
-              {/* Success check */}
-              <motion.svg
-                width="76"
-                height="76"
-                viewBox="0 0 76 76"
-                fill="none"
-                className="mb-8"
+              {/* Thank you — Cookie script */}
+              <h2
+                style={{ fontFamily: "'Cookie', cursive", color: ACCENT }}
+                className="text-center text-[46px] leading-[1.05] sm:text-[52px]"
               >
-                <motion.circle
-                  cx="38"
-                  cy="38"
-                  r="36"
-                  stroke="#FF4400"
-                  strokeWidth="2"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.6, ease: "easeInOut" }}
-                />
-                <motion.path
-                  d="M23 39 L34 50 L54 27"
-                  stroke="#FF4400"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.4, delay: 0.45, ease: "easeOut" }}
-                />
-              </motion.svg>
-
-              <h2 className="font-inter-display font-medium text-[30px] md:text-[40px] text-white leading-[110%] tracking-[-1px] md:tracking-[-2px] mb-4">
-                Thank you
+                Thank you!
               </h2>
 
-              <p className="font-inter font-normal text-[15px] md:text-[18px] text-[#CCCCCC] leading-[150%] max-w-[380px] mb-10">
-                Your application has been received. Our team will review it and get back to you shortly.
+              {/* Eyebrow */}
+              <p className="mt-1 text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                Application received
               </p>
 
+              {/* Serif heading */}
+              <h3 className="mt-2 text-center font-serif text-[21px] font-bold text-neutral-900 sm:text-[24px]">
+                Welcome to the shortlist.
+              </h3>
+
+              {/* Intro copy */}
+              <p className="mx-auto mt-2.5 max-w-[360px] text-center text-[13px] leading-relaxed text-neutral-500">
+                Thanks — your application is in. We read every one personally, so here's exactly what happens next.
+              </p>
+
+              {/* Steps */}
+              <div className="mx-auto mt-6 flex max-w-[380px] flex-col gap-4">
+                {STEPS.map((s) => (
+                  <div key={s.n} className="flex items-start gap-3">
+                    <span
+                      style={{ color: ACCENT }}
+                      className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-100 text-[12px] font-semibold"
+                    >
+                      {s.n}
+                    </span>
+                    <div>
+                      <p className="text-[14px] font-bold text-neutral-900">{s.title}</p>
+                      <p className="mt-0.5 text-[12px] leading-relaxed text-neutral-500">{s.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Done button */}
               <button
                 onClick={onClose}
-                className="px-12 py-3 border border-white rounded-full text-[#CCCCCC] text-[18px] md:text-[20px] leading-[140%] font-inter font-medium hover:bg-white hover:text-black transition-all transform active:scale-[0.98]"
+                style={{ backgroundColor: ACCENT }}
+                className="mt-7 w-full rounded-full py-3 text-base font-semibold text-white transition-all hover:brightness-110 active:scale-[0.99] cursor-pointer"
               >
                 Done
               </button>

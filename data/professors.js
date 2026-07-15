@@ -16,13 +16,15 @@ export const professors = [
     linkedinLink: "https://www.linkedin.com/in/oded-netzer-700255",
     schoolLink: "https://business.columbia.edu/faculty/people/oded-netzer",
     location: "Sahara Star Hotel, Mumbai",
-    video: "/professor-clips/oded.mp4",        // <-- replace with your real clip
-    videoThumbnail: "/professor-clips/oded-thumb.jpg", // optional; falls back to `image`
+    showInClips: true, 
+    video: "https://res.cloudinary.com/dtrv7p3gg/video/upload/v1784109467/HELLO_INDIA_FROM_ODED_NETZER_tl8juq.mov",        // <-- replace with your real clip
+    videoThumbnail: "/professor-clips/oded-thumb.png", // optional; falls back to `image`
     description:
       "The challenge today is not a lack of information (or analytics, dashboards, and AI outputs), but the judgment to use it well. What distinguishes leaders who consistently make smart decisions is their ability to quickly sort through signal and noise by asking essential questions, pressure-testing assumptions, and validating claims, not with statistical rigor, but from a business validity perspective. This form of leadership intelligence has become all the more important in the AI era. This session equips leaders to engage with AI productively. It teaches Quantitative Intuition (QI), a practical framework and set of rapid-response tools for making better decisions in a data-driven world where AI is accelerating answers but not necessarily improving judgment. Participants will learn to frame issues with precision before rushing to solutions, develop intuition for numbers using pragmatic methods and apply contextual lenses to assess relevance, risk, and trust when information is incomplete.",
   },
   {
     name: "Niro Sivanathan",
+    showInClips: true, 
     date: "6th September, Sunday",
     topic: "Negotiations, Influence, and Decision-making",
     school: "London Business School",
@@ -36,6 +38,7 @@ export const professors = [
   {
     name: "Jonathan Levav",
     date: "15th November, Sunday",
+    showInClips: true, 
     topic:
       "Understanding consumer’s judgments and choices by using tools from experimental psychology and behavioural economics.",
     school: "Stanford Business School",

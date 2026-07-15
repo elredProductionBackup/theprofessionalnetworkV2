@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useRef, useState } from "react";
 import { professors } from "../data/professors";
 
@@ -62,7 +63,13 @@ const ProfessorClips = () => {
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState(false);
 
-  const featured = professors[active];
+  // Only professors flagged with `showInClips: true` appear in this section.
+  const clips = professors.filter((p) => p.showInClips);
+
+  // Nothing to show yet — don't render the section at all.
+  if (!clips.length) return null;
+
+  const featured = clips[active] || clips[0];
   const featuredPoster = featured.videoThumbnail || featured.image;
   const hasVideo = Boolean(featured.video);
 
@@ -74,7 +81,7 @@ const ProfessorClips = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden px-4 py-14 sm:px-8 min-h-[100vh] flex items-center"
+      className="relative w-full overflow-hidden px-4 py-14 sm:px-8 flex items-center"
     >
       {/* keyframes injected once, scoped by unique names */}
       <style>{`
@@ -86,13 +93,19 @@ const ProfessorClips = () => {
         .sc-crossfade { animation: scFadeIn 0.45s ease forwards; }
       `}</style>
 
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto max-w-5xl">
         {/* Heading */}
-        <div className={`sc-reveal ${inView ? "in" : ""} text-center`}>
-          <p className="text-sm font-medium tracking-wide text-neutral-400">Clips</p>
-          <h2 className="mt-2 text-3xl font-bold leading-tight text-neutral-900 sm:text-[2.6rem]">
-            The best minds in the world, in their own words.
-          </h2>
+        <div className={`sc-reveal ${inView ? "in" : ""} text-center flex flex-col gap-[20px]`}>
+                  {/* Label */}
+        <span className="font-inter-display font-medium text-[15px] md:text-[35px] text-[#A3A3A3] tracking-[-0.8px] leading-[110%]">
+          Clips
+        </span>
+
+        {/* Main Heading */}
+        <h2 className="font-inter-display font-semibold text-[25px] lg:text-[72px] md:text-[60px] leading-[110%] md:leading-[100%] tracking-[-1.5px] md:tracking-[-2.6px] text-[#333333] max-w-[1100px] mx-auto mb-[40px] md:mb-[50px]">
+          The best minds in the world, in their own words.
+        </h2>
+          
         </div>
 
         {/* Featured player */}
@@ -156,7 +169,7 @@ const ProfessorClips = () => {
 
         {/* Thumbnail grid */}
         <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
-          {professors.map((p, i) => {
+          {clips.map((p, i) => {
             const poster = p.videoThumbnail || p.image;
             const clip = Boolean(p.video);
             const isActive = i === active;
@@ -205,7 +218,3 @@ const ProfessorClips = () => {
 };
 
 export default ProfessorClips;
-
-
-
-

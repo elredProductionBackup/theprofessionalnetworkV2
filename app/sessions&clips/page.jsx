@@ -5,7 +5,7 @@ const SessionClip = () => {
   return (
     <div className=''>
       <SessionDetails/>
-      {/* <ProfessorClips/> */}
+      <ProfessorClips/>
     </div>
   )
 }

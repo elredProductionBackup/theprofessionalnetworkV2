@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useRef, useState } from "react";
 import { professors } from "../data/professors"; // adjust to your path
 
@@ -28,6 +29,12 @@ const Chevron = ({ dir = "left" }) => (
     {dir === "left" ? <polyline points="15 18 9 12 15 6" /> : <polyline points="9 18 15 12 9 6" />}
   </svg>
 );
+const CloseIcon = () => (
+  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+);
 const PinIcon = () => (
   <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-red-500" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
@@ -56,9 +63,10 @@ const LinkIcon = () => (
 
 const SessionDetails = () => {
   const [active, setActive] = useState(0);
-  const [expanded, setExpanded] = useState(false);
+  const [descOpen, setDescOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const timer = useRef(null);
+  const touchStartX = useRef(null);
   const total = professors.length;
 
   useEffect(() => setMounted(true), []);
@@ -66,7 +74,6 @@ const SessionDetails = () => {
   const startAuto = () => {
     stopAuto();
     timer.current = setInterval(() => {
-      setExpanded(false);
       setActive((a) => (a + 1) % total);
     }, 7000);
   };
@@ -79,9 +86,52 @@ const SessionDetails = () => {
   }, []);
 
   const go = (dir) => {
-    setExpanded(false);
     setActive((a) => (a + dir + total) % total);
     startAuto(); // reset timer on manual nav
+  };
+
+  const goTo = (i) => {
+    setActive(i);
+    startAuto();
+  };
+
+  /* description popup — pause the carousel while it's open */
+  const openDesc = () => {
+    stopAuto();
+    setDescOpen(true);
+  };
+  const closeDesc = () => {
+    setDescOpen(false);
+    startAuto();
+  };
+
+  /* lock body scroll + close on Escape while the popup is open */
+  useEffect(() => {
+    if (!descOpen) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        setDescOpen(false);
+        startAuto();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [descOpen]);
+
+  /* swipe support for touch devices */
+  const onTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e) => {
+    if (touchStartX.current == null) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(delta) > 50) go(delta < 0 ? 1 : -1); // swipe left → next
+    touchStartX.current = null;
   };
 
   const p = professors[active];
@@ -89,74 +139,104 @@ const SessionDetails = () => {
 
   return (
     <section
-      className="relative w-full overflow-hidden px-4 py-14 sm:px-8 min-h-[100vh] flex items-center"
+      className="relative w-full overflow-hidden flex items-center px-4 py-20 sm:px-8 min-h-[640px] lg:min-h-[100vh]"
       style={{
         backgroundColor: "#050a18",
-        backgroundImage:
-          "radial-gradient(circle at 20% 20%, rgba(37,99,235,0.10), transparent 40%), radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px)",
-        backgroundSize: "auto, 22px 22px",
+        backgroundImage: "url('/assets/session-bg.webp')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
+      {/* dark overlay so the white copy stays readable over the image */}
+      <div className="absolute inset-0 z-0 bg-black/55" />
+
       <style>{`
         @keyframes pcUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
         @keyframes pcSlide { from { opacity: 0; transform: translateX(26px); } to { opacity: 1; transform: none; } }
         @keyframes pcCard { from { opacity: 0; transform: translateY(18px) scale(0.98); } to { opacity: 1; transform: none; } }
+        @keyframes pcFade { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes pcPop { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
         .pc-mount { opacity: 0; }
         .pc-mount.on { animation: pcUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards; }
         .pc-slide { animation: pcSlide 0.5s cubic-bezier(0.22,1,0.36,1) both; }
         .pc-card { animation: pcCard 0.55s cubic-bezier(0.22,1,0.36,1) both; }
+        .pc-fade { animation: pcFade 0.25s ease forwards; }
+        .pc-pop { animation: pcPop 0.3s cubic-bezier(0.22,1,0.36,1) forwards; }
+        .pc-scroll { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.3) transparent; }
+        .pc-scroll::-webkit-scrollbar { width: 5px; }
+        .pc-scroll::-webkit-scrollbar-track { background: transparent; }
+        .pc-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
+        .pc-desc p { margin-bottom: 0.85rem; }
+        .pc-desc p:last-child { margin-bottom: 0; }
+        .pc-desc ul { list-style: disc; padding-left: 1.25rem; margin: 0.5rem 0 0.85rem; }
+        .pc-desc li { margin-bottom: 0.3rem; }
+        .pc-desc strong { color: #fff; font-weight: 600; }
+        .pc-desc a { color: #ff6a3d; text-decoration: underline; }
       `}</style>
 
-      <div className="mx-auto max-w-7xl flex justify-center">
-        {/* arrows */}
-        <button
-          type="button"
-          onClick={() => go(-1)}
-          aria-label="Previous"
-          className="absolute left-[3%] top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border border-red-500/40 bg-black/30 p-2 text-red-500 transition-all hover:scale-110 hover:bg-red-500 hover:text-white sm:flex"
-        >
-          <Chevron dir="left" />
-        </button>
-        <button
-          type="button"
-          onClick={() => go(1)}
-          aria-label="Next"
-          className="absolute right-[3%] top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border border-red-500/40 bg-black/30 p-2 text-red-500 transition-all hover:scale-110 hover:bg-red-500 hover:text-white sm:flex"
-        >
-          <Chevron dir="right" />
-        </button>
+      {/* side arrows – desktop only (mobile uses the arrows by the dots + swipe) */}
+      <button
+        type="button"
+        onClick={() => go(-1)}
+        aria-label="Previous"
+        className="absolute left-[3%] top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border border-red-500/40 bg-black/30 p-2 text-red-500 transition-all hover:scale-110 hover:bg-red-500 hover:text-white lg:flex"
+      >
+        <Chevron dir="left" />
+      </button>
+      <button
+        type="button"
+        onClick={() => go(1)}
+        aria-label="Next"
+        className="absolute right-[3%] top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border border-red-500/40 bg-black/30 p-2 text-red-500 transition-all hover:scale-110 hover:bg-red-500 hover:text-white lg:flex"
+      >
+        <Chevron dir="right" />
+      </button>
 
-        <div className={`pc-mount ${mounted ? "on" : ""} px-0 sm:px-14`}>
-          <div className="grid items-center gap-8 lg:grid-cols-2">
-            {/* LEFT: copy */}
-            <div key={`copy-${active}`} className="pc-slide">
-              <h2 className="text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-[2.5rem]">
+      {/* content – swipeable on touch devices */}
+      <div
+        className="relative z-10 mx-auto w-full max-w-7xl"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
+        <div className={`pc-mount ${mounted ? "on" : ""} w-full px-0 sm:px-10 lg:px-14 pb-20 lg:pb-0`}>
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20 xl:gap-[100px]">
+            {/* LEFT: copy — reserved min-height keeps the layout from jumping between slides */}
+            <div
+              key={`copy-${active}`}
+              className="pc-slide flex flex-col justify-center text-center lg:text-left min-h-[300px] lg:min-h-[420px]"
+            >
+              <h2 className="text-[1.75rem] font-bold leading-tight text-white sm:text-4xl lg:text-[2.5rem]">
                 <HighlightTopic text={p.topic} />
               </h2>
 
-              <p className="mt-5 max-w-xl text-sm leading-relaxed text-neutral-400">
-                <span className={expanded ? "" : "line-clamp-3"}>{blurb}</span>{" "}
+              {/* preview blurb (always 3 lines) + trigger that opens the full description popup */}
+              <div className="mx-auto mt-5 max-w-xl lg:mx-0">
+                <p className="text-sm leading-relaxed text-neutral-300 sm:text-[15px]">
+                  <span className="line-clamp-3">{blurb}</span>
+                </p>
                 {blurb.length > 180 && (
                   <button
                     type="button"
-                    onClick={() => setExpanded((v) => !v)}
-                    className="font-semibold text-white hover:underline"
+                    onClick={openDesc}
+                    className="mt-2 font-semibold text-white underline underline-offset-4 hover:text-red-400"
                   >
-                    {expanded ? "less" : "more"}
+                    Read full description
                   </button>
                 )}
-              </p>
+              </div>
 
               <button
                 type="button"
-                className="mt-7 rounded-full bg-red-600 px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-red-600/25 transition-all hover:scale-[1.03] hover:bg-red-500"
+                onClick={() => window.dispatchEvent(new Event("openApplyPopup"))}
+                className="mt-7 w-fit self-center lg:self-start rounded-full bg-red-600 px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-red-600/25 transition-all hover:scale-[1.03] hover:bg-red-500"
               >
                 Apply for membership
               </button>
             </div>
 
             {/* RIGHT: professor card */}
-            <div key={`card-${active}`} className="pc-card">
+            <div key={`card-${active}`} className="pc-card mx-auto w-full max-w-[480px] lg:mx-0">
               <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md sm:p-7">
                 <div className="flex items-start gap-4">
                   <img
@@ -165,7 +245,7 @@ const SessionDetails = () => {
                     className="h-14 w-14 shrink-0 rounded-full border border-white/20 object-cover"
                   />
                   <div className="min-w-0">
-                    <h3 className="truncate text-2xl font-semibold text-white">{p.name}</h3>
+                    <h3 className="truncate text-xl font-semibold text-white sm:text-2xl">{p.name}</h3>
                     <div className="mt-1 flex items-center gap-1.5 text-sm text-neutral-400">
                       {p.schoolLogo ? (
                         <img src={p.schoolLogo} alt="" className="h-4 w-4 object-contain" />
@@ -216,18 +296,27 @@ const SessionDetails = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* bottom controls: arrows (mobile only) flanking the dots */}
+      <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center justify-center gap-4 sm:bottom-8 lg:bottom-[7%]">
+        {/* mobile prev */}
+        <button
+          type="button"
+          onClick={() => go(-1)}
+          aria-label="Previous"
+          className="flex h-8 w-8 items-center justify-center rounded-full border border-red-500/40 bg-black/30 text-red-500 transition-all active:scale-95 hover:bg-red-500 hover:text-white lg:hidden"
+        >
+          <Chevron dir="left" />
+        </button>
 
         {/* dots */}
-        <div className="absolute bottom-[10%] flex items-center justify-center gap-2">
+        <div className="flex items-center gap-2">
           {professors.map((_, i) => (
             <button
               type="button"
               key={i}
-              onClick={() => {
-                setExpanded(false);
-                setActive(i);
-                startAuto();
-              }}
+              onClick={() => goTo(i)}
               aria-label={`Go to slide ${i + 1}`}
               className={`h-1.5 rounded-full transition-all duration-300 ${
                 i === active ? "w-6 bg-red-600" : "w-1.5 bg-white/25 hover:bg-white/50"
@@ -235,7 +324,65 @@ const SessionDetails = () => {
             />
           ))}
         </div>
+
+        {/* mobile next */}
+        <button
+          type="button"
+          onClick={() => go(1)}
+          aria-label="Next"
+          className="flex h-8 w-8 items-center justify-center rounded-full border border-red-500/40 bg-black/30 text-red-500 transition-all active:scale-95 hover:bg-red-500 hover:text-white lg:hidden"
+        >
+          <Chevron dir="right" />
+        </button>
       </div>
+
+      {/* ---------- Full-description popup ---------- */}
+      {descOpen && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${p.name} – full description`}
+        >
+          {/* backdrop */}
+          <div className="pc-fade absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeDesc} />
+
+          {/* panel */}
+          <div className="pc-pop relative z-10 w-full max-w-xl overflow-hidden rounded-2xl border border-white/10 bg-[#0b1120] shadow-2xl">
+            <button
+              type="button"
+              onClick={closeDesc}
+              aria-label="Close"
+              className="absolute right-4 top-4 z-10 grid h-8 w-8 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+            >
+              <CloseIcon />
+            </button>
+
+            <div className="p-6 sm:p-8">
+              {/* header */}
+              <div className="flex items-center gap-3 pr-10">
+                <img
+                  src={p.image}
+                  alt={p.name}
+                  className="h-11 w-11 shrink-0 rounded-full border border-white/20 object-cover"
+                />
+                <div className="min-w-0">
+                  <h3 className="truncate text-lg font-semibold text-white sm:text-xl">{p.name}</h3>
+                  <p className="truncate text-xs text-neutral-400">{p.school}</p>
+                </div>
+              </div>
+
+              <p className="mt-4 text-sm font-semibold leading-snug text-red-400">{p.topic.trim()}</p>
+
+              {/* body – renders the rich HTML description, scrolls if long */}
+              <div
+                className="pc-scroll pc-desc mt-4 max-h-[55vh] overflow-y-auto pr-2 text-sm leading-relaxed text-neutral-300"
+                dangerouslySetInnerHTML={{ __html: p.description }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

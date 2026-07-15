@@ -27,7 +27,7 @@ const navigateTo = (path, label) => {
   const menuOptions = [
     { label: "Home", path: "/" },
     { label: "About", path: "/about" },
-    { label: "Sessions / Clips", path: "/sessions&clips" },
+    // { label: "Sessions / Clips", path: "/sessions&clips" },
     { label: "FAQs", path: "/faqs" },
     { label: "Contact", path: "/contact" }
   ];
