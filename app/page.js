@@ -1,5 +1,5 @@
 // import Hero from "@/components/Hero";
-import Tagline from "@/components/Tagline";
+// import Tagline from "@/components/Tagline";
 // import Different from "@/components/Different";
 // import WhatWeAre from "@/components/WhatWeAre";
 import Firstprinciple from "@/components/Firstprinciple";
@@ -8,11 +8,12 @@ import Membership from "@/components/Membership";
 // import SessionsCarousel from "@/components/SessionsCarousel";
 import SessionDetails from "@/components/SessionClips";
 import ProfessorClips from "@/components/ProfessorClips";
+import ProfessionalsHero from "@/components/Tagline";
 
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <Tagline />
+      <ProfessionalsHero />
       <SessionDetails/>
       <ProfessorClips/>
       {/* <Hero /> */}
