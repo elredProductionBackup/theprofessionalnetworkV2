@@ -1,9 +1,6 @@
 // Shared data. Adjust import paths in your components to point here,
 // or swap this out for your existing data file.
 //
-// NOTE: I added two OPTIONAL fields used by <SessionClips />:
-//   video          -> path to the clip (mp4/webm). Omit = shows "No video available".
-//   videoThumbnail -> poster frame for the clip. Falls back to `image` if omitted.
 
 export const professors = [
   {
