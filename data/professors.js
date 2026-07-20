@@ -15,7 +15,7 @@ export const professors = [
     schoolLogo: "/professor-school/oded-school.png",
     linkedinLink: "https://www.linkedin.com/in/oded-netzer-700255",
     schoolLink: "https://business.columbia.edu/faculty/people/oded-netzer",
-    location: "Taj Lands End, Mumbai",
+    location: "Tata Room, Taj Lands End, Mumbai",
     showInClips: true, 
     video: "https://res.cloudinary.com/dtrv7p3gg/video/upload/v1784109467/HELLO_INDIA_FROM_ODED_NETZER_tl8juq.mov",        // <-- replace with your real clip
     videoThumbnail: "/professor-clips/oded-thumb.png", // optional; falls back to `image`
@@ -33,23 +33,10 @@ export const professors = [
     linkedinLink: "https://www.linkedin.com/in/nirosivanathan",
     video: "https://res.cloudinary.com/dtrv7p3gg/video/upload/v1784177373/Teaser_Video_India_Sessions_Niro_1_-compressed_e6vm0j.mp4",        // <-- replace with your real clip
     schoolLink: "https://www.london.edu/faculty-and-research/faculty-profiles/s/sivanathan-n",
-    location: "Sahara Star Hotel, Mumbai",
+    location: "Tata Room, Taj Lands End, Mumbai",
     description: `In an era defined by rapid technological shifts and complex market dynamics, the ability to secure favorable terms, influence key stakeholders, and architect robust deals is paramount. Privé is designed for the ambitious and the restless—those seeking to protect their legacy while remaining future-ready. Aligning with Privé’s mission to solve high-stakes problems through "First Principles" peer learning, this intensive 1-day masterclass distills the science of negotiation and influence into actionable strategies for ultra-high-net-worth individuals, family board members, and top-tier professionals. The curriculum is structured around two core pillars: the cognitive psychology of influence and the strategic architecture of deal-making.<br /><br />THE COGNITIVE PSYCHOLOGY OF INFLUENCE<br /><br />The morning sessions focus on the psychological mechanisms that drive decision-making at the bargaining table and in the boardroom. Members will explore how the framing and presentation of information can be leveraged to nudge counterparts toward desired outcomes. For family business owners navigating succession, or startup founders pitching to institutional investors, mastering these tools ensures that proposals are structured to maximize acceptance and reduce friction. The focus is on acting as an agenda-setter rather than a reactive participant.<br /><br />STRATEGIC DEAL ARCHITECTURE AND VALUE CREATION<br /><br />The afternoon transitions into the mechanics of negotiation. Participants will engage in dynamic simulation that mirror the high-stakes environments of private capital and enterprise leadership. Members will learn to uncover hidden interests and structure agreements that bridge valuation gaps and align long-term incentives. Drawing on extensive advisory experience in the private capital ecosystem—including complex exits, acquisitions, and strategic negotiations ranging from $35M to $2B USD—the session provides deep insights into liquidity events and M&A dynamics. This is particularly relevant for family offices and owners looking to scale operations, manage syndicate investments, without compromising their core objectives.<br /><br />By the conclusion of the day, Privé members and their leadership teams will possess a sophisticated toolkit for leading difficult commercial conversations with confidence. This masterclass ensures that the learnings reach deep into member organizations, driving consensus-driven execution and securing future success in an uncertain landscape.`,
   },
-  {
-    name: "Jonathan Levav",
-    date: "15th November, Sunday",
-    topic:
-      "Understanding consumer’s judgments and choices by using tools from experimental psychology and behavioural economics.",
-    school: "Stanford Business School",
-    image: "/professor-profile/jon.jpg",
-    schoolLogo: "/professor-school/jon-school.png",
-    linkedinLink: "https://www.linkedin.com/in/jonathan-levav-0333329",
-    schoolLink: "https://www.gsb.stanford.edu/faculty-research/faculty/jonathan-levav",
-    location: "Mumbai",
-    description:
-      "Innovation is at the core of both the survival and growth of any business. Despite its importance, incumbent firms struggle to innovate for various reasons, including mindset, culture, inadequate processes, limited resources, or lack of tools (or a combination thereof). In this seminar, I will lead a discussion on the need to innovate, where to look for market opportunities, how to set up a well-oiled innovation process in your organization, and how a simple set of tools can turn your organization into an innovation machine (all that remains is execution!). Next, once you've developed your innovation, we will discuss principles of the psychology of decision making so that you can design decision environments that promote the selection of your innovation.",
-  },
+
   {
     name: "Goutam Challagalla",
     showInClips: true, 
@@ -60,7 +47,7 @@ export const professors = [
     schoolLogo: "/professor-school/imd-uni.png",
     linkedinLink: "https://www.linkedin.com/in/goutam-challagalla-161118bb/",
     schoolLink: "https://www.imd.org/faculty/professors/goutam-challagalla/",
-    location: "HBS Classroom - Taj Lands End, Mumbai",
+    location: "Tata Room, Taj Lands End, Mumbai",
     description: `
 <p>Scores of business books had promoted the wisdom that if a business embraced sustainability – doing good for the planet and society – customers and profits will follow. But, as the experience of companies show, it’s not so simple.</p>
 
@@ -76,6 +63,20 @@ export const professors = [
 </ul>
 `,
   },
+    {
+    name: "Jonathan Levav",
+    date: "15th November, Sunday",
+    topic:
+      "Understanding consumer’s judgments and choices by using tools from experimental psychology and behavioural economics.",
+    school: "Stanford Business School",
+    image: "/professor-profile/jon.jpg",
+    schoolLogo: "/professor-school/jon-school.png",
+    linkedinLink: "https://www.linkedin.com/in/jonathan-levav-0333329",
+    schoolLink: "https://www.gsb.stanford.edu/faculty-research/faculty/jonathan-levav",
+    location: "Tata Room, Taj Lands End, Mumbai",
+    description:
+      "Innovation is at the core of both the survival and growth of any business. Despite its importance, incumbent firms struggle to innovate for various reasons, including mindset, culture, inadequate processes, limited resources, or lack of tools (or a combination thereof). In this seminar, I will lead a discussion on the need to innovate, where to look for market opportunities, how to set up a well-oiled innovation process in your organization, and how a simple set of tools can turn your organization into an innovation machine (all that remains is execution!). Next, once you've developed your innovation, we will discuss principles of the psychology of decision making so that you can design decision environments that promote the selection of your innovation.",
+  },
   {
     name: "Danny Warshay",
     date: "10th January, Sunday",
@@ -85,7 +86,7 @@ export const professors = [
     schoolLogo: "/professor-school/danny-school.jpg",
     linkedinLink: "https://www.linkedin.com/in/dannywarshay",
     schoolLink: "https://dannywarshay.com/",
-    location: "Mumbai",
+    location: "Tata Room, Taj Lands End, Mumbai",
     description: `See, Solve, Scale<br /><br />Danny Warshay is a Professor and Executive Director of the Nelson Center for Entrepreneurship at Brown University. He leads creative and thought-provoking workshops on entrepreneurship around the world. He began his entrepreneurial pursuits while an undergraduate at Brown as a member of the startup leadership team of Clearview Software, which was acquired by Apple. Since then, he has co-founded and sold companies in fields ranging from software and advanced materials to consumer products and media. His course at Brown, The Entrepreneurial Process, has been recognized as the highest-rated course on campus.<br /><br /> Based on this course, Danny has written the award-winning book <a href="https://dannywarshay.com/see-solve-scale-resources" target="_blank" style="color: #0270FF; text-decoration: none;">SEE SOLVE SCALE: How Anyone Can Turn an Unsolved Problem into a Breakthrough Success</a>. Danny received an A.B. in History, magna cum laude, from Brown University and an M.B.A. from Harvard Business School, and he is a Fellow of the Royal Society of Arts. In addition to spending time with his wife and three children, Danny loves the mental and physical challenges and rewards of vinyasa yoga. He is also an avid (and tortured) Cleveland sports fan. Learn more about Danny Warshay on his website: <a href="https://dannywarshay.com/" target="_blank" style="color: #0270FF; text-decoration: none;">DannyWarshay.com</a> <br /><br /> I invite all of my workshop participants to join the LinkedIn Warshay Innovation Network. The private advising would be on the need, case by case time commitments.`,
   },
 ];
