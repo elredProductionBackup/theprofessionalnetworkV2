@@ -10,7 +10,7 @@ export default function LinkedinInsight() {
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
-            _linkedin_partner_id = "9648340";
+            _linkedin_partner_id = "10536265";
             window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
             window._linkedin_data_partner_ids.push(_linkedin_partner_id);
           `,
@@ -27,7 +27,7 @@ export default function LinkedinInsight() {
           width="1"
           style={{ display: "none" }}
           alt=""
-          src="https://px.ads.linkedin.com/collect/?pid=9648340&fmt=gif"
+          src="https://px.ads.linkedin.com/collect/?pid=10536265&fmt=gif"
         />
       </noscript>
     </>
