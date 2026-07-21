@@ -227,33 +227,19 @@ const ApplyPopupContent = () => {
 /*  Thank-you popup — light card shown after a successful submission.  */
 /* ------------------------------------------------------------------ */
 const STEPS = [
-  {
-    n: 1,
-    title: "We review your application",
-    desc: "Within three working days — we keep the room small on purpose.",
-  },
-  {
-    n: 2,
-    title: "A short call",
-    desc: "A quick conversation to make sure it's the right fit — both ways.",
-  },
-  {
-    n: 3,
-    title: "You're in",
-    desc: "Onboarding, your membership invoice, and details for the next workshop.",
-  },
+  { n: 1, title: "We review your application", desc: "You should expect a response within 3 days" },
+  { n: 2, title: "A short call", desc: "We set up a quick 10 minute call with our founder. Yes, we are being very particular for our first cohort of learners" },
+  { n: 3, title: "You're in", desc: "We send you onboarding information, details of invoice, and details for the next workshop." },
 ];
 
 const ACCENT = "#C8202E";
+
 
 const ThankYouPopup = ({ open, onClose, logo }) => {
   return (
     <AnimatePresence>
       {open && (
         <div className="fixed inset-0 z-[120] flex items-center justify-center p-4">
-          {/* Cookie script font for the "Thank you!" headline */}
-          <style>{`@import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');`}</style>
-
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -271,7 +257,7 @@ const ThankYouPopup = ({ open, onClose, logo }) => {
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
             className="relative z-10 w-full max-w-[420px] max-h-[90vh] overflow-y-auto rounded-[24px] bg-white shadow-2xl [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
           >
-            <div className="relative px-5 py-7 sm:px-8 sm:py-8">
+            <div className="relative px-5 py-8 sm:px-8 sm:py-10">
               {/* Close Button */}
               <button
                 onClick={onClose}
@@ -283,31 +269,21 @@ const ThankYouPopup = ({ open, onClose, logo }) => {
 
               {logo && <img src={logo} alt="Logo" className="mx-auto mb-4 h-9 object-contain" />}
 
-              {/* Thank you — Cookie script */}
+              {/* Thank you — bold serif to match the mockup */}
               <h2
-                style={{ fontFamily: "'Cookie', cursive", color: ACCENT }}
-                className="text-center text-[46px] leading-[1.05] sm:text-[52px]"
+                style={{ color: ACCENT }}
+                className="text-center font-serif font-semibold text-[46px] leading-[1.05] sm:text-[54px]"
               >
                 Thank you!
               </h2>
 
-              {/* Eyebrow */}
-              <p className="mt-1 text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                Application received
-              </p>
-
-              {/* Serif heading */}
-              <h3 className="mt-2 text-center font-serif text-[21px] font-bold text-neutral-900 sm:text-[24px]">
-                Welcome to the shortlist.
-              </h3>
-
               {/* Intro copy */}
-              <p className="mx-auto mt-2.5 max-w-[360px] text-center text-[13px] leading-relaxed text-neutral-500">
-                Thanks — your application is in. We read every one personally, so here's exactly what happens next.
+              <p className="mx-auto mt-3 max-w-[340px] text-center text-[14px] leading-relaxed text-neutral-500">
+                We read every application personally, so here's exactly what happens next.
               </p>
 
               {/* Steps */}
-              <div className="mx-auto mt-6 flex max-w-[380px] flex-col gap-4">
+              <div className="mx-auto mt-7 flex max-w-[380px] flex-col gap-4">
                 {STEPS.map((s) => (
                   <div key={s.n} className="flex items-start gap-3">
                     <span
@@ -317,7 +293,7 @@ const ThankYouPopup = ({ open, onClose, logo }) => {
                       {s.n}
                     </span>
                     <div>
-                      <p className="text-[14px] font-bold text-neutral-900">{s.title}</p>
+                      <p className="text-[14px] font-medium text-neutral-900">{s.title}</p>
                       <p className="mt-0.5 text-[12px] leading-relaxed text-neutral-500">{s.desc}</p>
                     </div>
                   </div>
