@@ -9,6 +9,7 @@ import Membership from "@/components/Membership";
 import SessionDetails from "@/components/SessionClips";
 import ProfessorClips from "@/components/ProfessorClips";
 import ProfessionalsHero from "@/components/Tagline";
+import Calendar from "@/components/Calendar";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <ProfessionalsHero />
       <SessionDetails/>
       <ProfessorClips/>
+      <Calendar />
       {/* <Hero /> */}
       {/* <Different /> */}
       {/* <WhatWeAre /> */}
