@@ -20,6 +20,22 @@ export const professors = [
     "The challenge today is not a lack of information (or analytics, dashboards, and AI outputs), but the judgment to use it well. What distinguishes leaders who consistently make smart decisions is their ability to quickly sort through signal and noise by asking essential questions, pressure-testing assumptions, and validating claims, not with statistical rigor, but from a business validity perspective. This form of leadership intelligence has become all the more important in the AI era. This session equips leaders to engage with AI productively. It teaches Quantitative Intuition (QI), a practical framework and set of rapid-response tools for making better decisions in a data-driven world where AI is accelerating answers but not necessarily improving judgment. Participants will learn to frame issues with precision before rushing to solutions, develop intuition for numbers using pragmatic methods and apply contextual lenses to assess relevance, risk, and trust when information is incomplete.",
   },
   {
+    name: "Oded Netzer × Saurabh Goswamy",
+    showInClips: true,
+    date: "2nd August, Sunday",
+    topic: "QI & Leadership: What Executives Can Learn From It",
+    school: "Columbia Business School",
+    image: "/professor-profile/oded.jpg",
+    schoolLogo: "/professor-school/oded-school.png",
+    linkedinLink: "https://www.linkedin.com/in/oded-netzer-700255",
+    schoolLink: "https://business.columbia.edu/faculty/people/oded-netzer",
+    location: "Tata Room, Taj Lands End, Mumbai",
+    video: "https://assets-pretest.elred.io/theProfessionalNetwork/Video_Podcast_Full_For+Website_v1_compressed.mp4",
+    videoThumbnail: "/professor-clips/odedxsaurabh.webp", // optional; falls back to `image`
+    description:
+      "In this conversation, Oded Netzer sits down with Saurabh Goswamy to unpack Quantitative Intuition (QI) and what it means for leadership. Together they explore how executives can move beyond dashboards and AI outputs to sharpen their judgment — learning to separate signal from noise, pressure-test assumptions, and make confident decisions even when the information in front of them is incomplete. It's a practical look at why QI matters for leaders today and what they can take away to make better calls in a data-driven, AI-accelerated world.",
+  },
+  {
     name: "Niro Sivanathan",
     showInClips: true, 
     date: "6th September, Sunday",
