@@ -206,7 +206,7 @@ const ProfessorClips = () => {
                     </div>
                   )}
                 </div>
-                <p className="mt-2 text-sm font-semibold text-neutral-900">{p.name}</p>
+                <p className="mt-2 text-sm font-semibold text-neutral-900 line-clamp-1">{p.name}</p>
                 <p className="line-clamp-1 text-xs text-neutral-500">{p.topic.trim()}</p>
               </button>
             );
