@@ -84,14 +84,14 @@ export default function ProfessionalsHero() {
 
         {/* CTAs */}
         <div className="tpn-fade flex items-center gap-[clamp(16px,2.5vw,32px)] mt-[clamp(26px,4vw,44px)] opacity-0 animate-[tpn-up_0.8s_cubic-bezier(0.19,1,0.22,1)_1.3s_both]">
-          <button className="group inline-flex items-center gap-2.5 bg-[#D71A21] text-white font-bold text-[15px] tracking-[0.2px] px-[20px] py-[10px] rounded-[9px] shadow-[0_10px_28px_-10px_rgba(215,26,33,0.6)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#e11f27] hover:shadow-[0_16px_36px_-10px_rgba(215,26,33,0.75)]"
+          {/* <button className="group inline-flex items-center gap-2.5 bg-[#D71A21] text-white font-bold text-[15px] tracking-[0.2px] px-[20px] py-[10px] rounded-[9px] shadow-[0_10px_28px_-10px_rgba(215,26,33,0.6)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#e11f27] hover:shadow-[0_16px_36px_-10px_rgba(215,26,33,0.75)]"
            onClick={() => window.dispatchEvent(new Event("openApplyPopup"))}>
             Apply now
             <svg width="18" height="14" viewBox="0 0 20 16" fill="none" aria-hidden="true"
               className="transition-transform duration-300 group-hover:translate-x-1.5">
               <path d="M1 8h17M12 2l6 6-6 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-          </button>
+          </button> */}
 
           {/* <button className="relative font-bold text-[15px] text-white px-0.5 py-1.5 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:bg-[#D71A21] after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-[0.4]">
             Learn More
