@@ -151,7 +151,7 @@ const ProfessorClips = () => {
                     <div className="absolute inset-0 grid place-items-center bg-neutral-900/70 text-neutral-400">
                       <div className="flex flex-col items-center gap-2">
                         <NoVideoIcon className="h-7 w-7" />
-                        <span className="text-sm">No video available</span>
+                        <span className="text-sm">Coming Soon</span>
                       </div>
                     </div>
                   )}
@@ -202,7 +202,7 @@ const ProfessorClips = () => {
                   ) : (
                     <div className="flex h-full w-full flex-col items-center justify-center gap-1.5 text-neutral-500">
                       <NoVideoIcon className="h-5 w-5" />
-                      <span className="text-[11px]">No video available</span>
+                      <span className="text-[11px]">Coming Soon</span>
                     </div>
                   )}
                 </div>
