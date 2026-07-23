@@ -10,12 +10,14 @@ import SessionDetails from "@/components/SessionClips";
 import ProfessorClips from "@/components/ProfessorClips";
 import ProfessionalsHero from "@/components/Tagline";
 import Calendar from "@/components/Calendar";
+import EventRegistration from "@/components/EventRegistration";
 
 export default function Home() {
   return (
     <main className="min-h-screen">
       <ProfessionalsHero />
-      <SessionDetails/>
+      <EventRegistration/>
+      {/* <SessionDetails/> */}
       <ProfessorClips/>
       {/* <Calendar /> */}
       {/* <Hero /> */}

@@ -2,11 +2,8 @@
 import { useEffect, useRef, useState } from "react";
 import { professors } from "../data/professors"; // adjust to your path
 
-/* Only professors NOT flagged clips-only appear in the sessions carousel.
-   (entries with showInSessions: false are shown in ProfessorClips only) */
 const sessions = professors.filter((p) => p.showInSessions !== false);
 
-/* strip any HTML in the description for the preview blurb */
 const stripHtml = (html = "") =>
   html
     .replace(/<[^>]*>/g, " ")
@@ -14,7 +11,6 @@ const stripHtml = (html = "") =>
     .replace(/\s+/g, " ")
     .trim();
 
-/* colour the last couple of words red, matching the design */
 const HighlightTopic = ({ text, words = 2 }) => {
   const parts = text.trim().split(" ");
   if (parts.length <= words) return <span className="text-red-500">{text}</span>;
@@ -27,7 +23,6 @@ const HighlightTopic = ({ text, words = 2 }) => {
   );
 };
 
-/* inline icons – no dependencies */
 const Chevron = ({ dir = "left" }) => (
   <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     {dir === "left" ? <polyline points="15 18 9 12 15 6" /> : <polyline points="9 18 15 12 9 6" />}
@@ -69,54 +64,23 @@ const SessionDetails = () => {
   const [active, setActive] = useState(0);
   const [descOpen, setDescOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const timer = useRef(null);
   const touchStartX = useRef(null);
   const total = sessions.length;
 
   useEffect(() => setMounted(true), []);
 
-  const startAuto = () => {
-    stopAuto();
-    timer.current = setInterval(() => {
-      setActive((a) => (a + 1) % total);
-    }, 7000);
-  };
-  const stopAuto = () => timer.current && clearInterval(timer.current);
+  // ⛔ autoscroll removed — navigation is fully manual now
+  const go = (dir) => setActive((a) => (a + dir + total) % total);
+  const goTo = (i) => setActive(i);
 
-  useEffect(() => {
-    startAuto();
-    return stopAuto;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const go = (dir) => {
-    setActive((a) => (a + dir + total) % total);
-    startAuto(); // reset timer on manual nav
-  };
-
-  const goTo = (i) => {
-    setActive(i);
-    startAuto();
-  };
-
-  /* description popup — pause the carousel while it's open */
-  const openDesc = () => {
-    stopAuto();
-    setDescOpen(true);
-  };
-  const closeDesc = () => {
-    setDescOpen(false);
-    startAuto();
-  };
+  const openDesc = () => setDescOpen(true);
+  const closeDesc = () => setDescOpen(false);
 
   /* lock body scroll + close on Escape while the popup is open */
   useEffect(() => {
     if (!descOpen) return;
     const onKey = (e) => {
-      if (e.key === "Escape") {
-        setDescOpen(false);
-        startAuto();
-      }
+      if (e.key === "Escape") setDescOpen(false);
     };
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
@@ -124,7 +88,6 @@ const SessionDetails = () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [descOpen]);
 
   /* swipe support for touch devices */
@@ -134,7 +97,7 @@ const SessionDetails = () => {
   const onTouchEnd = (e) => {
     if (touchStartX.current == null) return;
     const delta = e.changedTouches[0].clientX - touchStartX.current;
-    if (Math.abs(delta) > 50) go(delta < 0 ? 1 : -1); // swipe left → next
+    if (Math.abs(delta) > 50) go(delta < 0 ? 1 : -1);
     touchStartX.current = null;
   };
 
@@ -148,11 +111,10 @@ const SessionDetails = () => {
         backgroundColor: "#050a18",
         backgroundImage: "url('/assets/session-bg.webp')",
         backgroundSize: "cover",
-        backgroundPosition: "center", 
+        backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
     >
-      {/* dark overlay so the white copy stays readable over the image */}
       <div className="absolute inset-0 z-0 bg-black/55" />
 
       <style>{`
@@ -179,7 +141,6 @@ const SessionDetails = () => {
         .pc-desc a { color: #ff6a3d; text-decoration: underline; }
       `}</style>
 
-      {/* side arrows – desktop only (mobile uses the arrows by the dots + swipe) */}
       <button
         type="button"
         onClick={() => go(-1)}
@@ -197,7 +158,6 @@ const SessionDetails = () => {
         <Chevron dir="right" />
       </button>
 
-      {/* content – swipeable on touch devices */}
       <div
         className="relative z-10 mx-auto w-full max-w-7xl"
         onTouchStart={onTouchStart}
@@ -205,7 +165,6 @@ const SessionDetails = () => {
       >
         <div className={`pc-mount ${mounted ? "on" : ""} w-full px-0 sm:px-10 lg:px-14 pb-20 lg:pb-0`}>
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20 xl:gap-[100px]">
-            {/* LEFT: copy — reserved min-height keeps the layout from jumping between slides */}
             <div
               key={`copy-${active}`}
               className="pc-slide flex flex-col justify-center text-center lg:text-left min-h-[300px] lg:min-h-[420px]"
@@ -214,7 +173,6 @@ const SessionDetails = () => {
                 <HighlightTopic text={p.topic} />
               </h2>
 
-              {/* preview blurb (always 3 lines) + trigger that opens the full description popup */}
               <div className="mx-auto mt-5 max-w-xl lg:mx-0">
                 <p className="text-sm leading-relaxed text-neutral-300 sm:text-[15px]">
                   <span className="line-clamp-3">{blurb}</span>
@@ -239,7 +197,6 @@ const SessionDetails = () => {
               </button>
             </div>
 
-            {/* RIGHT: professor card */}
             <div key={`card-${active}`} className="pc-card mx-auto w-full max-w-[480px] lg:mx-0">
               <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md sm:p-7">
                 <div className="flex items-start gap-4">
@@ -302,9 +259,7 @@ const SessionDetails = () => {
         </div>
       </div>
 
-      {/* bottom controls: arrows (mobile only) flanking the dots */}
       <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center justify-center gap-4 sm:bottom-8 lg:bottom-[7%]">
-        {/* mobile prev */}
         <button
           type="button"
           onClick={() => go(-1)}
@@ -314,7 +269,6 @@ const SessionDetails = () => {
           <Chevron dir="left" />
         </button>
 
-        {/* dots */}
         <div className="flex items-center gap-2">
           {sessions.map((_, i) => (
             <button
@@ -329,7 +283,6 @@ const SessionDetails = () => {
           ))}
         </div>
 
-        {/* mobile next */}
         <button
           type="button"
           onClick={() => go(1)}
@@ -340,7 +293,6 @@ const SessionDetails = () => {
         </button>
       </div>
 
-      {/* ---------- Full-description popup ---------- */}
       {descOpen && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center p-4"
@@ -348,10 +300,8 @@ const SessionDetails = () => {
           aria-modal="true"
           aria-label={`${p.name} – full description`}
         >
-          {/* backdrop */}
           <div className="pc-fade absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeDesc} />
 
-          {/* panel */}
           <div className="pc-pop relative z-10 w-full max-w-xl overflow-hidden rounded-2xl border border-white/10 bg-[#0b1120] shadow-2xl">
             <button
               type="button"
@@ -363,7 +313,6 @@ const SessionDetails = () => {
             </button>
 
             <div className="p-6 sm:p-8">
-              {/* header */}
               <div className="flex items-center gap-3 pr-10">
                 <img
                   src={p.image}
@@ -378,7 +327,6 @@ const SessionDetails = () => {
 
               <p className="mt-4 text-sm font-semibold leading-snug text-red-400">{p.topic.trim()}</p>
 
-              {/* body – renders the rich HTML description, scrolls if long */}
               <div
                 className="pc-scroll pc-desc mt-4 max-h-[55vh] overflow-y-auto pr-2 text-sm leading-relaxed text-neutral-300"
                 dangerouslySetInnerHTML={{ __html: p.description }}
