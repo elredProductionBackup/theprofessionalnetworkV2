@@ -21,7 +21,10 @@ export default function CalendarAhead({ onViewDetails }) {
   const touchStartX = useRef(null);
 
   const events = professors.filter(
-    (p) => p.showInClips !== false && p.name !== 'Oded Netzer × Saurabh Goswamy'
+    (p) =>
+      p.showInClips !== false &&
+      p.name !== 'Oded Netzer × Saurabh Goswamy' &&
+      p.name !== 'Prof. Oded Netzer'
   );
   const total = events.length;
 
@@ -75,7 +78,7 @@ export default function CalendarAhead({ onViewDetails }) {
     touchStartX.current = null;
   };
 
-  const p = events[active];
+  const p = events[((active % total) + total) % total];
   const blurb = stripHtml(p.description).substring(0, 200) + '...';
 
   const eventData = {

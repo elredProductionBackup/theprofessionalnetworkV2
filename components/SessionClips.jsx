@@ -214,7 +214,7 @@ const SessionDetails = () => {
     touchStartX.current = null;
   };
 
-  const p = sessions[active];
+  const p = sessions[((active % total) + total) % total];
   const blurb = stripHtml(p.description);
 
   return (
