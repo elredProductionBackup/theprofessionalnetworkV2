@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from "react";
-import { professors } from "../data/professors"; // adjust to your path
+import { professors } from "../data/professors";
+import EventModal from "./EventModal";
 
 /* Only professors NOT flagged clips-only appear in the sessions carousel.
    (entries with showInSessions: false are shown in ProfessorClips only) */
@@ -68,6 +69,7 @@ const LinkIcon = () => (
 const SessionDetails = () => {
   const [active, setActive] = useState(0);
   const [descOpen, setDescOpen] = useState(false);
+  const [eventModalOpen, setEventModalOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const timer = useRef(null);
   const touchStartX = useRef(null);
@@ -99,22 +101,81 @@ const SessionDetails = () => {
     startAuto();
   };
 
+  /* Convert professor data to event data format */
+  const getProfessorAsEvent = (prof) => ({
+    professorName: prof.name,
+    professorTitle: prof.topic,
+    professorImage: prof.image,
+    date: prof.date,
+    location: prof.location,
+    keyTakeaways: [
+      "Develop competencies to integrate data-driven and AI analysis with managerial judgment to make faster, smarter decisions under uncertainty",
+      "Strengthen credibility as a leader who combines analytical rigor with intuitive judgment",
+      "Develop methods to prioritize what matters most when data is incomplete or ambiguous"
+    ],
+    modules: [
+      {
+        type: "module",
+        title: "Module 1: Developing quantitative intuition",
+        time: "10:30 AM - 12:00 PM",
+        description: "This session focuses on the framework and set of practical tools called Quantitative Intuition."
+      },
+      {
+        type: "break",
+        label: "COFFEE BREAK",
+        time: "12:00 PM - 12:15 PM"
+      },
+      {
+        type: "module",
+        title: "Module 2: Framing the problem",
+        time: "12:15 PM - 1:30 PM",
+        description: "This session focuses on the ability to identify, analyze, and delineate problems."
+      },
+      {
+        type: "break",
+        label: "LUNCH BREAK",
+        time: "1:30 PM - 2:15 PM"
+      },
+      {
+        type: "module",
+        title: "Module 3: Becoming a fierce interrogator of data",
+        time: "2:15 PM - 3:15 PM",
+        description: "This session focuses on the ability to build intuition and honing your business acumen."
+      },
+      {
+        type: "break",
+        label: "COFFEE BREAK",
+        time: "3:15 PM - 3:30 PM"
+      },
+      {
+        type: "module",
+        title: "Summary",
+        time: "3:30 PM - 4:15 PM",
+        description: ""
+      }
+    ],
+    onRegister: () => {
+      window.dispatchEvent(new Event("openApplyPopup"));
+      setEventModalOpen(false);
+    }
+  });
+
   /* description popup — pause the carousel while it's open */
   const openDesc = () => {
     stopAuto();
-    setDescOpen(true);
+    setEventModalOpen(true);
   };
   const closeDesc = () => {
-    setDescOpen(false);
+    setEventModalOpen(false);
     startAuto();
   };
 
   /* lock body scroll + close on Escape while the popup is open */
   useEffect(() => {
-    if (!descOpen) return;
+    if (!eventModalOpen) return;
     const onKey = (e) => {
       if (e.key === "Escape") {
-        setDescOpen(false);
+        setEventModalOpen(false);
         startAuto();
       }
     };
@@ -125,7 +186,7 @@ const SessionDetails = () => {
       document.body.style.overflow = "";
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [descOpen]);
+  }, [eventModalOpen]);
 
   /* swipe support for touch devices */
   const onTouchStart = (e) => {
@@ -340,53 +401,11 @@ const SessionDetails = () => {
         </button>
       </div>
 
-      {/* ---------- Full-description popup ---------- */}
-      {descOpen && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${p.name} – full description`}
-        >
-          {/* backdrop */}
-          <div className="pc-fade absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeDesc} />
-
-          {/* panel */}
-          <div className="pc-pop relative z-10 w-full max-w-xl overflow-hidden rounded-2xl border border-white/10 bg-[#0b1120] shadow-2xl">
-            <button
-              type="button"
-              onClick={closeDesc}
-              aria-label="Close"
-              className="absolute right-4 top-4 z-10 grid h-8 w-8 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
-            >
-              <CloseIcon />
-            </button>
-
-            <div className="p-6 sm:p-8">
-              {/* header */}
-              <div className="flex items-center gap-3 pr-10">
-                <img
-                  src={p.image}
-                  alt={p.name}
-                  className="h-11 w-11 shrink-0 rounded-full border border-white/20 object-cover"
-                />
-                <div className="min-w-0">
-                  <h3 className="truncate text-lg font-semibold text-white sm:text-xl">{p.name}</h3>
-                  <p className="truncate text-xs text-neutral-400">{p.school}</p>
-                </div>
-              </div>
-
-              <p className="mt-4 text-sm font-semibold leading-snug text-red-400">{p.topic.trim()}</p>
-
-              {/* body – renders the rich HTML description, scrolls if long */}
-              <div
-                className="pc-scroll pc-desc mt-4 max-h-[55vh] overflow-y-auto pr-2 text-sm leading-relaxed text-neutral-300"
-                dangerouslySetInnerHTML={{ __html: p.description }}
-              />
-            </div>
-          </div>
-        </div>
-      )}
+      {/* ---------- Event Modal ---------- */}
+      <EventModal
+        event={eventModalOpen ? getProfessorAsEvent(p) : null}
+        onClose={closeDesc}
+      />
     </section>
   );
 };
