@@ -17,7 +17,7 @@ export default function Home() {
       <ProfessionalsHero />
       <SessionDetails/>
       <ProfessorClips/>
-      <Calendar />
+      {/* <Calendar /> */}
       {/* <Hero /> */}
       {/* <Different /> */}
       {/* <WhatWeAre /> */}

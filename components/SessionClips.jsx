@@ -2,6 +2,10 @@
 import { useEffect, useRef, useState } from "react";
 import { professors } from "../data/professors"; // adjust to your path
 
+/* Only professors NOT flagged clips-only appear in the sessions carousel.
+   (entries with showInSessions: false are shown in ProfessorClips only) */
+const sessions = professors.filter((p) => p.showInSessions !== false);
+
 /* strip any HTML in the description for the preview blurb */
 const stripHtml = (html = "") =>
   html
@@ -67,7 +71,7 @@ const SessionDetails = () => {
   const [mounted, setMounted] = useState(false);
   const timer = useRef(null);
   const touchStartX = useRef(null);
-  const total = professors.length;
+  const total = sessions.length;
 
   useEffect(() => setMounted(true), []);
 
@@ -134,7 +138,7 @@ const SessionDetails = () => {
     touchStartX.current = null;
   };
 
-  const p = professors[active];
+  const p = sessions[active];
   const blurb = stripHtml(p.description);
 
   return (
@@ -144,7 +148,7 @@ const SessionDetails = () => {
         backgroundColor: "#050a18",
         backgroundImage: "url('/assets/session-bg.webp')",
         backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPosition: "center", 
         backgroundRepeat: "no-repeat",
       }}
     >
@@ -312,7 +316,7 @@ const SessionDetails = () => {
 
         {/* dots */}
         <div className="flex items-center gap-2">
-          {professors.map((_, i) => (
+          {sessions.map((_, i) => (
             <button
               type="button"
               key={i}
