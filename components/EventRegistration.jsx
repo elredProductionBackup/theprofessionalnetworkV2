@@ -1067,7 +1067,7 @@ export default function EventRegistration() {
                 ) : (
                   <span className="h-3 w-3 rounded-full bg-blue-500" />
                 )}
-                <h3 className="text-2xl font-bold text-slate-900">
+                <h3 className="text-xl md:text-2xl font-bold text-slate-900">
                   {speaker.school}
                 </h3>
               </div>
