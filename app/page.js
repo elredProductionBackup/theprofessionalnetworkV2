@@ -2,14 +2,14 @@
 // import Tagline from "@/components/Tagline";
 // import Different from "@/components/Different";
 // import WhatWeAre from "@/components/WhatWeAre";
-import Firstprinciple from "@/components/Firstprinciple";
+// import Firstprinciple from "@/components/Firstprinciple";
 import Membership from "@/components/Membership";
 // import Footer from "@/components/Footer";
 // import SessionsCarousel from "@/components/SessionsCarousel";
-import SessionDetails from "@/components/SessionClips";
+// import SessionDetails from "@/components/SessionClips";
 import ProfessorClips from "@/components/ProfessorClips";
 import ProfessionalsHero from "@/components/Tagline";
-import Calendar from "@/components/Calendar";
+// import Calendar from "@/components/Calendar";
 import EventRegistration from "@/components/EventRegistration";
 
 export default function Home() {
