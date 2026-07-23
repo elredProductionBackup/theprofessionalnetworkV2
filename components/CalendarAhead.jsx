@@ -4,6 +4,7 @@ import { ImLinkedin } from 'react-icons/im';
 import Image from 'next/image';
 import { professors } from '../data/professors';
 import EventModal from './EventModal';
+import { slugify, getEventSlugFromUrl } from '../lib/eventShare';
 
 const stripHtml = (html = '') =>
   html
@@ -14,7 +15,7 @@ const stripHtml = (html = '') =>
 
 export default function CalendarAhead({ onViewDetails }) {
   const [active, setActive] = useState(0);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [eventModalOpen, setEventModalOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const timer = useRef(null);
   const touchStartX = useRef(null);
@@ -25,6 +26,18 @@ export default function CalendarAhead({ onViewDetails }) {
   const total = events.length;
 
   useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    const slug = getEventSlugFromUrl();
+    if (!slug) return;
+    const index = events.findIndex((p) => slugify(p.name) === slug);
+    if (index !== -1) {
+      stopAuto();
+      setActive(index);
+      setEventModalOpen(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const startAuto = () => {
     stopAuto();
@@ -72,6 +85,7 @@ export default function CalendarAhead({ onViewDetails }) {
     date: p.date,
     location: p.location,
     description: p.description,
+    shareSlug: slugify(p.name),
     keyTakeaways: [
       'Learn from industry experts',
       'Network with peers',
@@ -80,7 +94,7 @@ export default function CalendarAhead({ onViewDetails }) {
     modules: [],
     onRegister: () => {
       window.dispatchEvent(new Event('openApplyPopup'));
-      setSelectedEvent(null);
+      setEventModalOpen(false);
     },
   };
 
@@ -325,8 +339,8 @@ export default function CalendarAhead({ onViewDetails }) {
 
       {/* Event Modal */}
       <EventModal
-        event={selectedEvent}
-        onClose={() => setSelectedEvent(null)}
+        event={eventModalOpen ? eventData : null}
+        onClose={() => setEventModalOpen(false)}
       />
     </>
   );

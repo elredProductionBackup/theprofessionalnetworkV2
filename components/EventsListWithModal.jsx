@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EventModal from "./EventModal";
 import searchIcon from '../public/icons/search.svg'
 import targetIcon from '../public/icons/target.svg'
 import chartIcon from '../public/icons/chart.svg'
+import { slugify, getEventSlugFromUrl } from "../lib/eventShare";
 
 export default function EventsListWithModal({ events }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -75,6 +76,16 @@ export default function EventsListWithModal({ events }) {
   ];
 
   const eventsList = events || defaultEvents;
+
+  useEffect(() => {
+    const slug = getEventSlugFromUrl();
+    if (!slug) return;
+    const match = eventsList.find(
+      (e) => (e.shareSlug || slugify(e.professorName)) === slug
+    );
+    if (match) setSelectedEvent(match);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">

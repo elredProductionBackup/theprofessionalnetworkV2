@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { professors } from "../data/professors";
 import EventModal from "./EventModal";
+import { slugify, getEventSlugFromUrl } from "../lib/eventShare";
 
 /* Only professors NOT flagged clips-only appear in the sessions carousel.
    (entries with showInSessions: false are shown in ProfessorClips only) */
@@ -96,6 +97,19 @@ const SessionDetails = () => {
     startAuto(); // reset timer on manual nav
   };
 
+  /* open the modal for the session named in ?event= on first load (Forward deep links) */
+  useEffect(() => {
+    const slug = getEventSlugFromUrl();
+    if (!slug) return;
+    const index = sessions.findIndex((p) => slugify(p.name) === slug);
+    if (index !== -1) {
+      stopAuto();
+      setActive(index);
+      setEventModalOpen(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const goTo = (i) => {
     setActive(i);
     startAuto();
@@ -108,6 +122,7 @@ const SessionDetails = () => {
     professorImage: prof.image,
     date: prof.date,
     location: prof.location,
+    shareSlug: slugify(prof.name),
     keyTakeaways: [
       "Develop competencies to integrate data-driven and AI analysis with managerial judgment to make faster, smarter decisions under uncertainty",
       "Strengthen credibility as a leader who combines analytical rigor with intuitive judgment",

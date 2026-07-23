@@ -105,3 +105,12 @@ body {
 .signature {
   font-family: var(--font-brittany);
 }
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
