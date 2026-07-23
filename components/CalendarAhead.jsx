@@ -1,5 +1,6 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
+import { ImLinkedin } from 'react-icons/im';
 import Image from 'next/image';
 import { professors } from '../data/professors';
 import EventModal from './EventModal';
@@ -18,7 +19,9 @@ export default function CalendarAhead({ onViewDetails }) {
   const timer = useRef(null);
   const touchStartX = useRef(null);
 
-  const events = professors.filter((p) => p.showInClips !== false);
+  const events = professors.filter(
+    (p) => p.showInClips !== false && p.name !== 'Oded Netzer × Saurabh Goswamy'
+  );
   const total = events.length;
 
   useEffect(() => setMounted(true), []);
@@ -68,6 +71,7 @@ export default function CalendarAhead({ onViewDetails }) {
     professorImage: p.image,
     date: p.date,
     location: p.location,
+    description: p.description,
     keyTakeaways: [
       'Learn from industry experts',
       'Network with peers',
@@ -82,16 +86,13 @@ export default function CalendarAhead({ onViewDetails }) {
 
   return (
     <>
-      <section className="relative w-full py-12 md:py-20 bg-gradient-to-br from-red-50 to-white">
+      <section className="relative w-full py-12 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           {/* Header */}
           <div className="text-center mb-12 md:mb-16">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-yellow-200 flex items-center justify-center">
-                <span className="text-lg md:text-2xl">👨</span>
-              </div>
-              <h2 className="text-2xl md:text-4xl font-bold text-zinc-900 tracking-wide">
-                CALENDA HEAD
+              <h2 className="font-inter text-[25px] font-medium uppercase tracking-[5px] leading-none text-center text-zinc-900">
+                Calendar Ahead
               </h2>
             </div>
           </div>
@@ -105,99 +106,140 @@ export default function CalendarAhead({ onViewDetails }) {
             {/* Navigation Arrows */}
             <button
               onClick={() => go(-1)}
-              className="absolute left-0 top-1/2 z-10 -translate-y-1/2 -translate-x-6 md:-translate-x-12 w-10 h-10 rounded-full border-2 border-red-600 text-red-600 flex items-center justify-center hover:bg-red-600 hover:text-white transition-all"
+              className="absolute right-full top-1/2 z-10 mr-[35px] flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white"
               aria-label="Previous"
             >
-              ‹
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
             </button>
 
             <button
               onClick={() => go(1)}
-              className="absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-6 md:translate-x-12 w-10 h-10 rounded-full border-2 border-red-600 text-red-600 flex items-center justify-center hover:bg-red-600 hover:text-white transition-all"
+              className="absolute left-full top-1/2 z-10 ml-[35px] flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white"
               aria-label="Next"
             >
-              ›
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M9 6l6 6-6 6" />
+              </svg>
             </button>
 
             {/* Content */}
-            <div className="bg-white rounded-2xl p-6 md:p-12 shadow-lg">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div className="flex min-h-[520px] items-center rounded-2xl bg-[#FDF5F5] p-6 shadow-lg md:min-h-[420px] md:p-12">
+              <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-2 md:gap-12 items-center">
                 {/* Left: Professor Info */}
-                <div key={`prof-${active}`} className="flex flex-col items-center text-center md:text-left md:items-start">
-                  <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mb-6 flex-shrink-0 border-4 border-red-100">
-                    <img
-                      src={p.image}
-                      alt={p.name}
-                      className="w-full h-full object-cover"
-                    />
+                <div key={`prof-${active}`} className="flex flex-col items-center text-center md:items-start md:text-left">
+                  <div className="relative mb-8 h-32 w-32 flex-shrink-0 md:h-40 md:w-40">
+                    <div className="h-full w-full overflow-hidden rounded-full">
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+
+                    {/* Social Links */}
+                    <div className="absolute bottom-0 right-0 flex translate-x-1/4 translate-y-1/4 items-center gap-2">
+                      {p.linkedinLink && (
+                        <a
+                          href={p.linkedinLink}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="relative flex h-9 w-9 items-center justify-center rounded-md bg-[#0A66C2] text-white shadow-md"
+                        >
+                          <ImLinkedin size={18} />
+                          <span className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-white shadow ring-1 ring-black/5">
+                            <svg
+                              width="9"
+                              height="9"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.5"
+                              className="text-zinc-500"
+                            >
+                              <path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1" />
+                              <path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1" />
+                            </svg>
+                          </span>
+                        </a>
+                      )}
+                      {p.schoolLogo && (
+                        <a
+                          href={p.schoolLink}
+                          target={p.schoolLink ? '_blank' : undefined}
+                          rel={p.schoolLink ? 'noreferrer' : undefined}
+                          className="relative block h-9 w-9 overflow-hidden rounded-md shadow-md"
+                        >
+                          <Image
+                            src={p.schoolLogo}
+                            alt={p.school}
+                            fill
+                            sizes="36px"
+                            className="object-cover"
+                          />
+                          <span className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-white shadow ring-1 ring-black/5">
+                            <svg
+                              width="9"
+                              height="9"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.5"
+                              className="text-zinc-500"
+                            >
+                              <path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1" />
+                              <path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1" />
+                            </svg>
+                          </span>
+                        </a>
+                      )}
+                    </div>
                   </div>
 
-                  <h3 className="text-2xl md:text-3xl font-bold text-zinc-900 mb-2">
+                  <h3 className="font-inter align-middle text-[40px] font-medium leading-[110%] tracking-[-2px] text-zinc-900">
                     {p.name}
                   </h3>
 
-                  <div className="flex items-center gap-2 mb-6 justify-center md:justify-start">
+                  <div className="mt-2 mb-6 flex items-center justify-center gap-2 md:justify-start">
                     {p.schoolLogo && (
                       <Image
                         src={p.schoolLogo}
                         alt={p.school}
-                        width={24}
-                        height={24}
+                        width={20}
+                        height={20}
                         className="rounded"
                       />
                     )}
-                    <span className="text-sm text-zinc-600 font-medium">
+                    <span className="font-inter text-center align-middle text-[14px] font-normal leading-[140%] text-zinc-500">
                       {p.school}
                     </span>
                   </div>
 
-                  {/* Social Links */}
-                  <div className="flex gap-3 mb-6 justify-center md:justify-start">
-                    {p.linkedinLink && (
-                      <a
-                        href={p.linkedinLink}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="w-8 h-8 flex items-center justify-center"
-                      >
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="#0A66C2"
-                        >
-                          <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4z" />
-                        </svg>
-                      </a>
-                    )}
-                    {p.schoolLink && (
-                      <a
-                        href={p.schoolLink}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="w-8 h-8 flex items-center justify-center"
-                      >
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1" />
-                          <path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1" />
-                        </svg>
-                      </a>
-                    )}
-                  </div>
-
                   {/* Event Details */}
-                  <div className="w-full bg-red-50 rounded-lg p-4 md:p-5">
-                    <h4 className="text-xs font-bold text-red-600 uppercase tracking-wider mb-3">
+                  <div className="w-full">
+                    <h4 className="font-inter mb-3 inline-block text-center align-middle text-[12px] font-semibold uppercase leading-[140%] text-zinc-400">
                       Event Details
                     </h4>
-                    <div className="space-y-2 text-sm text-zinc-700">
+                    <div className="font-inter space-y-2.5 text-[16px] font-medium leading-[140%] align-middle text-zinc-700">
                       <div className="flex items-center gap-2">
                         <svg
                           width="16"
@@ -206,6 +248,7 @@ export default function CalendarAhead({ onViewDetails }) {
                           fill="none"
                           stroke="currentColor"
                           strokeWidth="2"
+                          className="flex-shrink-0 text-zinc-400"
                         >
                           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                           <circle cx="12" cy="10" r="3" />
@@ -220,6 +263,7 @@ export default function CalendarAhead({ onViewDetails }) {
                           fill="none"
                           stroke="currentColor"
                           strokeWidth="2"
+                          className="flex-shrink-0 text-zinc-400"
                         >
                           <rect x="3" y="4" width="18" height="18" rx="2" />
                           <line x1="16" y1="2" x2="16" y2="6" />
@@ -234,31 +278,24 @@ export default function CalendarAhead({ onViewDetails }) {
 
                 {/* Right: Event Details */}
                 <div key={`content-${active}`} className="flex flex-col justify-center">
-                  <h3 className="text-2xl md:text-3xl font-bold text-zinc-900 mb-4">
+                  <h3 className="font-inter mb-5 text-[30px] font-black leading-[140%] text-zinc-900">
                     {p.topic.split(' ').slice(0, -2).join(' ')}
-                    <span className="text-red-600">
+                    <span className="text-[#C01823]">
                       {' '}
                       {p.topic.split(' ').slice(-2).join(' ')}
                     </span>
                   </h3>
 
-                  <p className="text-sm md:text-base text-zinc-600 leading-relaxed mb-6 line-clamp-3">
+                  <p className="font-inter mb-8 text-[14px] font-normal leading-[150%] text-zinc-500 line-clamp-3">
                     {blurb}
                   </p>
 
                   <div className="space-y-4">
                     <button
-                      onClick={() => setSelectedEvent(eventData)}
-                      className="text-red-600 font-semibold text-sm md:text-base hover:text-red-700 underline underline-offset-4 transition-colors text-left"
-                    >
-                      View Details
-                    </button>
-
-                    <button
                       onClick={() => {
                         window.dispatchEvent(new Event('openApplyPopup'));
                       }}
-                      className="block w-full md:w-auto px-8 py-3 border-2 border-red-600 text-red-600 font-bold rounded-full text-center hover:bg-red-600 hover:text-white transition-colors"
+                      className="flex h-[48px] w-[160px] items-center justify-center rounded-full font-inter border-2 border-[#C01823] text-center font-medium text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white text-[20px]"
                     >
                       Register
                     </button>
@@ -276,7 +313,7 @@ export default function CalendarAhead({ onViewDetails }) {
                 onClick={() => goTo(i)}
                 className={`transition-all duration-300 rounded-full ${
                   i === active
-                    ? 'w-8 h-2 bg-red-600'
+                    ? 'w-8 h-2 bg-[#C01823]'
                     : 'w-2 h-2 bg-zinc-400 hover:bg-zinc-500'
                 }`}
                 aria-label={`Go to slide ${i + 1}`}

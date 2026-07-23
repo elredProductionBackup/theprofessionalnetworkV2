@@ -104,6 +104,23 @@ const EventModal = ({ event, onClose }) => {
             </div>
           </div>
 
+          {/* About This Session */}
+          {event.description?.trim() && (
+            <div className="mb-8">
+              <h3 className="text-xs md:text-base font-bold text-[#C01823] tracking-normal mb-4">
+                About This Session
+              </h3>
+              <div
+                className="prose prose-sm max-w-none text-sm md:text-base text-zinc-600 leading-relaxed
+                  [&_p]:mb-3
+                  [&_ul]:list-disc [&_ul]:pl-5
+                  [&_ol]:list-decimal [&_ol]:pl-5
+                  [&_li]:mb-1"
+                dangerouslySetInnerHTML={{ __html: event.description }}
+              />
+            </div>
+          )}
+
           {/* Calendar Integration */}
           <div className="mb-8">
             <h3 className="text-xs md:text-base font-bold text-[#C01823]  tracking-normal mb-4">
