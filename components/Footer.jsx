@@ -246,7 +246,7 @@ const Footer = () => {
   {/* Second child = 1 block */}
 <div className="flex flex-col w-full border-[#E6E6E6]">
   <SocialLink text="X" href="https://x.com/TheProfNetwork"/>
-  <SocialLink text="Linkedin" href="https://www.linkedin.com/company/the-professionals-network-2000"/>
+  <SocialLink text="Linkedin" href="https://www.linkedin.com/company/the-professionals-network-2000/?viewAsMember=true"/>
   <SocialLink text="Instagram" href="https://www.instagram.com/theprofessionals.network/"/>
 
   <SocialLink
