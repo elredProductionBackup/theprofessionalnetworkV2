@@ -9,7 +9,7 @@ const PLANS = {
     {
       icon: TabletSmartphone,
       title: "Virtual",
-      desc: "Per event access for world class learnings",
+      desc: "Access for world class learnings",
       priceLabel: "Per event",
       price: "INR 10 k",
       note: "including all taxes",

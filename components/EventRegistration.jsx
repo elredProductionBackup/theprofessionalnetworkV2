@@ -508,7 +508,7 @@ export default function EventRegistration() {
                           <ScrollText className="h-3.5 w-3.5" />
                         </span>
                         <span className="text-[13px] leading-snug text-slate-600">
-                          <span className="font-semibold text-slate-800">Digital + Printed certificate</span>
+                          <span className="font-semibold text-slate-800">Digital certificate</span>
                           <br />
                           Downloadable &amp; sharable on LinkedIn
                         </span>
