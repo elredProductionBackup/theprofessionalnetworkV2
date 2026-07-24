@@ -33,10 +33,11 @@ export const metadata = {
     siteName: "Professional Network",
     images: [
       {
-        url: "https://theprofessionalnetwork.vercel.app/assets/tpn-og.webp",
+        url: "https://res.cloudinary.com/dtrv7p3gg/image/upload/v1784877679/tpn-og_tzzoym.webp",
         width: 1200,
         height: 630,
         alt: "Professionals Network",
+        type: "image/webp",
       },
     ],
     type: "website",
@@ -45,7 +46,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "The Professionals Network",
     description: "A network of ambitious professionals",
-    images: ["https://theprofessionalnetwork.vercel.app/assets/tpn-og.webp"],
+    images: ["https://res.cloudinary.com/dtrv7p3gg/image/upload/v1784877679/tpn-og_tzzoym.webp"],
   },
 };
 

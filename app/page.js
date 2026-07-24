@@ -26,7 +26,15 @@ export async function generateMetadata({ searchParams }) {
       description,
       url: "https://theprofessionalnetwork.vercel.app",
       siteName: "Professional Network",
-      images: [{ url: ogImage, width: 1200, height: 630, alt: "Professionals Network" }],
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: "Professionals Network",
+          type: "image/webp",
+        },
+      ],
       type: "website",
     },
     twitter: {
