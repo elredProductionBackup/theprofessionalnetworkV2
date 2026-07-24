@@ -105,14 +105,15 @@ const pricingPlans = {
       {
         icon: MonitorSmartphone,
         title: "VIRTUAL",
-        desc: "Access for world class learnings*",
+        desc: "Access for world class learnings",
         price: "5 k",
         note: "including all taxes",
+        secure: true,
       },
       {
         icon: Users,
         title: "IN PERSON",
-        desc: "⁠Immerse yourself in live, face-to-face learning.",
+        desc: "Immerse yourself in live, face-to-face learning.",
         price: "25 k",
         note: "including all taxes",
       },
@@ -124,14 +125,15 @@ const pricingPlans = {
       {
         icon: MonitorSmartphone,
         title: "VIRTUAL",
-        desc: "Access for world class learnings*",
+        desc: "Access for world class learnings",
         price: "10 k",
         note: "+ GST",
+        secure: true,
       },
       {
         icon: Users,
         title: "IN PERSON",
-        desc: "Experience live and face-to-face learning",
+        desc: "Immerse yourself in live, face-to-face learning.",
         price: "1 lac",
         note: "+ GST",
       },
@@ -139,6 +141,25 @@ const pricingPlans = {
     footnote: "Access to 5 members",
   },
 };
+
+/* --- value highlights shown on the left of the pricing block --- */
+const highlights = [
+  {
+    icon: Award,
+    title: "World-class faculty",
+    desc: `Led by ${speaker.title}, ${speaker.school}`,
+  },
+  {
+    icon: Target,
+    title: "Practical, tool-based learning",
+    desc: "Frameworks and rapid-response tools you can apply right away",
+  },
+  {
+    icon: CalendarDays,
+    title: "Full-day immersive session",
+    desc: `${speaker.date} · Taj Lands End, Mumbai`,
+  },
+];
 
 const LinkedInIcon = () => (
   <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
@@ -431,40 +452,32 @@ export default function EventRegistration() {
 
         {/* ---------- Bottom: pricing ---------- */}
         <div className="mt-10 rounded-3xl border border-rose-200 bg-rose-50/70 p-6 md:mt-14 md:p-10">
-          {/* Header row: badge only */}
-          <div className="flex items-center justify-between gap-4">
-            <span className="font-inter-display inline-block rounded-md px-3 py-1 text-xs font-bold uppercase tracking-wider text-white" style={{ backgroundColor: RED }}>
-              Preview Price
-            </span>
-          </div>
-
-          <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:gap-12">
-            {/* Left: copy */}
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+            {/* Left: copy + highlights */}
             <div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl border-2" style={{ borderColor: RED, color: RED }}>
-                <Award className="h-6 w-6" />
-              </div>
-              <h2 className="font-inter-display mt-5 text-3xl font-bold leading-tight text-slate-900 md:text-4xl">
+              <h2 className="font-inter-display text-3xl font-bold leading-tight text-slate-900 md:text-4xl">
                 Preview price for <span style={{ color: RED }}>the first event</span>
               </h2>
-              <p className="font-inter-display mt-3 max-w-sm text-sm text-slate-600">
-                Experience the quality of our workshops before you commit to the full membership
+              <p className="font-inter-display mt-4 max-w-md text-base leading-relaxed text-slate-600">
+                Experience the quality of our workshops before you commit to the full membership.
               </p>
 
-              <div className="mt-8 flex items-center gap-2">
-                <span className="font-inter-display text-base font-bold text-slate-900">Digital certificate</span>
-                <ScrollText className="h-5 w-5" style={{ color: RED }} />
-              </div>
-              <p className="font-inter-display mt-1 text-sm text-slate-500">
-                Downloadable and Sharable on Linkedin + Hard copy
-              </p>
-
-              <div className="mt-6 flex max-w-md items-center gap-3 rounded-xl bg-amber-50 px-4 py-3 text-sm font-inter-display text-[#333333] font-[500]">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
-                  <Lock className="h-3.5 w-3.5" />
-                </span>
-                *Secure Zoom/MS Team link will be shared upon registration.
-              </div>
+              <ul className="mt-8 space-y-4">
+                {highlights.map(({ icon: Icon, title, desc }) => (
+                  <li key={title} className="flex items-start gap-3.5">
+                    <span
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-rose-100"
+                      style={{ color: RED }}
+                    >
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <div>
+                      <p className="font-inter-display text-[15px] font-semibold text-slate-900">{title}</p>
+                      <p className="mt-0.5 text-sm leading-snug text-slate-500">{desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
 
             {/* Right: tier cards */}
@@ -475,27 +488,60 @@ export default function EventRegistration() {
               </div>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
-                {activePlan.tiers.map(({ icon: Icon, title, desc, price, note }) => (
+                {activePlan.tiers.map(({ icon: Icon, title, desc, price, note, secure }) => (
                   <div key={title} className="flex flex-col rounded-2xl bg-white p-5 shadow-sm md:p-6">
+                    {/* Header */}
                     <div className="flex items-start justify-between gap-3">
                       <h4 className="text-lg font-bold tracking-wide text-slate-900">{title}</h4>
                       <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
                         <Icon className="h-4 w-4" />
                       </span>
                     </div>
+
                     <p className="mt-3 text-sm leading-relaxed text-slate-500">{desc}</p>
-                    <p className="mt-5 text-2xl font-bold" style={{ color: RED }}>
-                      INR {price}
-                    </p>
-                    <p className="mt-0.5 text-xs text-slate-500">{note}</p>
-                    <button
-                      type="button"
-                      onClick={openApply}
-                      className="mt-5 self-start rounded-full border-2 px-8 py-2.5 text-sm font-semibold transition hover:bg-rose-50"
-                      style={{ borderColor: RED, color: RED }}
-                    >
-                      Register
-                    </button>
+
+                    {/* Perks */}
+                    <div className="mt-4 space-y-2.5 border-t border-slate-100 pt-4">
+                      {/* Certificate — shown in every card */}
+                      <div className="flex items-start gap-2.5">
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
+                          <ScrollText className="h-3.5 w-3.5" />
+                        </span>
+                        <span className="text-[13px] leading-snug text-slate-600">
+                          <span className="font-semibold text-slate-800">Digital + Printed certificate</span>
+                          <br />
+                          Downloadable &amp; sharable on LinkedIn
+                        </span>
+                      </div>
+
+                      {/* Secure link — virtual card only */}
+                      {secure && (
+                        <div className="flex items-start gap-2.5 rounded-lg bg-amber-50 px-3 py-2">
+                          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
+                            <Lock className="h-3.5 w-3.5" />
+                          </span>
+                          <span className="text-[12px] leading-snug text-slate-600">
+                            Secure Zoom / MS Teams link shared upon registration
+                          </span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Price + CTA — pinned to the bottom so cards stay aligned */}
+                    <div className="mt-auto pt-5">
+                      <p className="text-2xl font-bold" style={{ color: RED }}>
+                        INR {price}
+                      </p>
+                      <p className="mt-0.5 text-xs text-slate-500">{note}</p>
+                      <button
+                        type="button"
+                        onClick={openApply}
+                        className="mt-5 w-full rounded-full border-2 px-8 py-2.5 text-sm font-semibold transition hover:bg-rose-50"
+                        style={{ borderColor: RED, color: RED }}
+                      >
+                        Register
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
