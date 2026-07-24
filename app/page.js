@@ -28,6 +28,7 @@ export default function Home() {
       {/* <SessionsCarousel/> */}
       {/* <Firstprinciple /> */}
       <Membership />
+      <div>New</div>
     </main>
   );
 }
