@@ -14,6 +14,7 @@ import ProfessionalsHero from "@/components/Tagline";
 import EventRegistration from "@/components/EventRegistration";
 
 export default function Home() {
+  console.log('Development')
   return (
     <main className="min-h-screen">
       <ProfessionalsHero />
