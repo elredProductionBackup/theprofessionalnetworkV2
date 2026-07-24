@@ -5,6 +5,7 @@
 // import WhatWeAre from "@/components/WhatWeAre";
 // import Firstprinciple from "@/components/Firstprinciple";
 import Membership from "@/components/Membership";
+import CalendarAhead from "@/components/CalendarAhead";
 // import Footer from "@/components/Footer";
 // import SessionsCarousel from "@/components/SessionsCarousel";
 // import SessionDetails from "@/components/SessionClips";
@@ -21,6 +22,7 @@ export default function Home() {
       <EventRegistration/>
       {/* <SessionDetails/> */}
       <ProfessorClips/>
+      <CalendarAhead />
       {/* <Calendar /> */}
       {/* <Hero /> */}
       {/* <Different /> */}

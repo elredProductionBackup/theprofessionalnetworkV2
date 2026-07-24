@@ -113,7 +113,7 @@
 
 export const professors = [
   {
-    name: "Oded Netzer",
+    name: "Prof. Oded Netzer",
     date: "2nd August, Sunday",
     topic: "Leadership Intelligence in an AI Era: Developing Quantitative Intuition",
     school: "Columbia Business School",
