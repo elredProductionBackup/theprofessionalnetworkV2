@@ -91,7 +91,7 @@ const PLANS = {
     {
       icon: Users,
       title: "In Person",
-      desc: "Experience live and face-to-face learning",
+      desc: "⁠Immerse yourself in live, face-to-face learning",
       priceLabel: "Per event",
       price: "INR 50 k",
       note: "including all taxes",
@@ -110,7 +110,7 @@ const PLANS = {
     {
       icon: Users,
       title: "In Person",
-      desc: "Experience live and face-to-face learning for upto 5 users",
+      desc: "⁠Immerse yourself in live, face-to-face learning for upto 5 users",
       priceLabel: "Per event",
       price: "INR 2 lacs",
       note: "+ GST",

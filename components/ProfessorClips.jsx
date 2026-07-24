@@ -91,7 +91,7 @@ const ProfessorClips = () => {
 
           {/* Main Heading */}
           <h2 className="font-inter-display font-semibold text-[25px] lg:text-[72px] md:text-[60px] leading-[110%] md:leading-[100%] tracking-[-1.5px] md:tracking-[-2.6px] text-[#333333] max-w-[1100px] mx-auto mb-[40px] md:mb-[50px]">
-            The best minds in the world, in their own words.
+            ⁠The world’s greatest minds, in their own words.
           </h2>
         </div>
 
