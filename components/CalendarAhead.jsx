@@ -266,7 +266,7 @@ export default function CalendarAhead({ onViewDetails }) {
                     </div>
                   </div>
 
-                  <h3 className="font-inter align-middle text-[22px] font-medium leading-[110%] tracking-[-1px] text-zinc-900 md:text-[40px] md:tracking-[-2px]">
+                  <h3 className="font-inter line-clamp-2 min-h-[3.25rem] align-middle text-[22px] font-medium leading-[110%] tracking-[-1px] text-zinc-900 md:min-h-0 md:text-[40px] md:tracking-[-2px]">
                     {p.name}
                   </h3>
 
@@ -332,7 +332,7 @@ export default function CalendarAhead({ onViewDetails }) {
                   key={`content-${active}`}
                   className="flex flex-col justify-center px-2 pt-4 pb-2 md:p-0"
                 >
-                  <h3 className="font-inter mb-3 text-[20px] font-black leading-[140%] text-zinc-900 md:mb-5 md:text-[30px]">
+                  <h3 className="font-inter line-clamp-3 min-h-[5.25rem] mb-3 text-[20px] font-black leading-[140%] text-zinc-900 md:min-h-0 md:mb-5 md:text-[30px]">
                     {p.topic.trim().split(' ').slice(0, -(p.highlightWords || 2)).join(' ')}
                     <span className="text-[#C01823]">
                       {' '}
@@ -340,7 +340,7 @@ export default function CalendarAhead({ onViewDetails }) {
                     </span>
                   </h3>
 
-                  <p className="font-inter mb-5 text-[14px] font-normal leading-[150%] tracking-[0px] text-[#231F20] line-clamp-3 md:mb-8">
+                  <p className="font-inter mb-5 min-h-[4rem] text-[14px] font-normal leading-[150%] tracking-[0px] text-[#231F20] line-clamp-3 md:mb-8">
                     {blurb}
                   </p>
 
