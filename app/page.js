@@ -12,8 +12,8 @@ export async function generateMetadata({ searchParams }) {
   const isOpen = params?.details === "open";
 
   const ogImage = isOpen
-    ? "https://theprofessionalnetwork.vercel.app/assets/tpn-og-details.webp"
-    : "https://theprofessionalnetwork.vercel.app/assets/tpn-og.webp";
+    ? "https://res.cloudinary.com/dtrv7p3gg/image/upload/v1784875852/Frame_2147231362_1_stgrwj.webp"
+    : "https://res.cloudinary.com/dtrv7p3gg/image/upload/v1784877679/tpn-og_tzzoym.webp";
 
   const title = "The Professionals Network";
   const description = "A network of ambitious professionals";
