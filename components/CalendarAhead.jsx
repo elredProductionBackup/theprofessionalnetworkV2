@@ -46,7 +46,7 @@ export default function CalendarAhead({ onViewDetails }) {
     stopAuto();
     timer.current = setInterval(() => {
       setActive((a) => (a + 1) % total);
-    }, 7000);
+    }, 10000);
   };
 
   const stopAuto = () => timer.current && clearInterval(timer.current);
@@ -108,7 +108,7 @@ export default function CalendarAhead({ onViewDetails }) {
           {/* Header */}
           <div className="text-center mb-12 md:mb-16">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <h2 className="font-inter text-[25px] font-medium uppercase tracking-[5px] leading-none text-center text-zinc-900">
+              <h2 className="font-inter text-[18px] md:text-[25px] font-medium uppercase tracking-[5px] leading-none text-center text-zinc-900">
                 Calendar Ahead
               </h2>
             </div>
@@ -123,7 +123,7 @@ export default function CalendarAhead({ onViewDetails }) {
             {/* Navigation Arrows */}
             <button
               onClick={() => go(-1)}
-              className="absolute right-full top-1/2 z-10 mr-[35px] flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white"
+              className="absolute right-full top-1/2 z-10 mr-[35px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white md:flex"
               aria-label="Previous"
             >
               <svg
@@ -142,7 +142,7 @@ export default function CalendarAhead({ onViewDetails }) {
 
             <button
               onClick={() => go(1)}
-              className="absolute left-full top-1/2 z-10 ml-[35px] flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white"
+              className="absolute left-full top-1/2 z-10 ml-[35px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white md:flex"
               aria-label="Next"
             >
               <svg
@@ -160,11 +160,14 @@ export default function CalendarAhead({ onViewDetails }) {
             </button>
 
             {/* Content */}
-            <div className="flex min-h-[520px] items-center rounded-2xl bg-[#FDF5F5] p-6 shadow-lg md:min-h-[420px] md:p-12">
-              <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-2 md:gap-12 items-center">
+            <div className="overflow-hidden rounded-2xl bg-[#FDF5F5] p-4 shadow-lg md:flex md:min-h-[420px] md:items-center md:p-12">
+              <div className="grid w-full grid-cols-1 md:grid-cols-2 md:gap-12 items-center">
                 {/* Left: Professor Info */}
-                <div key={`prof-${active}`} className="flex flex-col items-center text-center md:items-start md:text-left">
-                  <div className="relative mb-8 h-32 w-32 flex-shrink-0 md:h-40 md:w-40">
+                <div
+                  key={`prof-${active}`}
+                  className="flex flex-col items-center px-2 pt-4 pb-3 text-center md:items-start md:p-0 md:text-left"
+                >
+                  <div className="relative mb-5 h-20 w-20 flex-shrink-0 md:mb-8 md:h-40 md:w-40">
                     <div className="h-full w-full overflow-hidden rounded-full">
                       <img
                         src={p.image}
@@ -174,16 +177,29 @@ export default function CalendarAhead({ onViewDetails }) {
                     </div>
 
                     {/* Social Links */}
-                    <div className="absolute bottom-0 right-0 flex translate-x-1/4 translate-y-1/4 items-center gap-2">
+                    <div className="absolute bottom-0 right-0 flex translate-x-1/4 translate-y-1/4 items-center gap-1 md:gap-2">
                       {p.linkedinLink && (
                         <a
                           href={p.linkedinLink}
                           target="_blank"
                           rel="noreferrer"
-                          className="relative flex h-9 w-9 items-center justify-center rounded-md bg-[#0A66C2] text-white shadow-md"
+                          className="relative flex h-6 w-6 items-center justify-center rounded-md bg-[#0A66C2] text-white shadow-md md:h-9 md:w-9"
                         >
-                          <ImLinkedin size={18} />
-                          <span className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-white shadow ring-1 ring-black/5">
+                          <ImLinkedin size={12} className="md:hidden" />
+                          <ImLinkedin size={18} className="hidden md:block" />
+                          <span className="absolute -bottom-1 -right-1 flex h-3 w-3 items-center justify-center rounded-full bg-white shadow ring-1 ring-black/5 md:h-4 md:w-4">
+                            <svg
+                              width="7"
+                              height="7"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.5"
+                              className="text-zinc-500 md:hidden"
+                            >
+                              <path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1" />
+                              <path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1" />
+                            </svg>
                             <svg
                               width="9"
                               height="9"
@@ -191,7 +207,7 @@ export default function CalendarAhead({ onViewDetails }) {
                               fill="none"
                               stroke="currentColor"
                               strokeWidth="2.5"
-                              className="text-zinc-500"
+                              className="hidden text-zinc-500 md:block"
                             >
                               <path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1" />
                               <path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1" />
@@ -204,16 +220,28 @@ export default function CalendarAhead({ onViewDetails }) {
                           href={p.schoolLink}
                           target={p.schoolLink ? '_blank' : undefined}
                           rel={p.schoolLink ? 'noreferrer' : undefined}
-                          className="relative block h-9 w-9 overflow-hidden rounded-md shadow-md"
+                          className="relative block h-6 w-6 overflow-hidden rounded-md shadow-md md:h-9 md:w-9"
                         >
                           <Image
                             src={p.schoolLogo}
                             alt={p.school}
                             fill
-                            sizes="36px"
+                            sizes="(min-width: 768px) 36px, 24px"
                             className="object-cover"
                           />
-                          <span className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-white shadow ring-1 ring-black/5">
+                          <span className="absolute -bottom-1 -right-1 flex h-3 w-3 items-center justify-center rounded-full bg-white shadow ring-1 ring-black/5 md:h-4 md:w-4">
+                            <svg
+                              width="7"
+                              height="7"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.5"
+                              className="text-zinc-500 md:hidden"
+                            >
+                              <path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1" />
+                              <path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1" />
+                            </svg>
                             <svg
                               width="9"
                               height="9"
@@ -221,7 +249,7 @@ export default function CalendarAhead({ onViewDetails }) {
                               fill="none"
                               stroke="currentColor"
                               strokeWidth="2.5"
-                              className="text-zinc-500"
+                              className="hidden text-zinc-500 md:block"
                             >
                               <path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1" />
                               <path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1" />
@@ -232,40 +260,40 @@ export default function CalendarAhead({ onViewDetails }) {
                     </div>
                   </div>
 
-                  <h3 className="font-inter align-middle text-[40px] font-medium leading-[110%] tracking-[-2px] text-zinc-900">
+                  <h3 className="font-inter align-middle text-[22px] font-medium leading-[110%] tracking-[-1px] text-zinc-900 md:text-[40px] md:tracking-[-2px]">
                     {p.name}
                   </h3>
 
-                  <div className="mt-2 mb-6 flex items-center justify-center gap-2 md:justify-start">
+                  <div className="mt-2 mb-4 flex items-center justify-center gap-2 md:mb-6 md:justify-start">
                     {p.schoolLogo && (
                       <Image
                         src={p.schoolLogo}
                         alt={p.school}
-                        width={20}
-                        height={20}
-                        className="rounded"
+                        width={16}
+                        height={16}
+                        className="rounded md:h-5 md:w-5"
                       />
                     )}
-                    <span className="font-inter text-center align-middle text-[14px] font-normal leading-[140%] text-zinc-500">
+                    <span className="font-inter text-center align-middle text-[12px] font-normal leading-[140%] text-zinc-500 md:text-[14px]">
                       {p.school}
                     </span>
                   </div>
 
                   {/* Event Details */}
                   <div className="w-full">
-                    <h4 className="font-inter mb-3 inline-block text-center align-middle text-[12px] font-semibold uppercase leading-[140%] text-zinc-400">
+                    <h4 className="font-inter mb-2 inline-block text-center align-middle text-[10px] font-semibold uppercase leading-[140%] text-zinc-400 md:mb-3 md:text-[12px]">
                       Event Details
                     </h4>
-                    <div className="font-inter space-y-2.5 text-[16px] font-medium leading-[140%] align-middle text-zinc-700">
+                    <div className="font-inter space-y-1.5 text-[13px] font-medium leading-[140%] align-middle text-zinc-700 md:space-y-2.5 md:text-[16px]">
                       <div className="flex items-center gap-2">
                         <svg
-                          width="16"
-                          height="16"
+                          width="14"
+                          height="14"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
                           strokeWidth="2"
-                          className="flex-shrink-0 text-zinc-400"
+                          className="flex-shrink-0 text-zinc-400 md:h-4 md:w-4"
                         >
                           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                           <circle cx="12" cy="10" r="3" />
@@ -274,13 +302,13 @@ export default function CalendarAhead({ onViewDetails }) {
                       </div>
                       <div className="flex items-center gap-2">
                         <svg
-                          width="16"
-                          height="16"
+                          width="14"
+                          height="14"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
                           strokeWidth="2"
-                          className="flex-shrink-0 text-zinc-400"
+                          className="flex-shrink-0 text-zinc-400 md:h-4 md:w-4"
                         >
                           <rect x="3" y="4" width="18" height="18" rx="2" />
                           <line x1="16" y1="2" x2="16" y2="6" />
@@ -294,8 +322,11 @@ export default function CalendarAhead({ onViewDetails }) {
                 </div>
 
                 {/* Right: Event Details */}
-                <div key={`content-${active}`} className="flex flex-col justify-center">
-                  <h3 className="font-inter mb-5 text-[30px] font-black leading-[140%] text-zinc-900">
+                <div
+                  key={`content-${active}`}
+                  className="flex flex-col justify-center px-2 pt-4 pb-2 md:p-0"
+                >
+                  <h3 className="font-inter mb-3 text-[20px] font-black leading-[140%] text-zinc-900 md:mb-5 md:text-[30px]">
                     {p.topic.split(' ').slice(0, -2).join(' ')}
                     <span className="text-[#C01823]">
                       {' '}
@@ -303,16 +334,16 @@ export default function CalendarAhead({ onViewDetails }) {
                     </span>
                   </h3>
 
-                  <p className="font-inter mb-8 text-[14px] font-normal leading-[150%] text-zinc-500 line-clamp-3">
+                  <p className="font-inter mb-5 text-[13px] font-normal leading-[150%] text-zinc-500 line-clamp-3 md:mb-8 md:text-[14px]">
                     {blurb}
                   </p>
 
-                  <div className="space-y-4">
+                  <div className="space-y-4 flex items-center justify-center md:justify-start">
                     <button
                       onClick={() => {
                         window.dispatchEvent(new Event('openApplyPopup'));
                       }}
-                      className="flex h-[48px] w-[160px] items-center justify-center rounded-full font-inter border-2 border-[#C01823] text-center font-medium text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white text-[20px]"
+                      className="flex h-9 w-[120px] items-center justify-center rounded-full font-inter border-2 border-[#C01823] text-center font-medium text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white text-[15px] md:h-[48px] md:w-[160px] md:text-[20px]"
                     >
                       Register
                     </button>
