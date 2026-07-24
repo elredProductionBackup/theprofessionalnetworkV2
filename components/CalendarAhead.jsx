@@ -333,10 +333,10 @@ export default function CalendarAhead({ onViewDetails }) {
                   className="flex flex-col justify-center px-2 pt-4 pb-2 md:p-0"
                 >
                   <h3 className="font-inter mb-3 text-[20px] font-black leading-[140%] text-zinc-900 md:mb-5 md:text-[30px]">
-                    {p.topic.split(' ').slice(0, -2).join(' ')}
+                    {p.topic.trim().split(' ').slice(0, -(p.highlightWords || 2)).join(' ')}
                     <span className="text-[#C01823]">
                       {' '}
-                      {p.topic.split(' ').slice(-2).join(' ')}
+                      {p.topic.trim().split(' ').slice(-(p.highlightWords || 2)).join(' ')}
                     </span>
                   </h3>
 
