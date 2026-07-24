@@ -624,7 +624,7 @@ const ApplyPopupContent = () => {
                 <div className="mb-12 mt-4 text-center flex flex-col items-center gap-4">
                   {referralImage && <img src={referralImage} alt="Referral Logo" className="h-14 object-contain" />}
                   <h2 className="font-inter-display text-[30px] md:text-[40px] font-medium text-white leading-[110%] tracking-[-1px] md:tracking-[-2px]">
-                    Apply
+                    Register
                   </h2>
                 </div>
 
