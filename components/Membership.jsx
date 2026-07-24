@@ -73,26 +73,59 @@
 
 
 'use client'
-import { Users, Smartphone, ShieldCheck, Award } from "lucide-react";
+import { useState } from "react";
+import { Users, TabletSmartphone } from "lucide-react";
 
 const RED = "#C4122E";
 
-const tiers = [
-  {
-    icon: Users,
-    title: "In Person",
-    price: "25000",
-    desc: "Experience live interaction and face-to-face learning.",
-  },
-  {
-    icon: Smartphone,
-    title: "Virtual",
-    price: "15000",
-    desc: "Join from anywhere and learn from the best.",
-  },
+const PLANS = {
+  single: [
+    {
+      icon: TabletSmartphone,
+      title: "Virtual",
+      desc: "Per event access for world class learnings",
+      priceLabel: "Per event",
+      price: "INR 10 k",
+      note: "including all taxes",
+    },
+    {
+      icon: Users,
+      title: "In Person",
+      desc: "Experience live and face-to-face learning",
+      priceLabel: "Per event",
+      price: "INR 50 k",
+      note: "including all taxes",
+    },
+  ],
+  enterprise: [
+    {
+      icon: TabletSmartphone,
+      title: "Virtual",
+      descStrong: "Yearly",
+      desc: " access for all 6 workshops for upto 5 users",
+      priceLabel: "Yearly",
+      price: "INR 1 lac",
+      note: "+ GST",
+    },
+    {
+      icon: Users,
+      title: "In Person",
+      desc: "Experience live and face-to-face learning for upto 5 users",
+      priceLabel: "Per event",
+      price: "INR 2 lacs",
+      note: "+ GST",
+      // link: "Tap here for full year plans",
+    },
+  ],
+};
+
+const TABS = [
+  { key: "single", label: "Single User" },
+  { key: "enterprise", label: "Enterprise" },
 ];
 
 export default function Membership() {
+  const [tab, setTab] = useState("single");
   const openApply = () => window.dispatchEvent(new Event("openApplyPopup"));
 
   return (
@@ -111,90 +144,81 @@ export default function Membership() {
           A network of those professionals,<br className="hidden md:block" /> restless & eager to learn
         </h2>
 
-        {/* Price */}
-        <h3 className="font-inter-display font-medium text-[28px] lg:text-[50px] md:text-[40px] leading-[100%] tracking-[-1px] md:tracking-[-2.6px] text-[#333333] mb-[30px] md:mb-[45px]">
-          INR 2 lakhs + tax
-        </h3>
-
-        {/* ---------- Preview price card ---------- */}
-        <div className="relative w-full max-w-[900px] overflow-hidden rounded-2xl md:rounded-3xl border border-rose-200 bg-rose-50/70 p-5 sm:p-6 md:p-8 text-left">
-          {/* dotted background */}
-          <div
-            className="pointer-events-none absolute inset-0 opacity-40"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle, rgba(196,18,46,0.20) 1px, transparent 1px)",
-              backgroundSize: "20px 20px",
-            }}
-          />
-          <div className="relative grid gap-6 md:grid-cols-2 md:gap-8">
-            {/* Left CTA */}
-            <div>
-              <span
-                className="inline-block rounded-md px-2.5 py-1 text-[10px] md:text-xs font-bold uppercase tracking-wider text-white"
-                style={{ backgroundColor: RED }}
+        {/* ---------- Tabs (centered) ---------- */}
+        <div className="inline-flex items-center gap-1 rounded-full bg-gray-100 p-1 mb-[30px] md:mb-[45px]">
+          {TABS.map((t) => {
+            const active = tab === t.key;
+            return (
+              <button
+                key={t.key}
+                onClick={() => setTab(t.key)}
+                className={`rounded-full px-6 md:px-10 py-2 md:py-2.5 text-[14px] md:text-lg font-medium transition-colors ${
+                  active
+                    ? "bg-[#C4122E] text-white shadow-sm"
+                    : "text-slate-500 hover:text-slate-700"
+                }`}
               >
-                Preview Price
-              </span>
+                {t.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* ---------- Pricing cards ---------- */}
+        <div className="grid w-full max-w-[720px] gap-5 sm:grid-cols-2 mx-auto">
+          {PLANS[tab].map(
+            ({ icon: Icon, title, desc, descStrong, priceLabel, price, note, link }) => (
               <div
-                className="mt-4 md:mt-5 flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl border-2"
-                style={{ borderColor: RED, color: RED }}
+                key={title}
+                className="flex flex-col rounded-2xl border border-gray-200 bg-white p-6 md:p-7 text-left"
               >
-                <Award className="h-5 w-5 md:h-6 md:w-6" />
-              </div>
-              <h4 className="mt-4 font-inter-display text-[20px] md:text-[26px] font-bold leading-tight text-slate-900">
-                Preview price for{" "}
-                <span style={{ color: RED }}>the first event</span>
-              </h4>
-              <p className="mt-2 max-w-sm text-[13px] md:text-sm text-slate-600">
-                Experience the quality of our workshops before you commit to the
-                full membership
-              </p>
-            </div>
-
-            {/* Right pricing tiers */}
-            <div className="space-y-3 md:space-y-4">
-              {tiers.map(({ icon: Icon, title, price, desc }) => (
-                <div
-                  key={title}
-                  className="rounded-xl md:rounded-2xl bg-white p-4 md:p-5 shadow-sm"
-                >
-                  <div className="flex items-start gap-3 md:gap-4">
-                    <div
-                      className="flex h-9 w-9 md:h-11 md:w-11 shrink-0 items-center justify-center rounded-full bg-rose-100"
-                      style={{ color: RED }}
-                    >
-                      <Icon className="h-4 w-4 md:h-5 md:w-5" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex flex-wrap items-center justify-between gap-1">
-                        <h5 className="text-[15px] md:text-lg font-bold text-slate-900">
-                          {title}
-                        </h5>
-                        <p
-                          className="text-[15px] md:text-lg font-bold"
-                          style={{ color: RED }}
-                        >
-                          INR {price}{" "}
-                          <span className="text-xs md:text-sm font-medium text-slate-500">
-                            + tax
-                          </span>
-                        </p>
-                      </div>
-                      <p className="mt-1 text-xs md:text-sm text-slate-500">
-                        {desc}
-                      </p>
-                    </div>
+                {/* Title + icon */}
+                <div className="flex items-start justify-between gap-3">
+                  <h4 className="font-inter-display text-[20px] md:text-[24px] font-bold uppercase tracking-tight text-slate-900">
+                    {title}
+                  </h4>
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-rose-100 text-[#C4122E]">
+                    <Icon className="h-5 w-5" />
                   </div>
                 </div>
-              ))}
 
-              <div className="flex items-center gap-2 rounded-lg md:rounded-xl bg-amber-50 px-3 py-2.5 md:px-4 md:py-3 text-xs md:text-sm text-slate-600 ring-1 ring-amber-100">
-                <ShieldCheck className="h-4 w-4 shrink-0 text-amber-500" />
-                Secure online link will be shared upon registration.
+                {/* Description */}
+                <p className="mt-4 text-[14px] md:text-[15px] leading-relaxed text-slate-500 min-h-[44px]">
+                  {descStrong && (
+                    <span className="font-bold text-slate-700">{descStrong}</span>
+                  )}
+                  {desc}
+                </p>
+
+                {/* Price */}
+                <div className="mt-5 md:mt-6">
+                  <p className="text-[13px] md:text-sm text-slate-500">{priceLabel}</p>
+                  <p className="mt-1 font-inter-display text-[30px] md:text-[38px] font-bold leading-none text-[#C4122E]">
+                    {price}
+                  </p>
+                  <p className="mt-1 text-[12px] md:text-sm text-slate-400">{note}</p>
+                </div>
+
+                {/* Register */}
+                <button
+                  onClick={openApply}
+                  className="mt-6 w-fit rounded-full border border-[#C4122E] px-8 py-2 text-[15px] md:text-base font-medium text-[#C4122E] cursor-pointer transition-colors hover:bg-[#C4122E] hover:text-white"
+                >
+                  Register
+                </button>
+
+                {/* Optional link */}
+                {link && (
+                  <button
+                    onClick={openApply}
+                    className="mt-4 w-fit text-left text-[13px] md:text-sm font-medium text-[#C4122E] underline underline-offset-4 cursor-pointer"
+                  >
+                    {link}
+                  </button>
+                )}
               </div>
-            </div>
-          </div>
+            )
+          )}
         </div>
 
         {/* Note */}
@@ -228,15 +252,6 @@ export default function Membership() {
             </ul>
           </div>
         </div>
-
-        {/* Button */}
-        <button
-          onClick={openApply}
-          className="mt-12 md:mt-16 w-fit px-8 py-2 md:px-10 md:py-2.5 border rounded-full text-[16px] md:text-2xl font-medium font-inter cursor-pointer transition text-[#C4122E] hover:bg-[#C4122E] hover:border-[#C4122E] hover:text-white"
-          style={{ borderColor: RED }}
-        >
-          Register
-        </button>
 
         {/* Footer info */}
         <div className="mt-[50px] md:mt-[70px] min-w-full">
