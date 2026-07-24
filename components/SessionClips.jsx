@@ -73,8 +73,8 @@ const SessionDetails = () => {
   useEffect(() => setMounted(true), []);
 
   // ⛔ autoscroll removed — navigation is fully manual now
-  const go = (dir) => setActive((a) => (a + dir + total) % total);
-  const goTo = (i) => setActive(i);
+  // const go = (dir) => setActive((a) => (a + dir + total) % total);
+  // const goTo = (i) => setActive(i);
 
   useEffect(() => {
     startAuto();

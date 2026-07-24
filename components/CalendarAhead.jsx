@@ -123,7 +123,7 @@ export default function CalendarAhead({ onViewDetails }) {
             {/* Navigation Arrows */}
             <button
               onClick={() => go(-1)}
-              className="absolute right-full top-1/2 z-10 mr-[35px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white lg:flex"
+              className="absolute left-0 top-1/2 z-10 hidden h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] bg-white text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white lg:flex"
               aria-label="Previous"
             >
               <svg
@@ -142,7 +142,7 @@ export default function CalendarAhead({ onViewDetails }) {
 
             <button
               onClick={() => go(1)}
-              className="absolute left-full top-1/2 z-10 ml-[35px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white lg:flex"
+              className="absolute right-0 top-1/2 z-10 hidden h-9 w-9 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] bg-white text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white lg:flex"
               aria-label="Next"
             >
               <svg
