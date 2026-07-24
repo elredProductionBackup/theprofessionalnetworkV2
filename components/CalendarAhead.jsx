@@ -123,7 +123,7 @@ export default function CalendarAhead({ onViewDetails }) {
             {/* Navigation Arrows */}
             <button
               onClick={() => go(-1)}
-              className="absolute right-full top-1/2 z-10 mr-[35px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white lg:flex"
+              className="absolute right-full top-1/2 z-10 mr-[35px] hidden h-9 w-9 cursor-pointer -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white lg:flex"
               aria-label="Previous"
             >
               <svg
@@ -142,7 +142,7 @@ export default function CalendarAhead({ onViewDetails }) {
 
             <button
               onClick={() => go(1)}
-              className="absolute left-full top-1/2 z-10 ml-[35px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white lg:flex"
+              className="absolute left-full top-1/2 z-10 ml-[35px] hidden h-9 w-9 cursor-pointer -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white lg:flex"
               aria-label="Next"
             >
               <svg
@@ -224,15 +224,17 @@ export default function CalendarAhead({ onViewDetails }) {
                           href={p.schoolLink}
                           target={p.schoolLink ? '_blank' : undefined}
                           rel={p.schoolLink ? 'noreferrer' : undefined}
-                          className="relative block h-6 w-6 overflow-hidden rounded-md shadow-md md:h-9 md:w-9"
+                          className="relative block h-6 w-6 rounded-md shadow-md md:h-9 md:w-9"
                         >
-                          <Image
-                            src={p.schoolLogo}
-                            alt={p.school}
-                            fill
-                            sizes="(min-width: 768px) 36px, 24px"
-                            className="object-cover"
-                          />
+                          <div className="absolute inset-0 overflow-hidden rounded-md">
+                            <Image
+                              src={p.schoolLogo}
+                              alt={p.school}
+                              fill
+                              sizes="(min-width: 768px) 36px, 24px"
+                              className="object-cover"
+                            />
+                          </div>
                           <span className="absolute -bottom-1 -right-1 flex h-3 w-3 items-center justify-center rounded-full bg-white shadow ring-1 ring-black/5 md:h-4 md:w-4">
                             <svg
                               width="7"
@@ -278,7 +280,7 @@ export default function CalendarAhead({ onViewDetails }) {
                         className="rounded md:h-5 md:w-5"
                       />
                     )}
-                    <span className="font-inter text-center align-middle text-[12px] font-normal leading-[140%] text-zinc-500 md:text-[14px]">
+                    <span className="font-inter text-center align-middle text-[14px] font-normal leading-[140%] tracking-[0px] text-[#231F20]">
                       {p.school}
                     </span>
                   </div>
@@ -338,7 +340,7 @@ export default function CalendarAhead({ onViewDetails }) {
                     </span>
                   </h3>
 
-                  <p className="font-inter mb-5 text-[13px] font-normal leading-[150%] text-zinc-500 line-clamp-3 md:mb-8 md:text-[14px]">
+                  <p className="font-inter mb-5 text-[14px] font-normal leading-[150%] tracking-[0px] text-[#231F20] line-clamp-3 md:mb-8">
                     {blurb}
                   </p>
 
@@ -347,7 +349,7 @@ export default function CalendarAhead({ onViewDetails }) {
                       onClick={() => {
                         window.dispatchEvent(new Event('openApplyPopup'));
                       }}
-                      className="flex h-9 w-[120px] items-center justify-center rounded-full font-inter border-2 border-[#C01823] text-center font-medium text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white text-[15px] md:h-[48px] md:w-[160px] md:text-[20px]"
+                      className="flex h-9 w-[120px] cursor-pointer items-center justify-center rounded-full font-inter border-2 border-[#C01823] text-center font-medium text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white text-[15px] md:h-[48px] md:w-[160px] md:text-[20px]"
                     >
                       Register
                     </button>
