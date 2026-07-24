@@ -123,7 +123,7 @@ export default function CalendarAhead({ onViewDetails }) {
             {/* Navigation Arrows */}
             <button
               onClick={() => go(-1)}
-              className="absolute right-full top-1/2 z-10 mr-[35px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white md:flex"
+              className="absolute right-full top-1/2 z-10 mr-[35px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white lg:flex"
               aria-label="Previous"
             >
               <svg
@@ -142,7 +142,7 @@ export default function CalendarAhead({ onViewDetails }) {
 
             <button
               onClick={() => go(1)}
-              className="absolute left-full top-1/2 z-10 ml-[35px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white md:flex"
+              className="absolute left-full top-1/2 z-10 ml-[35px] hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#C01823] text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white lg:flex"
               aria-label="Next"
             >
               <svg
@@ -160,7 +160,11 @@ export default function CalendarAhead({ onViewDetails }) {
             </button>
 
             {/* Content */}
-            <div className="overflow-hidden rounded-2xl bg-[#FDF5F5] p-4 shadow-lg md:flex md:min-h-[420px] md:items-center md:p-12">
+            <div
+              onMouseEnter={stopAuto}
+              onMouseLeave={startAuto}
+              className="overflow-hidden rounded-2xl bg-[#FDF5F5] p-4 shadow-lg md:flex md:min-h-[420px] md:items-center md:p-12"
+            >
               <div className="grid w-full grid-cols-1 md:grid-cols-2 md:gap-12 items-center">
                 {/* Left: Professor Info */}
                 <div
