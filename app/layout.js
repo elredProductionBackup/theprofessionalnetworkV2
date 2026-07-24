@@ -7,31 +7,14 @@ import { brittany } from "./fonts";
 import FaqPopup from "@/components/FaqPopup";
 import ApplyPopup from "@/components/ApplyPopup";
 import LinkedinInsight from "@/components/LinkedinInsight";
-import MetaPixel from "@/components/MetaPixel"; 
+import MetaPixel from "@/components/MetaPixel";
+import HomeButton from "@/components/HomeButton";
+import Script from "next/script";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-})
-
-const interTight = Inter_Tight({
-  subsets: ['latin'],
-  variable: '--font-inter-tight',
-  display: 'swap',
-})
-
-
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const interTight = Inter_Tight({ subsets: ["latin"], variable: "--font-inter-tight", display: "swap" });
 const playfair = Playfair_Display({
   variable: "--font-serif",
   subsets: ["latin"],
@@ -41,16 +24,13 @@ const playfair = Playfair_Display({
 
 export const metadata = {
   metadataBase: new URL("https://theprofessionalnetwork.vercel.app"),
-
   title: "The Professionals Network",
   description: "A network of ambitious professionals",
-
   openGraph: {
     title: "The Professionals Network",
     description: "A network of ambitious professionals",
     url: "https://theprofessionalnetwork.vercel.app",
     siteName: "Professional Network",
-
     images: [
       {
         url: "https://theprofessionalnetwork.vercel.app/assets/tpn-og.webp",
@@ -59,10 +39,8 @@ export const metadata = {
         alt: "Professionals Network",
       },
     ],
-
     type: "website",
   },
-
   twitter: {
     card: "summary_large_image",
     title: "The Professionals Network",
@@ -71,26 +49,21 @@ export const metadata = {
   },
 };
 
-import HomeButton from "@/components/HomeButton";
-import Script from "next/script";
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <MetaPixel />
-      </head>
+      {/* No manual <head> — Next injects all metadata into <head> itself. */}
       <body
         className={`${brittany.variable} ${geistSans.variable} ${geistMono.variable} ${inter.variable} ${interTight.variable} ${playfair.variable} antialiased`}
-        >
+      >
+        <MetaPixel />
 
-        {/* <Suspense fallback={null}><RefreshRedirect/></Suspense> */}
-        <Navbar/>
+        <Navbar />
         {children}
-        <Footer/>
-        <FaqPopup/>
-        <ApplyPopup/>
-        <HomeButton/>
+        <Footer />
+        <FaqPopup />
+        <ApplyPopup />
+        <HomeButton />
         <LinkedinInsight />
 
         {/* Google tag (gtag.js) */}
@@ -106,7 +79,6 @@ export default function RootLayout({ children }) {
             gtag('config', 'G-9T6P0J7FS0');
           `}
         </Script>
-
       </body>
     </html>
   );

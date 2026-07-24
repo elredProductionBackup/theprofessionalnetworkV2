@@ -1,21 +1,14 @@
 // development
-// import Hero from "@/components/Hero";
-// import Tagline from "@/components/Tagline";
-// import Different from "@/components/Different";
-// import WhatWeAre from "@/components/WhatWeAre";
-// import Firstprinciple from "@/components/Firstprinciple";
 import Membership from "@/components/Membership";
 import CalendarAhead from "@/components/CalendarAhead";
-// import Footer from "@/components/Footer";
-// import SessionsCarousel from "@/components/SessionsCarousel";
-// import SessionDetails from "@/components/SessionClips";
 import ProfessorClips from "@/components/ProfessorClips";
 import ProfessionalsHero from "@/components/Tagline";
-// import Calendar from "@/components/Calendar";
 import EventRegistration from "@/components/EventRegistration";
 
+export const dynamic = "force-dynamic"; // ensures OG variant isn't statically cached
+
 export async function generateMetadata({ searchParams }) {
-  const params = await searchParams; // works in Next 14 (plain obj) and 15 (promise)
+  const params = await searchParams; // Next 15 promise / Next 14 plain obj — await works for both
   const isOpen = params?.details === "open";
 
   const ogImage = isOpen
@@ -46,22 +39,14 @@ export async function generateMetadata({ searchParams }) {
 }
 
 export default function Home() {
-  console.log('Development')
   return (
     <main className="min-h-screen">
       <ProfessionalsHero />
-      <EventRegistration/>
-      {/* <SessionDetails/> */}
-      <ProfessorClips/>
+      <EventRegistration />
+      <ProfessorClips />
       <CalendarAhead />
-      {/* <Calendar /> */}
-      {/* <Hero /> */}
-      {/* <Different /> */}
-      {/* <WhatWeAre /> */}
-      {/* <SessionsCarousel/> */}
-      {/* <Firstprinciple /> */}
       <Membership />
-      <div>New</div>
+      {/* <div>New</div> */}
     </main>
   );
 }
