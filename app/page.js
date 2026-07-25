@@ -46,6 +46,8 @@ export async function generateMetadata({ searchParams }) {
   };
 }
 
+console.log('deployed')
+
 export default function Home() {
   return (
     <main className="min-h-screen">
@@ -54,7 +56,6 @@ export default function Home() {
       <ProfessorClips />
       <CalendarAhead />
       <Membership />
-      {/* <div>New</div> */}
     </main>
   );
 }
