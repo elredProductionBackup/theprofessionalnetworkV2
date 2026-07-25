@@ -3,10 +3,18 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { RxCross2 } from "react-icons/rx";
+import { useRouter } from "next/navigation";
 
 const ACCENT = "#C8202E";
 
 const ThankYouPopup = ({ open, onClose, logo }) => {
+  const router = useRouter();
+
+  const goHome = () => {
+    onClose?.();
+    router.push("/");
+  };
+
   return (
     <AnimatePresence>
       {open && (
@@ -95,13 +103,13 @@ const ThankYouPopup = ({ open, onClose, logo }) => {
                 </p>
               </div>
 
-              {/* Done button */}
+              {/* Home button */}
               <button
-                onClick={onClose}
+                onClick={goHome}
                 style={{ backgroundColor: ACCENT }}
                 className="mt-8 w-full rounded-full py-3.5 text-base font-semibold text-white transition-all hover:brightness-110 active:scale-[0.99] cursor-pointer"
               >
-                Done
+                Home
               </button>
             </div>
           </motion.div>
