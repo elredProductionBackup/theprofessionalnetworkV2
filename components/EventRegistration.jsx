@@ -109,6 +109,8 @@ const pricingPlans = {
         price: "5 k",
         note: "including all taxes",
         secure: true,
+        ticketCode: "SU-VIRTUAL",
+        eventCode: "TPN-LIQ-02AUG2026",
       },
       {
         icon: Users,
@@ -117,6 +119,8 @@ const pricingPlans = {
         price: "25 k",
         note: "including all taxes",
         inPerson: true,
+        ticketCode: "SU-INPERSON",
+        eventCode: "TPN-LIQ-02AUG2026",
       },
     ],
   },
@@ -130,6 +134,8 @@ const pricingPlans = {
         price: "10 k",
         note: "+ GST",
         secure: true,
+        ticketCode: "ENT-VIRTUAL",
+        eventCode: "TPN-LIQ-02AUG2026",
       },
       {
         icon: Users,
@@ -138,6 +144,8 @@ const pricingPlans = {
         price: "1 lac",
         note: "+ GST",
         inPerson: true,
+        ticketCode: "ENT-INPERSON",
+        eventCode: "TPN-LIQ-02AUG2026",
       },
     ],
     footnote: "Access to 5 members",
@@ -255,7 +263,12 @@ export default function EventRegistration() {
   const [copied, setCopied] = useState(false);
   const [playingClip, setPlayingClip] = useState(null); // index of clip playing, or null
   const [plan, setPlan] = useState("single"); // "single" | "enterprise"
-  const openApply = () => window.dispatchEvent(new Event("openApplyPopup"));
+  const openApply = (tier) =>
+    window.dispatchEvent(
+      new CustomEvent("openApplyPopup", {
+        detail: tier ? { eventCode: tier.eventCode, ticketCode: tier.ticketCode } : undefined,
+      })
+    );
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -274,7 +287,7 @@ export default function EventRegistration() {
           text: `${speaker.title}, ${speaker.school} — ${speaker.topic}`,
           url: link,
         });
-      } catch {}
+      } catch { }
       return;
     }
 
@@ -310,9 +323,8 @@ export default function EventRegistration() {
             type="button"
             onClick={() => setPlan(key)}
             aria-pressed={active}
-            className={`whitespace-nowrap rounded-full px-6 py-2 text-sm font-semibold transition ${
-              active ? "text-white shadow-sm" : "text-slate-500 hover:text-slate-700"
-            }`}
+            className={`whitespace-nowrap rounded-full px-6 py-2 text-sm font-semibold transition ${active ? "text-white shadow-sm" : "text-slate-500 hover:text-slate-700"
+              }`}
             style={active ? { backgroundColor: RED } : undefined}
           >
             {p.label}
@@ -407,7 +419,7 @@ export default function EventRegistration() {
           </div>
         </div>
 
-                {/* ---------- Videos (2 per row, play inline, one at a time) ---------- */}
+        {/* ---------- Videos (2 per row, play inline, one at a time) ---------- */}
         <div className="mt-10 md:mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
           {clips.map((clip, i) => {
             const poster = clip.videoThumbnail;
@@ -490,7 +502,9 @@ export default function EventRegistration() {
               </div>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
-                {activePlan.tiers.map(({ icon: Icon, title, desc, price, note, secure, inPerson }) => (
+                {activePlan.tiers.map((tier) => {
+                  const { icon: Icon, title, desc, price, note, secure, inPerson } = tier;
+                  return (
                   <div key={title} className="flex flex-col rounded-2xl bg-white p-5 shadow-sm md:p-6">
                     {/* Header */}
                     <div className="flex items-start justify-between gap-3">
@@ -551,7 +565,7 @@ export default function EventRegistration() {
                       <p className="mt-0.5 text-xs text-slate-500">{note}</p>
                       <button
                         type="button"
-                        onClick={openApply}
+                        onClick={() => openApply(tier)}
                         className="mt-5 w-full rounded-full border-2 px-8 py-2.5 text-sm font-semibold transition hover:bg-rose-50"
                         style={{ borderColor: RED, color: RED }}
                       >
@@ -559,7 +573,8 @@ export default function EventRegistration() {
                       </button>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
 
               {activePlan.footnote && (
@@ -646,7 +661,7 @@ export default function EventRegistration() {
                   {copied ? <Check className="h-5 w-5" /> : <Share2 className="h-5 w-5" />}
                   <span className="hidden sm:inline">{copied ? "Copied" : "Share"}</span>
                 </button>
-                <button type="button" onClick={openApply}
+                <button type="button" onClick={() => openApply(activePlan.tiers[0])}
                   className="flex-1 rounded-full py-3.5 text-base font-semibold text-white transition hover:opacity-90" style={{ backgroundColor: RED }}>
                   Register
                 </button>
