@@ -2,14 +2,16 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Toaster } from 'react-hot-toast';
-import { Check, X, ShieldCheck, Clock, Home, Download, Loader2 } from 'lucide-react';
+import { Check, X, ShieldCheck, Clock, Home, Loader2 } from 'lucide-react';
 import { usePaymentStatus } from '@/lib/usePaymentStatus';
+import ThankYouPopup from './ThankYouPopup';
 
 function PaymentStatusContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const txnid = searchParams.get('txnid') || '—';
   const [isVisible, setIsVisible] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
   const { status, details } = usePaymentStatus(txnid !== '—' ? txnid : null);
 
   const formattedAmount = details?.amount != null
@@ -20,6 +22,12 @@ function PaymentStatusContent() {
     const timer = setTimeout(() => setIsVisible(true), 50);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (status !== 'success') return;
+    const timer = setTimeout(() => setShowThankYou(true), 3000);
+    return () => clearTimeout(timer);
+  }, [status]);
 
   const statusConfig = {
     pending: {
@@ -150,15 +158,11 @@ function PaymentStatusContent() {
               <Home className="w-4 h-4" />
               Return to Home
             </button>
-            {status === 'success' && (
-              <button className="w-full bg-white hover:bg-gray-50 text-gray-700 font-semibold py-2.5 px-4 rounded-xl border border-gray-200 transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-sm">
-                <Download className="w-4 h-4" />
-                Download Receipt
-              </button>
-            )}
           </div>
         </div>
       </main>
+
+      <ThankYouPopup open={showThankYou} onClose={() => setShowThankYou(false)} />
     </div>
   );
 }
