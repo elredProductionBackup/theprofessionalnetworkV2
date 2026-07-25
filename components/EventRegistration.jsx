@@ -116,6 +116,7 @@ const pricingPlans = {
         desc: "Immerse yourself in live, face-to-face learning.",
         price: "25 k",
         note: "including all taxes",
+        inPerson: true,
       },
     ],
   },
@@ -136,6 +137,7 @@ const pricingPlans = {
         desc: "Immerse yourself in live, face-to-face learning.",
         price: "1 lac",
         note: "+ GST",
+        inPerson: true,
       },
     ],
     footnote: "Access to 5 members",
@@ -488,7 +490,7 @@ export default function EventRegistration() {
               </div>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
-                {activePlan.tiers.map(({ icon: Icon, title, desc, price, note, secure }) => (
+                {activePlan.tiers.map(({ icon: Icon, title, desc, price, note, secure, inPerson }) => (
                   <div key={title} className="flex flex-col rounded-2xl bg-white p-5 shadow-sm md:p-6">
                     {/* Header */}
                     <div className="flex items-start justify-between gap-3">
@@ -522,6 +524,20 @@ export default function EventRegistration() {
                           </span>
                           <span className="text-[12px] leading-snug text-slate-600">
                             Secure Zoom / MS Teams link shared upon registration
+                          </span>
+                        </div>
+                      )}
+
+                      {/* Venue — in-person card only */}
+                      {inPerson && (
+                        <div className="flex items-start gap-2.5 rounded-lg bg-rose-50 px-3 py-2">
+                          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
+                            <MapPin className="h-3.5 w-3.5" />
+                          </span>
+                          <span className="text-[12px] leading-snug text-slate-600">
+                            <span className="font-semibold text-slate-800">Venue</span>
+                            <br />
+                            {speaker.location}
                           </span>
                         </div>
                       )}

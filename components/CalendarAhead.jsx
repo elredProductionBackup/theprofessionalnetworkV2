@@ -17,7 +17,6 @@ export default function CalendarAhead({ onViewDetails }) {
   const [active, setActive] = useState(0);
   const [eventModalOpen, setEventModalOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const timer = useRef(null);
   const touchStartX = useRef(null);
 
   const events = professors.filter(
@@ -35,36 +34,18 @@ export default function CalendarAhead({ onViewDetails }) {
     if (!slug) return;
     const index = events.findIndex((p) => slugify(p.name) === slug);
     if (index !== -1) {
-      stopAuto();
       setActive(index);
       setEventModalOpen(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const startAuto = () => {
-    stopAuto();
-    timer.current = setInterval(() => {
-      setActive((a) => (a + 1) % total);
-    }, 10000);
-  };
-
-  const stopAuto = () => timer.current && clearInterval(timer.current);
-
-  useEffect(() => {
-    startAuto();
-    return stopAuto;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const go = (dir) => {
     setActive((a) => (a + dir + total) % total);
-    startAuto();
   };
 
   const goTo = (i) => {
     setActive(i);
-    startAuto();
   };
 
   const onTouchStart = (e) => {
@@ -160,11 +141,7 @@ export default function CalendarAhead({ onViewDetails }) {
             </button>
 
             {/* Content */}
-            <div
-              onMouseEnter={stopAuto}
-              onMouseLeave={startAuto}
-              className="overflow-hidden rounded-2xl bg-[#FDF5F5] p-4 shadow-lg md:flex md:min-h-[420px] md:items-center md:p-12"
-            >
+            <div className="overflow-hidden rounded-2xl bg-[#FDF5F5] p-4 shadow-lg md:flex md:min-h-[420px] md:items-center md:p-12">
               <div className="grid w-full grid-cols-1 md:grid-cols-2 md:gap-12 items-center">
                 {/* Left: Professor Info */}
                 <div
