@@ -29,8 +29,8 @@ const INITIAL_FORM = {
   gstNumber: "",
   networkClusterCode: "6a040b84f639e889dcddcf5d",
   referalID: "",
-  eventCode: "",
-  ticketCode: "",
+  eventCode: "TPN-LIQ-02AUG2026",
+  ticketCode: "SU-INPERSON",
 };
 
 const ApplyPopupContent = () => {
