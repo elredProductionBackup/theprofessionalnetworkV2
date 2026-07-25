@@ -1,19 +1,44 @@
 'use client'
 import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 import { Check, X, ShieldCheck, Clock, Home, Download, RefreshCw, Loader2 } from 'lucide-react';
 import { usePaymentStatus } from '@/lib/usePaymentStatus';
+
+const PAYMENT_BASE_URL = process.env.NEXT_PUBLIC_PAYMENT_BASE_URL;
 
 function PaymentStatusContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const txnid = searchParams.get('txnid') || '—';
   const [isVisible, setIsVisible] = useState(false);
+  const [retrying, setRetrying] = useState(false);
   const { status, details } = usePaymentStatus(txnid !== '—' ? txnid : null);
 
   const formattedAmount = details?.amount != null
     ? new Intl.NumberFormat('en-IN', { style: 'currency', currency: details.currency || 'INR', maximumFractionDigits: 2 }).format(details.amount)
     : null;
+
+  const handleRetry = async () => {
+    if (!details?.registrationCode || retrying) return;
+    setRetrying(true);
+    try {
+      const res = await axios.post(`${PAYMENT_BASE_URL}/tpnEvent/registerAndInitiatePayment/html`, {
+        registrationCode: details.registrationCode,
+      });
+
+      // Response is an HTML page (payment-gateway auto-submit form) — render it
+      // by replacing the current document so its inline script can run and redirect.
+      document.open();
+      document.write(res.data);
+      document.close();
+    } catch (err) {
+      console.error('Retry payment failed:', err);
+      toast.error('Could not restart payment. Please try again.');
+      setRetrying(false);
+    }
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 50);
@@ -57,6 +82,7 @@ function PaymentStatusContent() {
 
   return (
     <div className="min-h-screen relative flex items-center justify-center p-3 sm:p-4 overflow-hidden bg-[#FAFAFA] font-sans selection:bg-[#E72D38]/20">
+      <Toaster position="top-center" />
 
       {/* Background Decorative Shapes */}
       <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#E72D38]/5 rounded-full blur-[80px] animate-[float_10s_infinite_ease-in-out_alternate]"></div>
@@ -110,6 +136,12 @@ function PaymentStatusContent() {
                 <dt className="text-gray-500 font-medium">Transaction ID</dt>
                 <dd className="text-gray-900 font-semibold break-all text-right">{txnid}</dd>
               </div>
+              {details?.attendee?.email && (
+                <div className="flex justify-between items-center">
+                  <dt className="text-gray-500 font-medium">Email</dt>
+                  <dd className="text-gray-900 font-semibold break-all text-right">{details.attendee.email}</dd>
+                </div>
+              )}
               {details?.paymentMode && (
                 <div className="flex justify-between items-center">
                   <dt className="text-gray-500 font-medium">Payment Method</dt>
@@ -137,10 +169,12 @@ function PaymentStatusContent() {
             {status === 'failed' && (
               <button
                 type="button"
-                className="w-full bg-[#E72D38] hover:bg-[#C8212B] text-white font-semibold py-2.5 px-4 rounded-xl shadow-[0_8px_20px_-6px_rgba(231,45,56,0.3)] transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-sm"
+                onClick={handleRetry}
+                disabled={retrying || !details?.registrationCode}
+                className="w-full bg-[#E72D38] hover:bg-[#C8212B] text-white font-semibold py-2.5 px-4 rounded-xl shadow-[0_8px_20px_-6px_rgba(231,45,56,0.3)] transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <RefreshCw className="w-4 h-4" />
-                Try Again
+                <RefreshCw className={`w-4 h-4 ${retrying ? 'animate-spin' : ''}`} />
+                {retrying ? 'Redirecting…' : 'Try Again'}
               </button>
             )}
             <button
