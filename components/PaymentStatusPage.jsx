@@ -1,44 +1,20 @@
 'use client'
 import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import axios from 'axios';
-import toast, { Toaster } from 'react-hot-toast';
-import { Check, X, ShieldCheck, Clock, Home, Download, RefreshCw, Loader2 } from 'lucide-react';
+import { Toaster } from 'react-hot-toast';
+import { Check, X, ShieldCheck, Clock, Home, Download, Loader2 } from 'lucide-react';
 import { usePaymentStatus } from '@/lib/usePaymentStatus';
-
-const PAYMENT_BASE_URL = process.env.NEXT_PUBLIC_PAYMENT_BASE_URL;
 
 function PaymentStatusContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const txnid = searchParams.get('txnid') || '—';
   const [isVisible, setIsVisible] = useState(false);
-  const [retrying, setRetrying] = useState(false);
   const { status, details } = usePaymentStatus(txnid !== '—' ? txnid : null);
 
   const formattedAmount = details?.amount != null
     ? new Intl.NumberFormat('en-IN', { style: 'currency', currency: details.currency || 'INR', maximumFractionDigits: 2 }).format(details.amount)
     : null;
-
-  const handleRetry = async () => {
-    if (!details?.registrationCode || retrying) return;
-    setRetrying(true);
-    try {
-      const res = await axios.post(`${PAYMENT_BASE_URL}/tpnEvent/registerAndInitiatePayment/html`, {
-        registrationCode: details.registrationCode,
-      });
-
-      // Response is an HTML page (payment-gateway auto-submit form) — render it
-      // by replacing the current document so its inline script can run and redirect.
-      document.open();
-      document.write(res.data);
-      document.close();
-    } catch (err) {
-      console.error('Retry payment failed:', err);
-      toast.error('Could not restart payment. Please try again.');
-      setRetrying(false);
-    }
-  };
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 50);
@@ -166,17 +142,6 @@ function PaymentStatusContent() {
 
           {/* Actions */}
           <div className="space-y-2">
-            {status === 'failed' && (
-              <button
-                type="button"
-                onClick={handleRetry}
-                disabled={retrying || !details?.registrationCode}
-                className="w-full bg-[#E72D38] hover:bg-[#C8212B] text-white font-semibold py-2.5 px-4 rounded-xl shadow-[0_8px_20px_-6px_rgba(231,45,56,0.3)] transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <RefreshCw className={`w-4 h-4 ${retrying ? 'animate-spin' : ''}`} />
-                {retrying ? 'Redirecting…' : 'Try Again'}
-              </button>
-            )}
             <button
               type="button"
               onClick={() => router.push('/')}
