@@ -321,7 +321,7 @@ export default function CalendarAhead({ onViewDetails }) {
                     {blurb}
                   </p>
 
-                  <div className="space-y-4 flex items-center justify-center md:justify-start">
+                  {/* <div className="space-y-4 flex items-center justify-center md:justify-start">
                     <button
                       onClick={() => {
                         window.dispatchEvent(new Event('openApplyPopup'));
@@ -330,7 +330,7 @@ export default function CalendarAhead({ onViewDetails }) {
                     >
                       Register
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
