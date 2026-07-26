@@ -207,6 +207,9 @@ const teaser = (() => {
 const SHARE_PARAM = "details";
 const SHARE_VALUE = "open";
 
+/* id of the "Preview price" block — QR / deep links can scroll straight to it */
+const PRICING_ID = "preview-price";
+
 const ScheduleRow = ({ item }) => {
   if (item.type === "module") {
     const Icon = item.icon || BarChart3;
@@ -273,6 +276,30 @@ export default function EventRegistration() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get(SHARE_PARAM) === SHARE_VALUE) setDescOpen(true);
+  }, []);
+
+  // QR / deep link → land the user on the pricing section.
+  // Point the QR at either:   https://your-site/#preview-price
+  //                    or:     https://your-site/?section=pricing
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const wantsPricing =
+      window.location.hash === `#${PRICING_ID}` || params.get("section") === "pricing";
+    if (!wantsPricing) return;
+
+    const scrollNow = () =>
+      document
+        .getElementById(PRICING_ID)
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    // Scroll once after first paint, then again after images/videos finish
+    // loading — otherwise layout shifts above the section leave us short of it.
+    const t = setTimeout(scrollNow, 300);
+    window.addEventListener("load", scrollNow);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("load", scrollNow);
+    };
   }, []);
 
   const handleShare = async () => {
@@ -540,7 +567,7 @@ export default function EventRegistration() {
         </div>
 
         {/* ---------- Bottom: pricing ---------- */}
-        <div className="mt-10 rounded-3xl border border-rose-200 bg-rose-50/70 p-6 md:mt-14 md:p-10">
+        <div id={PRICING_ID} className="scroll-mt-24 mt-10 rounded-3xl border border-rose-200 bg-rose-50/70 p-6 md:mt-14 md:p-10">
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
             {/* Left: copy + highlights */}
             <div>
