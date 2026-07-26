@@ -30,7 +30,7 @@ const INITIAL_FORM = {
   networkClusterCode: "6a040b84f639e889dcddcf5d",
   referalID: "",
   eventCode: "TPN-LIQ-02AUG2026",
-  ticketCode: "SU-INPERSON",
+  ticketCode: "",
 };
 
 const ApplyPopupContent = () => {
@@ -47,6 +47,7 @@ const ApplyPopupContent = () => {
     const params = new URLSearchParams(window.location.search);
     const apply = params.get("apply");
     const referId = params.get("ref");
+    const ticketCode = params.get("ticketCode");
 
     console.log(referId, 'referID')
 
@@ -54,6 +55,10 @@ const ApplyPopupContent = () => {
       setIsOpen(true);
     } else {
       setIsOpen(false);
+    }
+
+    if (ticketCode) {
+      setFormData((prev) => ({ ...prev, ticketCode }));
     }
 
     if (!referId) {
