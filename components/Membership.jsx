@@ -131,11 +131,17 @@ export default function Membership() {
                 </div>
 
                 {/* Register */}
-                <button
+                {/* <button
                   onClick={openApply}
                   className="mt-6 w-fit rounded-full border border-[#C4122E] px-8 py-2 text-[15px] md:text-base font-medium text-[#C4122E] cursor-pointer transition-colors hover:bg-[#C4122E] hover:text-white"
                 >
                   Register
+                </button> */}
+                <button
+                  disabled
+                  className="mt-6 w-fit rounded-full border border-[#C4122E] px-8 py-2 text-[15px] md:text-base font-medium text-[#C4122E] cursor-not-allowed opacity-50"
+                >
+                  Coming Soon
                 </button>
 
                 {/* Optional link */}
