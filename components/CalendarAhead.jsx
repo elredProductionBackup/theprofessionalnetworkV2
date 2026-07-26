@@ -13,6 +13,10 @@ const stripHtml = (html = '') =>
     .replace(/\s+/g, ' ')
     .trim();
 
+// Confirm the exact wording with your CEO — this is a sensible default.
+const COLLEGE_DISCLAIMER =
+  "*Institution names indicate the faculty member's affiliation only. This event is independently organized and is not affiliated with, endorsed by, or sponsored by the named institutions.";
+
 export default function CalendarAhead({ onViewDetails }) {
   const [active, setActive] = useState(0);
   const [eventModalOpen, setEventModalOpen] = useState(false);
@@ -259,6 +263,7 @@ export default function CalendarAhead({ onViewDetails }) {
                     )}
                     <span className="font-inter text-center align-middle text-[14px] font-normal leading-[140%] tracking-[0px] text-[#231F20]">
                       {p.school}
+                      <sup className="text-[#C01823]">*</sup>
                     </span>
                   </div>
 
@@ -351,6 +356,11 @@ export default function CalendarAhead({ onViewDetails }) {
               />
             ))}
           </div>
+
+          {/* College affiliation disclaimer */}
+          <p className="font-inter mx-auto mt-6 max-w-2xl text-center text-[11px] leading-relaxed text-zinc-400 md:mt-8">
+            {COLLEGE_DISCLAIMER}
+          </p>
         </div>
       </section>
 
