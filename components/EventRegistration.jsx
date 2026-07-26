@@ -334,6 +334,81 @@ export default function EventRegistration() {
     </div>
   );
 
+  /* One reusable tier card — used both in the main pricing block and inside the popup */
+  const TierCard = ({ tier }) => {
+    const { icon: Icon, title, desc, price, note, secure, inPerson } = tier;
+    return (
+      <div className="flex flex-col rounded-2xl bg-white p-5 shadow-sm md:p-6">
+        {/* Header */}
+        <div className="flex items-start justify-between gap-3">
+          <h4 className="text-lg font-bold tracking-wide text-slate-900">{title}</h4>
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
+            <Icon className="h-4 w-4" />
+          </span>
+        </div>
+
+        <p className="mt-3 text-sm leading-relaxed text-slate-500">{desc}</p>
+
+        {/* Perks */}
+        <div className="mt-4 space-y-2.5 border-t border-slate-100 pt-4">
+          {/* Certificate — shown in every card */}
+          <div className="flex items-start gap-2.5">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
+              <ScrollText className="h-3.5 w-3.5" />
+            </span>
+            <span className="text-[13px] leading-snug text-slate-600">
+              <span className="font-semibold text-slate-800">Digital certificate</span>
+              <br />
+              Downloadable &amp; sharable on LinkedIn
+            </span>
+          </div>
+
+          {/* Secure link — virtual card only */}
+          {secure && (
+            <div className="flex items-start gap-2.5 rounded-lg bg-amber-50 px-3 py-2">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
+                <Lock className="h-3.5 w-3.5" />
+              </span>
+              <span className="text-[12px] leading-snug text-slate-600">
+                Secure Zoom / MS Teams link shared upon registration
+              </span>
+            </div>
+          )}
+
+          {/* Venue — in-person card only */}
+          {inPerson && (
+            <div className="flex items-start gap-2.5 rounded-lg bg-rose-50 px-3 py-2">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
+                <MapPin className="h-3.5 w-3.5" />
+              </span>
+              <span className="text-[12px] leading-snug text-slate-600">
+                <span className="font-semibold text-slate-800">Venue</span>
+                <br />
+                {speaker.location}
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* Price + CTA — pinned to the bottom so cards stay aligned */}
+        <div className="mt-auto pt-5">
+          <p className="text-2xl font-bold" style={{ color: RED }}>
+            INR {price}
+          </p>
+          <p className="mt-0.5 text-xs text-slate-500">{note}</p>
+          <button
+            type="button"
+            onClick={() => openApply(tier)}
+            className="mt-5 w-full rounded-full border-2 px-8 py-2.5 text-sm font-semibold transition hover:bg-rose-50"
+            style={{ borderColor: RED, color: RED }}
+          >
+            Register
+          </button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-rose-50 to-rose-100/60">
       <div
@@ -502,79 +577,9 @@ export default function EventRegistration() {
               </div>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
-                {activePlan.tiers.map((tier) => {
-                  const { icon: Icon, title, desc, price, note, secure, inPerson } = tier;
-                  return (
-                  <div key={title} className="flex flex-col rounded-2xl bg-white p-5 shadow-sm md:p-6">
-                    {/* Header */}
-                    <div className="flex items-start justify-between gap-3">
-                      <h4 className="text-lg font-bold tracking-wide text-slate-900">{title}</h4>
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
-                        <Icon className="h-4 w-4" />
-                      </span>
-                    </div>
-
-                    <p className="mt-3 text-sm leading-relaxed text-slate-500">{desc}</p>
-
-                    {/* Perks */}
-                    <div className="mt-4 space-y-2.5 border-t border-slate-100 pt-4">
-                      {/* Certificate — shown in every card */}
-                      <div className="flex items-start gap-2.5">
-                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
-                          <ScrollText className="h-3.5 w-3.5" />
-                        </span>
-                        <span className="text-[13px] leading-snug text-slate-600">
-                          <span className="font-semibold text-slate-800">Digital certificate</span>
-                          <br />
-                          Downloadable &amp; sharable on LinkedIn
-                        </span>
-                      </div>
-
-                      {/* Secure link — virtual card only */}
-                      {secure && (
-                        <div className="flex items-start gap-2.5 rounded-lg bg-amber-50 px-3 py-2">
-                          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
-                            <Lock className="h-3.5 w-3.5" />
-                          </span>
-                          <span className="text-[12px] leading-snug text-slate-600">
-                            Secure Zoom / MS Teams link shared upon registration
-                          </span>
-                        </div>
-                      )}
-
-                      {/* Venue — in-person card only */}
-                      {inPerson && (
-                        <div className="flex items-start gap-2.5 rounded-lg bg-rose-50 px-3 py-2">
-                          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
-                            <MapPin className="h-3.5 w-3.5" />
-                          </span>
-                          <span className="text-[12px] leading-snug text-slate-600">
-                            <span className="font-semibold text-slate-800">Venue</span>
-                            <br />
-                            {speaker.location}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Price + CTA — pinned to the bottom so cards stay aligned */}
-                    <div className="mt-auto pt-5">
-                      <p className="text-2xl font-bold" style={{ color: RED }}>
-                        INR {price}
-                      </p>
-                      <p className="mt-0.5 text-xs text-slate-500">{note}</p>
-                      <button
-                        type="button"
-                        onClick={() => openApply(tier)}
-                        className="mt-5 w-full rounded-full border-2 px-8 py-2.5 text-sm font-semibold transition hover:bg-rose-50"
-                        style={{ borderColor: RED, color: RED }}
-                      >
-                        Register
-                      </button>
-                    </div>
-                  </div>
-                  );
-                })}
+                {activePlan.tiers.map((tier) => (
+                  <TierCard key={tier.title} tier={tier} />
+                ))}
               </div>
 
               {activePlan.footnote && (
@@ -634,6 +639,22 @@ export default function EventRegistration() {
                 </p>
               </div>
 
+              {/* ---------- Plans inside the popup (pick a plan → opens apply popup) ---------- */}
+              <p className="mt-7 text-sm font-bold uppercase tracking-wider" style={{ color: RED }}>Choose your plan</p>
+              <div className="mt-4 flex justify-center">
+                <PlanToggle />
+              </div>
+              <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {activePlan.tiers.map((tier) => (
+                  <TierCard key={`popup-${tier.title}`} tier={tier} />
+                ))}
+              </div>
+              {activePlan.footnote && (
+                <p className="mt-3 text-center text-sm font-medium text-slate-600">
+                  {activePlan.footnote}
+                </p>
+              )}
+
               <p className="mt-7 text-sm font-bold uppercase tracking-wider" style={{ color: RED }}>Key Takeaways</p>
               <div className="mt-3 space-y-2.5">
                 {speaker.keyTakeaways.map((t, i) => (
@@ -654,6 +675,7 @@ export default function EventRegistration() {
               </div>
             </div>
 
+            {/* Footer: no more "register by default" — just Share + Close */}
             <div className="border-t border-slate-100 bg-white px-6 py-4 sm:px-8">
               <div className="flex items-center gap-3">
                 <button type="button" onClick={handleShare} aria-label="Share this event"
@@ -661,9 +683,9 @@ export default function EventRegistration() {
                   {copied ? <Check className="h-5 w-5" /> : <Share2 className="h-5 w-5" />}
                   <span className="hidden sm:inline">{copied ? "Copied" : "Share"}</span>
                 </button>
-                <button type="button" onClick={() => openApply(activePlan.tiers[0])}
+                <button type="button" onClick={() => setDescOpen(false)}
                   className="flex-1 rounded-full py-3.5 text-base font-semibold text-white transition hover:opacity-90" style={{ backgroundColor: RED }}>
-                  Register
+                  Close
                 </button>
               </div>
             </div>
