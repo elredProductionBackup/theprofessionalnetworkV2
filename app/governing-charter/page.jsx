@@ -651,6 +651,7 @@ const CHARTER = [
       },
       {
         sub: "13.5",
+        id: "cancellation-policy",
         h: "Cancellation Policy",
         body: [
           {
@@ -835,7 +836,7 @@ const Block = ({ block }) => {
 };
 
 const Subsection = ({ block }) => (
-  <div className="mt-8 first:mt-6">
+  <div  id={block.id} className="mt-8 first:mt-6">
     <div className="flex items-baseline gap-3">
       <span className="shrink-0 font-inter-display text-[14px] md:text-[15px] font-medium text-[#8a8a91] tabular-nums pt-[2px]">
         {block.sub}
@@ -923,6 +924,23 @@ export default function CharterPage() {
       setTocOpen(false);
     }
   };
+
+  // Deep-link support: /governing-charter#cancellation-policy (or any section id)
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash) return;
+    const id = decodeURIComponent(hash.slice(1));
+
+    const scrollNow = () =>
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    const t = setTimeout(scrollNow, 300);
+    window.addEventListener("load", scrollNow);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("load", scrollNow);
+    };
+  }, []);
 
   return (
     <main className="bg-white font-inter text-[#333336] min-h-screen pt-[30px] md:pt-[0px]">
