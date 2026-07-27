@@ -295,7 +295,7 @@ export default function EventRegistration() {
 
   // Mobile: only show the floating "Register" shortcut once the user has scrolled past 800px.
   useEffect(() => {
-    const onScroll = () => setScrolledPast(window.scrollY > 600);
+    const onScroll = () => setScrolledPast(window.scrollY > 450);
     onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
