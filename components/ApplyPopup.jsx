@@ -15,6 +15,13 @@ const PAYMENT_BASE_URL = process.env.NEXT_PUBLIC_PAYMENT_BASE_URL;
 const DUPLICATE_MSG =
   "You have already submitted an application using this email address. Please use a different email address to apply again.";
 
+const TICKET_PLAN_LABELS = {
+  "SU-VIRTUAL": "Single User (Virtual)",
+  "SU-INPERSON": "Single User (In Person)",
+  "ENT-VIRTUAL": "Enterprise (Virtual)",
+  "ENT-INPERSON": "Enterprise (In Person)",
+};
+
 const INITIAL_FORM = {
   firstname: "",
   lastname: "",
@@ -246,6 +253,11 @@ const ApplyPopupContent = () => {
                     <h2 className="font-inter-display text-[30px] md:text-[40px] font-medium text-white leading-[110%] tracking-[-1px] md:tracking-[-2px]">
                       Register
                     </h2>
+                    {TICKET_PLAN_LABELS[formData.ticketCode] && (
+                      <p className="font-inter-display text-[15px] md:text-[18px] font-medium text-white/70 -mt-3">
+                        {TICKET_PLAN_LABELS[formData.ticketCode]}
+                      </p>
+                    )}
                   </div>
 
                   {/* Form Fields — every field is required (label contains "*") */}
@@ -260,7 +272,16 @@ const ApplyPopupContent = () => {
                     <FormField label="Your title in the company*" placeholder="Your title in the company" minLength={2} value={formData.userTitle} onChange={(v) => handleChange("userTitle", v)} />
                     <FormField label="Years of cumulative experience*" placeholder="Years of cumulative experience" isSelect={true} value={formData.exp} onChange={(v) => handleChange("exp", v)} />
                     <FormField label="Company website" placeholder="Company website" type="text" pattern="(https?://)?([a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}(/[^\s]*)?" title="Enter a valid URL (e.g. www.example.com or https://example.com)" value={formData.websiteURL} onChange={(v) => handleChange("websiteURL", v)} />
-                    {/* <FormField label="GST Number" placeholder="GST Number" pattern="[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}" title="Enter a valid 15-character GST number" value={formData.gstNumber} onChange={(v) => handleChange("gstNumber", v)} /> */}
+                    {formData.ticketCode?.startsWith("ENT") && (
+                      <FormField
+                        label="GST Number"
+                        placeholder="GST Number"
+                        pattern="[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}"
+                        title="Enter a valid 15-character GST number"
+                        value={formData.gstNumber}
+                        onChange={(v) => handleChange("gstNumber", v.replace(/[^a-zA-Z0-9]/g, "").toUpperCase())}
+                      />
+                    )}
                   </div>
 
                   {/* Submit Button */}
