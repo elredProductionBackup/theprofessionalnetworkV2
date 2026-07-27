@@ -27,9 +27,8 @@ const RED = "#C4122E";
 const COLLEGE_DISCLAIMER =
   "*Institution names indicate the faculty member's affiliation only. This event is independently organized and is not affiliated with, endorsed by, or sponsored by the named institutions.";
 
-/* Governing charter deep-link — the cancellation / refund policy lives in Section 13 */
-const CHARTER_URL = "/governing-charter";
-const CANCELLATION_SECTION_ID = "cancellation-policy";
+const CANCELLATION_POLICY_TEXT =
+  "All registrations are final. No refunds shall be provided under any circumstances if a Member cancels or is unable to attend an Event. A refund shall be considered only if The Professionals Network cancels the Event. The Network shall not be responsible for reimbursing airfare, accommodation, travel, or any other incidental expenses incurred by Members.";
 
 const speaker = {
   name: "Oded Netzer",
@@ -274,6 +273,7 @@ const ScheduleRow = ({ item }) => {
 
 export default function EventRegistration() {
   const [descOpen, setDescOpen] = useState(false);
+  const [cancellationOpen, setCancellationOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [playingClip, setPlayingClip] = useState(null); // index of clip playing, or null
   const [plan, setPlan] = useState("single"); // "single" | "enterprise"
@@ -353,6 +353,17 @@ export default function EventRegistration() {
     };
   }, [descOpen]);
 
+  useEffect(() => {
+    if (!cancellationOpen) return;
+    const onKey = (e) => e.key === "Escape" && setCancellationOpen(false);
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [cancellationOpen]);
+
   const activePlan = pricingPlans[plan];
 
   const PlanToggle = ({ className = "" }) => (
@@ -365,7 +376,7 @@ export default function EventRegistration() {
             type="button"
             onClick={() => setPlan(key)}
             aria-pressed={active}
-            className={`whitespace-nowrap rounded-full px-6 py-2 text-sm font-semibold transition ${active ? "text-white shadow-sm" : "text-slate-500 hover:text-slate-700"
+            className={`cursor-pointer whitespace-nowrap rounded-full px-6 py-2 text-sm font-semibold transition ${active ? "text-white shadow-sm" : "text-slate-500 hover:text-slate-700"
               }`}
             style={active ? { backgroundColor: RED } : undefined}
           >
@@ -441,7 +452,7 @@ export default function EventRegistration() {
           <button
             type="button"
             onClick={() => openApply(tier)}
-            className="mt-5 w-full rounded-full border-2 px-8 py-2.5 text-sm font-semibold transition hover:bg-rose-50"
+            className="mt-5 w-full cursor-pointer rounded-full border-2 px-8 py-2.5 text-sm font-semibold transition hover:bg-rose-50"
             style={{ borderColor: RED, color: RED }}
           >
             Register
@@ -615,13 +626,14 @@ export default function EventRegistration() {
               <p className="mt-6 max-w-md text-[13px] leading-relaxed text-slate-600">
                 <span className="font-semibold text-slate-800">Cancellation policy:</span>{" "}
                  To check the cancellation / refund policy, please{" "}
-                <a
-                  href={`${CHARTER_URL}#${CANCELLATION_SECTION_ID}`}
-                  className="font-semibold underline underline-offset-2 hover:opacity-80"
+                <button
+                  type="button"
+                  onClick={() => setCancellationOpen(true)}
+                  className="cursor-pointer font-semibold underline underline-offset-2 hover:opacity-80"
                   style={{ color: RED }}
                 >
                   click here
-                </a>
+                </button>
                 .
               </p>
 
@@ -725,13 +737,14 @@ export default function EventRegistration() {
               <p className="mt-4 text-center text-[13px] leading-relaxed text-slate-600">
                 <span className="font-semibold text-slate-800">Cancellation policy:</span>{" "}
                 To check the cancellation / refund policy, please{" "}
-                <a
-                  href={`${CHARTER_URL}#${CANCELLATION_SECTION_ID}`}
-                  className="font-semibold underline underline-offset-2 hover:opacity-80"
+                <button
+                  type="button"
+                  onClick={() => setCancellationOpen(true)}
+                  className="cursor-pointer font-semibold underline underline-offset-2 hover:opacity-80"
                   style={{ color: RED }}
                 >
                   click here
-                </a>
+                </button>
                 .
               </p>
 
@@ -769,6 +782,27 @@ export default function EventRegistration() {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* ---------- Cancellation / refund policy popup ---------- */}
+      {cancellationOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Cancellation/Refund policy">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setCancellationOpen(false)} />
+
+          <div className="relative z-10 w-full max-w-[560px] overflow-hidden rounded-2xl bg-white shadow-2xl">
+            <div className="flex items-start justify-between gap-4 px-6 pt-7 sm:px-8">
+              <h3 className="text-xl md:text-2xl font-bold text-slate-900">Cancellation/Refund policy</h3>
+              <button type="button" onClick={() => setCancellationOpen(false)} aria-label="Close"
+                className="grid h-9 w-9 shrink-0 cursor-pointer place-items-center rounded-full bg-slate-100 text-slate-600 transition-colors hover:bg-slate-200">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <p className="px-6 pb-7 pt-4 text-[16px] leading-relaxed text-slate-600 sm:px-8">
+              {CANCELLATION_POLICY_TEXT}
+            </p>
           </div>
         </div>
       )}

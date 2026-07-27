@@ -22,6 +22,15 @@ const TICKET_PLAN_LABELS = {
   "ENT-INPERSON": "Enterprise (In Person)",
 };
 
+// Which optional fields are required, per ticket plan.
+const REQUIRED_FIELD_RULES = {
+  "SU-VIRTUAL": { linkedIn: false, companyName: false, userTitle: false, exp: false, websiteURL: false, gstNumber: false },
+  "SU-INPERSON": { linkedIn: true, companyName: true, userTitle: true, exp: true, websiteURL: true, gstNumber: false },
+  "ENT-VIRTUAL": { linkedIn: false, companyName: true, userTitle: true, exp: false, websiteURL: true, gstNumber: true },
+  "ENT-INPERSON": { linkedIn: false, companyName: true, userTitle: true, exp: false, websiteURL: true, gstNumber: true },
+};
+const DEFAULT_FIELD_RULES = { linkedIn: false, companyName: false, userTitle: false, exp: false, websiteURL: false, gstNumber: false };
+
 const INITIAL_FORM = {
   firstname: "",
   lastname: "",
@@ -48,6 +57,9 @@ const ApplyPopupContent = () => {
   const [submitted, setSubmitted] = useState(false);
   const [referralImage, setReferralImage] = useState(null);
   const searchParams = useSearchParams();
+
+  const isEnterprise = formData.ticketCode?.startsWith("ENT");
+  const fieldRules = REQUIRED_FIELD_RULES[formData.ticketCode] || DEFAULT_FIELD_RULES;
 
   // URL param check
   useEffect(() => {
@@ -100,13 +112,13 @@ const ApplyPopupContent = () => {
   useEffect(() => {
     const handleOpen = (e) => {
       const { eventCode, ticketCode } = e?.detail || {};
-      if (eventCode || ticketCode) {
-        setFormData((prev) => ({
-          ...prev,
-          ...(eventCode && { eventCode }),
-          ...(ticketCode && { ticketCode }),
-        }));
-      }
+      setFormData((prev) => ({
+        ...INITIAL_FORM,
+        networkClusterCode: prev.networkClusterCode,
+        referalID: prev.referalID,
+        eventCode: eventCode || prev.eventCode,
+        ticketCode: ticketCode || prev.ticketCode,
+      }));
       setIsOpen(true);
     };
     window.addEventListener("openApplyPopup", handleOpen);
@@ -260,21 +272,21 @@ const ApplyPopupContent = () => {
                     )}
                   </div>
 
-                  {/* Form Fields — every field is required (label contains "*") */}
+                  {/* Form Fields — required fields have a "*"; which ones are required depends on the selected plan */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
                     <FormField label="First Name*" placeholder="First Name" minLength={2} value={formData.firstname} onChange={(v) => handleChange("firstname", v)} />
                     <FormField label="Last Name*" placeholder="Last Name" minLength={2} value={formData.lastname} onChange={(v) => handleChange("lastname", v)} />
                     <FormField label="Email*" placeholder="Email" type="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" value={formData.email} onChange={(v) => handleChange("email", v)} />
-                    <FormField label="Linkedin Profile" placeholder="Linkedin Profile" type="text" pattern="(https?://)?(www\.)?linkedin\.com/.*" title="Enter a valid LinkedIn URL (e.g. linkedin.com/in/yourname)" value={formData.linkedIn} onChange={(v) => handleChange("linkedIn", v)} />
+                    <FormField label={`Linkedin Profile${fieldRules.linkedIn ? "*" : ""}`} placeholder="Linkedin Profile" type="text" pattern="(https?://)?([\w-]+\.)?linkedin\.com/.*" title="Enter a valid LinkedIn URL (e.g. linkedin.com/in/yourname)" value={formData.linkedIn} onChange={(v) => handleChange("linkedIn", v)} />
                     <FormField label="Contact Number*" placeholder="Contact Number" type="tel" pattern="[0-9]*" value={formData.contact} onChange={(v) => handleChange("contact", v)} />
                     <FormField label="City*" placeholder="City" value={formData.city} onChange={(v) => handleChange("city", v)} />
-                    <FormField label="Company Name*" placeholder="Company Name" minLength={2} value={formData.companyName} onChange={(v) => handleChange("companyName", v)} />
-                    <FormField label="Your title in the company*" placeholder="Your title in the company" minLength={2} value={formData.userTitle} onChange={(v) => handleChange("userTitle", v)} />
-                    <FormField label="Years of cumulative experience*" placeholder="Years of cumulative experience" isSelect={true} value={formData.exp} onChange={(v) => handleChange("exp", v)} />
-                    <FormField label="Company website" placeholder="Company website" type="text" pattern="(https?://)?([a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}(/[^\s]*)?" title="Enter a valid URL (e.g. www.example.com or https://example.com)" value={formData.websiteURL} onChange={(v) => handleChange("websiteURL", v)} />
-                    {formData.ticketCode?.startsWith("ENT") && (
+                    <FormField label={`Company Name${fieldRules.companyName ? "*" : ""}`} placeholder="Company Name" minLength={2} value={formData.companyName} onChange={(v) => handleChange("companyName", v)} />
+                    <FormField label={`${isEnterprise ? "Industry" : "Your title in the company"}${fieldRules.userTitle ? "*" : ""}`} placeholder={isEnterprise ? "Industry" : "Your title in the company"} minLength={2} value={formData.userTitle} onChange={(v) => handleChange("userTitle", v)} />
+                    <FormField label={`Years of cumulative experience${fieldRules.exp ? "*" : ""}`} placeholder="Years of cumulative experience" isSelect={true} value={formData.exp} onChange={(v) => handleChange("exp", v)} />
+                    <FormField label={`Company website${fieldRules.websiteURL ? "*" : ""}`} placeholder="Company website" type="text" pattern="(https?://)?([a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}(/[^\s]*)?" title="Enter a valid URL (e.g. www.example.com or https://example.com)" value={formData.websiteURL} onChange={(v) => handleChange("websiteURL", v)} />
+                    {isEnterprise && (
                       <FormField
-                        label="GST Number"
+                        label={`GST Number${fieldRules.gstNumber ? "*" : ""}`}
                         placeholder="GST Number"
                         pattern="[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}"
                         title="Enter a valid 15-character GST number"
@@ -289,7 +301,7 @@ const ApplyPopupContent = () => {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="px-12 py-3 border border-white rounded-full text-[#CCCCCC] text-[20px] leading-[140%] font-inter font-medium hover:bg-white hover:text-black transition-all transform active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-12 py-3 border border-white rounded-full text-[#CCCCCC] text-[20px] leading-[140%] font-inter font-medium hover:bg-white hover:text-black transition-all transform active:scale-[0.98] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {submitting ? "Submitting..." : "Register and Pay"}
                     </button>
