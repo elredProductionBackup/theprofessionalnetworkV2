@@ -728,11 +728,7 @@ export default function EventRegistration() {
                   <TierCard key={`popup-${tier.title}`} tier={tier} />
                 ))}
               </div>
-              {activePlan.footnote && (
-                <p className="mt-3 text-center text-sm font-medium text-slate-600">
-                  {activePlan.footnote}
-                </p>
-              )}
+
 
               {/* Cancellation / refund policy note (popup) */}
               <p className="mt-4 text-center text-[13px] leading-relaxed text-slate-600">
