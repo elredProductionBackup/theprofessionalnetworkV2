@@ -2,6 +2,10 @@
 import { useEffect, useRef, useState } from "react";
 import { professors } from "../data/professors";
 
+// Confirm the exact wording with your CEO — this is a sensible default.
+const COLLEGE_DISCLAIMER =
+  "*Institution names indicate the faculty member's affiliation only. This event is independently organized and is not affiliated with, endorsed by, or sponsored by the named institutions.";
+
 function useInView(threshold = 0.15) {
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
@@ -48,12 +52,14 @@ const NoVideoIcon = ({ className = "" }) => (
 
 const SchoolBadge = ({ logo, school }) => (
   <div className="absolute left-3 top-3 z-10 flex items-center gap-1.5 rounded-full bg-black/45 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
-    {logo ? (
-      <img src={logo} alt="" className="h-3.5 w-3.5 object-contain" />
-    ) : (
-      <span className="h-3.5 w-3.5 rounded-sm bg-blue-500" />
-    )}
-    <span className="max-w-[160px] truncate">{school}</span>
+    {logo && ( <img src={logo} alt="" className="h-3.5 w-3.5 object-contain" />)}
+     {/* ) : (
+       <span className="h-3.5 w-3.5 rounded-sm bg-blue-500" />
+     )} */}
+    <span className="flex items-center gap-0.5">
+      <span className="max-w-[160px] truncate">{school}</span>
+      <sup className="text-red-300">*</sup>
+    </span>
   </div>
 );
 
@@ -161,6 +167,11 @@ const ProfessorClips = () => {
             );
           })}
         </div>
+
+        {/* College affiliation disclaimer */}
+        <p className="mx-auto mt-8 max-w-2xl text-center text-[11px] leading-relaxed text-neutral-400">
+          {COLLEGE_DISCLAIMER}
+        </p>
       </div>
     </section>
   );

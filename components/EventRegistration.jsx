@@ -762,7 +762,7 @@ const speaker = {
   school: "Columbia Business School",
   topic: "Leadership Intelligence in an AI Era: Developing Quantitative Intuition",
   image: "/professor-profile/oded.jpg",
-  schoolLogo: "/professor-school/oded-school.png",
+  // schoolLogo: "/professor-school/oded-school.png",
   linkedinLink: "https://www.linkedin.com/in/oded-netzer-700255",
   schoolLink: "https://business.columbia.edu/faculty/people/oded-netzer",
   location: "Tata Classroom - Taj Lands End, Mumbai",
@@ -1218,13 +1218,11 @@ export default function EventRegistration() {
               <div>
                 <h3 className="text-2xl font-bold text-slate-900 font-inter-display">{speaker.name}</h3>
                 <p className="mt-1 flex items-center gap-1.5 text-sm text-slate-500">
-                  {speaker.schoolLogo ? (
-                    <img src={speaker.schoolLogo} alt="" className="h-4 w-4 object-contain" />
-                  ) : (
-                    <span className="h-2 w-2 rounded-full bg-blue-500" />
-                  )}
-                  {speaker.school}
-                  <sup style={{ color: RED }}>*</sup>
+                  {speaker.schoolLogo && <img src={speaker.schoolLogo} alt="" className="h-4 w-4 object-contain" />}
+                  {/* // ) : (
+                  //   <span className="h-2 w-2 rounded-full bg-blue-500" />
+                  // )} */}
+                  {speaker.school}<sup style={{ color: RED }}>*</sup>
                 </p>
                 <div className="mt-2 flex items-center gap-2">
                   <a href={speaker.linkedinLink} target="_blank" rel="noreferrer" aria-label={`${speaker.name} on LinkedIn`}
@@ -1382,11 +1380,10 @@ export default function EventRegistration() {
 
             <div className="overflow-y-auto px-6 pb-6 pt-7 sm:px-8">
               <div className="flex items-center gap-3 pr-24">
-                {speaker.schoolLogo ? (
-                  <img src={speaker.schoolLogo} alt="" className="h-8 w-8 object-contain" />
-                ) : (
+                {speaker.schoolLogo && ( <img src={speaker.schoolLogo} alt="" className="h-8 w-8 object-contain" />)}
+                {/* ) : (
                   <span className="h-3 w-3 rounded-full bg-blue-500" />
-                )}
+                )} */}
                 <h3 className="text-xl md:text-2xl font-bold text-slate-900">
                   {speaker.school}
                   <sup style={{ color: RED }}>*</sup>

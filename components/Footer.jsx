@@ -230,7 +230,7 @@ const Footer = () => {
   <div className="w-auto md:space-y-4 space-y-[16px] py-[24px] ">
     <FooterLink text="Home" />
     <FooterLink text="About" />
-    <FooterLink text="Apply" />
+    {/* <FooterLink text="Apply" /> */}
     <FooterLink text="FAQs" />
   </div>
 
