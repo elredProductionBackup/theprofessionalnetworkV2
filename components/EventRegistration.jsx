@@ -448,6 +448,11 @@ export default function EventRegistration() {
           <p className="text-2xl font-bold" style={{ color: RED }}>
             INR {price}
           </p>
+              {activePlan.footnote && (
+      <span className="text-base font-bold text-slate-900">
+        {activePlan.footnote}
+      </span>
+    )}
           <p className="mt-0.5 text-xs text-slate-500">{note}</p>
           <button
             type="button"
@@ -656,11 +661,7 @@ export default function EventRegistration() {
                 ))}
               </div>
 
-              {activePlan.footnote && (
-                <p className="mt-4 text-center text-sm font-medium text-slate-600">
-                  {activePlan.footnote}
-                </p>
-              )}
+              
             </div>
           </div>
         </div>
