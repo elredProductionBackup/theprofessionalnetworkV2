@@ -448,12 +448,12 @@ export default function EventRegistration() {
           <p className="text-2xl font-bold" style={{ color: RED }}>
             INR {price}
           </p>
+          <p className="mt-0.5 text-xs text-slate-500">{note}</p>
               {activePlan.footnote && (
       <span className="text-base font-bold text-slate-900">
         {activePlan.footnote}
       </span>
     )}
-          <p className="mt-0.5 text-xs text-slate-500">{note}</p>
           <button
             type="button"
             onClick={() => openApply(tier)}
