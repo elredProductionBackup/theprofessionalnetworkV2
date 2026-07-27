@@ -263,7 +263,7 @@ export default function CalendarAhead({ onViewDetails }) {
                     )}
                     <span className="font-inter text-center align-middle text-[14px] font-normal leading-[140%] tracking-[0px] text-[#231F20]">
                       {p.school}
-                      <sup className="text-[#C01823]">*</sup>
+                      <sup >*</sup>
                     </span>
                   </div>
 

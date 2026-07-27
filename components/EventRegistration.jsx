@@ -1222,7 +1222,7 @@ export default function EventRegistration() {
                   {/* // ) : (
                   //   <span className="h-2 w-2 rounded-full bg-blue-500" />
                   // )} */}
-                  {speaker.school}<sup style={{ color: RED }}>*</sup>
+                  {speaker.school}<sup >*</sup>
                 </p>
                 <div className="mt-2 flex items-center gap-2">
                   <a href={speaker.linkedinLink} target="_blank" rel="noreferrer" aria-label={`${speaker.name} on LinkedIn`}
@@ -1386,7 +1386,7 @@ export default function EventRegistration() {
                 )} */}
                 <h3 className="text-xl md:text-2xl font-bold text-slate-900">
                   {speaker.school}
-                  <sup style={{ color: RED }}>*</sup>
+                  <sup >*</sup>
                 </h3>
               </div>
 

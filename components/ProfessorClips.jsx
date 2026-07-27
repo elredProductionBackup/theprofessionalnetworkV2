@@ -58,7 +58,7 @@ const SchoolBadge = ({ logo, school }) => (
      )} */}
     <span className="flex items-center gap-0.5">
       <span className="max-w-[160px] truncate">{school}</span>
-      <sup className="text-red-300">*</sup>
+      <sup >*</sup>
     </span>
   </div>
 );
