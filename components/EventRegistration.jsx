@@ -469,7 +469,7 @@ export default function EventRegistration() {
           <button
             type="button"
             onClick={() => openApply(tier)}
-            className="mt-5 w-full cursor-pointer rounded-full border-2 px-8 py-2.5 text-sm font-semibold transition hover:bg-rose-50"
+            className="mt-5 w-full cursor-pointer rounded-full border-2 px-8 py-2.5 text-base font-semibold transition hover:bg-rose-50"
             style={{ borderColor: RED, color: RED }}
           >
             Register
