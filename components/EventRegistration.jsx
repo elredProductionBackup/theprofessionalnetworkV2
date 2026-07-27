@@ -614,7 +614,7 @@ export default function EventRegistration() {
               {/* Cancellation / refund policy note */}
               <p className="mt-6 max-w-md text-[13px] leading-relaxed text-slate-600">
                 <span className="font-semibold text-slate-800">Cancellation policy:</span>{" "}
-                <span className="text-slate-500">Note:</span> To check the cancellation / refund policy, please{" "}
+                 To check the cancellation / refund policy, please{" "}
                 <a
                   href={`${CHARTER_URL}#${CANCELLATION_SECTION_ID}`}
                   className="font-semibold underline underline-offset-2 hover:opacity-80"
