@@ -220,6 +220,9 @@ const PRICING_ID = "preview-price";
 /* id of the videos block — QR / deep links (e.g. from a mailer) can scroll straight to it */
 const VIDEOS_ID = "event-videos";
 
+/* id of the tier cards (right column of the pricing block) — the floating "Register" shortcut scrolls here */
+const PRICING_TIERS_ID = "pricing-tier-cards";
+
 const ScheduleRow = ({ item }) => {
   if (item.type === "module") {
     const Icon = item.icon || BarChart3;
@@ -277,6 +280,7 @@ export default function EventRegistration() {
   const [copied, setCopied] = useState(false);
   const [playingClip, setPlayingClip] = useState(null); // index of clip playing, or null
   const [plan, setPlan] = useState("single"); // "single" | "enterprise"
+  const [scrolledPast, setScrolledPast] = useState(false);
   const openApply = (tier) =>
     window.dispatchEvent(
       new CustomEvent("openApplyPopup", {
@@ -287,6 +291,14 @@ export default function EventRegistration() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get(SHARE_PARAM) === SHARE_VALUE) setDescOpen(true);
+  }, []);
+
+  // Mobile: only show the floating "Register" shortcut once the user has scrolled past 800px.
+  useEffect(() => {
+    const onScroll = () => setScrolledPast(window.scrollY > 800);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // QR / deep link → land the user on a specific section.
@@ -646,10 +658,11 @@ export default function EventRegistration() {
               <p className="mt-4 max-w-md text-[11px] leading-relaxed text-slate-400">
                 {COLLEGE_DISCLAIMER}
               </p>
+
             </div>
 
             {/* Right: tier cards */}
-            <div>
+            <div id={PRICING_TIERS_ID} className="scroll-mt-24">
               {/* Centered toggle, sits right above the cards */}
               <div className="mb-6 flex justify-center">
                 <PlanToggle />
@@ -803,6 +816,18 @@ export default function EventRegistration() {
           </div>
         </div>
       )}
+
+      {/* ---------- Floating "Register" shortcut — pinned to the right edge; on mobile it only appears once the hero has scrolled past ---------- */}
+      <button
+        type="button"
+        onClick={() =>
+          document.getElementById(PRICING_TIERS_ID)?.scrollIntoView({ behavior: "smooth", block: "start" })
+        }
+        className={`fixed right-0 top-1/2 z-[90] -translate-y-1/2 cursor-pointer rounded-l-xl px-2.5 pl-3 pr-2 text-sm md:text-lg font-bold tracking-wider text-white shadow-[0_10px_25px_-8px_rgba(196,18,46,0.6)] transition hover:brightness-110 active:scale-[0.98] md:block ${scrolledPast ? "block" : "hidden"}`}
+        style={{ backgroundColor: RED, writingMode: "vertical-rl" }}
+      >
+        REGISTER
+      </button>
     </section>
   );
 }
