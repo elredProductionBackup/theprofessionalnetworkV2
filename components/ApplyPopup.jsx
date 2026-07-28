@@ -652,7 +652,7 @@ const ApplyPopupContent = () => {
         pincode: formData.pincode,
         exp: formData.exp,
         websiteURL: formData.websiteURL,
-        gstNumber: formData.gstNumber,
+        gstin: formData.gstNumber,
         referalID: formData.referalID,
         utm: {
           utm_source: "",
