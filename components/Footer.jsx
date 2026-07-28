@@ -16,7 +16,7 @@
 
 // {/* First child = 2 blocks */}
 // <div className="lg:col-span-2 flex w-full gap-[140px] px-[24px] md:pl-[40px] border-b border-[#E6E6E6] md:border-b-0 md:border-r ">
-  
+
 //   {/* Left Navigation */}
 //   <div className="w-auto md:space-y-4 space-y-[16px] py-[24px] ">
 //     <FooterLink text="Home" />
@@ -85,7 +85,7 @@
 // >
 //   Rextone Digital
 // </a>{" "}
-        
+
 //         Pvt. Ltd.
 //       </p>
 //     </div>
@@ -221,98 +221,100 @@ const Footer = () => {
       <ComingSoonPopup eventName="openTermsPopup" />
       <ComingSoonPopup eventName="openDisclaimerPopup" />
       <div className="w-full md:pt-0 text-[#333336]">
-<div className="grid grid-cols-1 lg:grid-cols-3 ">
+        <div className="grid grid-cols-1 lg:grid-cols-3 ">
 
-{/* First child = 2 blocks */}
-<div className="lg:col-span-2 flex w-full gap-[140px] px-[24px] md:pl-[40px] border-b border-[#E6E6E6] md:border-b-0 md:border-r ">
-  
-  {/* Left Navigation */}
-  <div className="w-auto md:space-y-4 space-y-[16px] py-[24px] ">
-    <FooterLink text="Home" />
-    <FooterLink text="About" />
-    {/* <FooterLink text="Apply" /> */}
-    <FooterLink text="FAQs" />
-  </div>
+          {/* First child = 2 blocks */}
+          <div className="lg:col-span-2 flex w-full gap-[140px] px-[24px] md:pl-[40px] border-b border-[#E6E6E6] md:border-b-0 md:border-r ">
 
-  {/* Middle Navigation */}
-  <div className="w-auto md:space-y-4 space-y-[16px] py-[24px]">
-    {/* <FooterLink text="Privacy Policy" />
+            {/* Left Navigation */}
+            <div className="w-auto md:space-y-4 space-y-[16px] py-[24px] ">
+              <FooterLink text="Home" />
+              <FooterLink text="About" />
+              {/* <FooterLink text="Apply" /> */}
+              <FooterLink text="FAQs" />
+            </div>
+
+            {/* Middle Navigation */}
+            <div className="w-auto md:space-y-4 space-y-[16px] py-[24px]">
+              {/* <FooterLink text="Privacy Policy" />
     <FooterLink text="Terms of Service" />
     <FooterLink text="Disclaimer" /> */}
-    <FooterLink text="Governing Charter" />
-  </div>
+              <FooterLink text="Governing Charter" />
+            </div>
 
-</div>
-  {/* Second child = 1 block */}
-<div className="flex flex-col w-full border-[#E6E6E6]">
-  <SocialLink text="X" href="https://x.com/TheProfNetwork"/>
-  <SocialLink text="Linkedin" href="https://www.linkedin.com/company/the-professionals-network-2000/?viewAsMember=true"/>
-  <SocialLink text="Instagram" href="https://www.instagram.com/theprofessionals.network/"/>
+          </div>
+          {/* Second child = 1 block */}
+          <div className="flex flex-col w-full border-[#E6E6E6]">
+            <SocialLink text="Linkedin" href="https://www.linkedin.com/company/the-professionals-network-2000/?viewAsMember=true" />
+            <SocialLink text="Instagram" href="https://www.instagram.com/theprofessionals.network/" />
+            {/* <SocialLink text="X" href="https://x.com/TheProfNetwork" /> */}
+            <SocialLink text="Facebook" href="https://www.facebook.com/people/The-Professionals-Network/61591918254183/" />
+            <SocialLink text="Youtube" href="https://www.youtube.com/@theprofessionalsnetwork-26" />
 
-  <SocialLink
-    text="Email"
-    noBorderBottom={true}
-    href="mailto:info@theprofessional.network"
-  />
-</div>
-</div>
+            <SocialLink
+              text="Email"
+              noBorderBottom={true}
+              href="mailto:info@theprofessional.network"
+            />
+          </div>
+        </div>
       </div>
 
-{/* Office Section */}
-<div className="border-t border-[#E6E6E6] bg-[#FCFCFC]/50">
-  <div className="mx-auto  md:py-0 md:grid md:grid-cols-3 items-stretch">
+      {/* Office Section */}
+      <div className="border-t border-[#E6E6E6] bg-[#FCFCFC]/50">
+        <div className="mx-auto  md:py-0 md:grid md:grid-cols-3 items-stretch">
 
-    {/* Office Address */}
-    <div className="px-[24px] py-[24px] md:pt-[42px] md:pb-[42px] md:pl-[24px] border-b md:border-b-0 md:border-r border-[#E6E6E6] font-inter-display text-[#8a8a91]">
-      <span className="block text-[15px] font-regular leading-[120%] tracking-[-0.3px] mb-3">
-        Office
-      </span>
+          {/* Office Address */}
+          <div className="px-[24px] py-[24px] md:pt-[42px] md:pb-[42px] md:pl-[24px] border-b md:border-b-0 md:border-r border-[#E6E6E6] font-inter-display text-[#8a8a91]">
+            <span className="block text-[15px] font-regular leading-[120%] tracking-[-0.3px] mb-3">
+              Office
+            </span>
 
-      <p className="text-[17px] font-regular leading-[120%] tracking-[-1px] text-[#8a8a91]">
-        16, Yashodham Center, Film City Road, Goregaon (E),
-        <br className="hidden md:block" />
-        Mumbai 400063, Maharashtra, India.
-      </p>
-    </div>
+            <p className="text-[17px] font-regular leading-[120%] tracking-[-1px] text-[#8a8a91]">
+              16, Yashodham Center, Film City Road, Goregaon (E),
+              <br className="hidden md:block" />
+              Mumbai 400063, Maharashtra, India.
+            </p>
+          </div>
 
-    {/* Trademark Info */}
-    <div className="px-[24px] py-[24px] md:mt-0 md:p-10 border-b md:border-b-0 md:border-r border-[#E6E6E6] flex flex-col justify-center font-inter-display">
-      <p className="text-[17px] tracking-[-1px] leading-[120%] text-[#8a8a91]">
-        <Image
-          src="/assets/footer-logo.svg"
-          alt="Professional Network"
-          width={190}
-          height={15}
-          className="inline-block align-baseline mr-1"
-        />
+          {/* Trademark Info */}
+          <div className="px-[24px] py-[24px] md:mt-0 md:p-10 border-b md:border-b-0 md:border-r border-[#E6E6E6] flex flex-col justify-center font-inter-display">
+            <p className="text-[17px] tracking-[-1px] leading-[120%] text-[#8a8a91]">
+              <Image
+                src="/assets/footer-logo.svg"
+                alt="Professional Network"
+                width={190}
+                height={15}
+                className="inline-block align-baseline mr-1"
+              />
 
-        is one amongst many networks trademarked and operated by{" "}
-<a
-  href="https://rextonedigital.com"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="underline text-[#67686B] font-medium cursor-pointer"
->
-  Rextone Digital
-</a>{" "}
-        
-        Pvt. Ltd.
-      </p>
-    </div>
+              is one amongst many networks trademarked and operated by{" "}
+              <a
+                href="https://rextonedigital.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline text-[#67686B] font-medium cursor-pointer"
+              >
+                Rextone Digital
+              </a>{" "}
 
-    {/* Copyright */}
-    <div className="px-[24px] py-[24px] md:mt-0 md:p-[24px] flex flex-col justify-center font-inter-display">
-      <p className="text-[17px] font-regular leading-[120%] tracking-[-1px] text-[#8a8a91] mb-2 md:mb-4">
-        2026 Rex-Tone Digital Pvt. Ltd.
-      </p>
+              Pvt. Ltd.
+            </p>
+          </div>
 
-      <p className="text-[17px] leading-[120%] font-medium text-black tracking-[-1px]">
-        Designed in-house
-      </p>
-    </div>
+          {/* Copyright */}
+          <div className="px-[24px] py-[24px] md:mt-0 md:p-[24px] flex flex-col justify-center font-inter-display">
+            <p className="text-[17px] font-regular leading-[120%] tracking-[-1px] text-[#8a8a91] mb-2 md:mb-4">
+              2026 Rex-Tone Digital Pvt. Ltd.
+            </p>
 
-  </div>
-</div>
+            <p className="text-[17px] leading-[120%] font-medium text-black tracking-[-1px]">
+              Designed in-house
+            </p>
+          </div>
+
+        </div>
+      </div>
     </footer>
   );
 };
@@ -386,9 +388,8 @@ const FooterLink = ({ text }) => {
 const SocialLink = ({ text, noBorderBottom = false, href }) => {
   const content = (
     <div
-      className={`w-full flex items-center justify-between md:py-8 p-[24px] md:h-[100px] md:p-[24px] ${
-        !noBorderBottom && "border-b"
-      } border-[#E6E6E6] cursor-pointer group hover:bg-[#c01823] transition-colors font-inter-display`}
+      className={`w-full flex items-center justify-between md:py-8 p-[24px] md:h-[100px] md:p-[24px] ${!noBorderBottom && "border-b"
+        } border-[#E6E6E6] cursor-pointer group hover:bg-[#c01823] transition-colors font-inter-display`}
     >
       <span className="text-[24px] md:text-[28px] font-medium leading-[120%] md:tracking-[-1.3px] text-[#333336] group-hover:text-white align-middle transition-colors">
         {text}
