@@ -104,7 +104,18 @@ const clips = [
   },
 ];
 
-/* --- pricing: two plans, each with Virtual + In Person tiers --- */
+/* --- pricing: two plans, each with Virtual + In Person tiers ---
+ *
+ * Single User tiers keep their own flat price / note / ticketCode.
+ *
+ * Enterprise tiers now carry a `memberOptions` array. Each entry is one
+ * position of the inline "Access to" toggle (1 member / 5 members …) and
+ * carries its OWN price, note and ticketCode. Selecting an option swaps the
+ * displayed price and the ticketCode sent to the apply popup on Register.
+ *
+ *  ⚠️ Ticket codes below are DUMMIES — replace them once you have the real
+ *     ones. Prices are taken straight from your reference mock.
+ */
 const pricingPlans = {
   single: {
     label: "Single User",
@@ -138,24 +149,39 @@ const pricingPlans = {
         icon: MonitorSmartphone,
         title: "VIRTUAL",
         desc: "Access for world class learnings",
-        price: "10 k",
-        note: "+ GST",
         secure: true,
-        ticketCode: "ENT-VIRTUAL",
         eventCode: "TPN-LIQ-02AUG2026",
+        memberOptions: [
+          {
+            members: "5 members",
+            price: "10 k",
+            note: "+ GST",
+            ticketCode: "ENT-VIRTUAL", 
+          },
+        ],
       },
       {
         icon: Users,
         title: "IN PERSON",
         desc: "Immerse yourself in live, face-to-face learning.",
-        price: "1 lac",
-        note: "+ GST",
         inPerson: true,
-        ticketCode: "ENT-INPERSON",
         eventCode: "TPN-LIQ-02AUG2026",
+        memberOptions: [
+          {
+            members: "1 member",
+            price: "25 k",
+            note: "+ GST",
+            ticketCode: "ENT-INPERSON-1", 
+          },
+          {
+            members: "5 members",
+            price: "1 lac",
+            note: "+ GST",
+            ticketCode: "ENT-INPERSON",
+          },
+        ],
       },
     ],
-    footnote: "Access to 5 members",
   },
 };
 
@@ -277,12 +303,15 @@ export default function EventRegistration() {
   const [copied, setCopied] = useState(false);
   const [playingClip, setPlayingClip] = useState(null); // index of clip playing, or null
   const [plan, setPlan] = useState("single"); // "single" | "enterprise"
-  const openApply = (tier) =>
-    window.dispatchEvent(
-      new CustomEvent("openApplyPopup", {
-        detail: tier ? { eventCode: tier.eventCode, ticketCode: tier.ticketCode } : undefined,
-      })
-    );
+
+  // Selected member option per enterprise tier, keyed by tier title.
+  // e.g. { "IN PERSON": 1 } → the "5 members" option is selected.
+  // Lifted here (not inside TierCard) so the choice survives parent re-renders
+  // and stays in sync between the main pricing block and the details popup.
+  const [memberSel, setMemberSel] = useState({});
+
+  const openApply = (detail) =>
+    window.dispatchEvent(new CustomEvent("openApplyPopup", { detail }));
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -387,9 +416,26 @@ export default function EventRegistration() {
     </div>
   );
 
-  /* One reusable tier card — used both in the main pricing block and inside the popup */
+  /* One reusable tier card — used both in the main pricing block and inside the popup.
+   *
+   * Handles two shapes of tier:
+   *   • Single User  → flat price / note / ticketCode on the tier itself.
+   *   • Enterprise   → `memberOptions[]`; the selected option supplies the
+   *                    price / note / ticketCode, and an inline "Access to"
+   *                    toggle lets the user switch between them.
+   */
   const TierCard = ({ tier }) => {
-    const { icon: Icon, title, desc, price, note, secure, inPerson } = tier;
+    const { icon: Icon, title, desc, secure, inPerson, memberOptions, eventCode } = tier;
+
+    const hasOptions = Array.isArray(memberOptions) && memberOptions.length > 0;
+    const selIdx = hasOptions ? Math.min(memberSel[title] ?? 0, memberOptions.length - 1) : 0;
+    const activeOption = hasOptions ? memberOptions[selIdx] : null;
+
+    // Effective values fed to the price row + Register button.
+    const price = activeOption ? activeOption.price : tier.price;
+    const note = activeOption ? activeOption.note : tier.note;
+    const ticketCode = activeOption ? activeOption.ticketCode : tier.ticketCode;
+
     return (
       <div className="flex flex-col rounded-2xl bg-white p-5 shadow-sm md:p-6">
         {/* Header */}
@@ -401,6 +447,33 @@ export default function EventRegistration() {
         </div>
 
         <p className="mt-3 text-sm leading-relaxed text-slate-500">{desc}</p>
+
+        {/* ---- Enterprise: "Access to" member toggle ---- */}
+        {hasOptions && (
+          <div className="mt-4 text-center">
+            <p className="text-sm font-semibold text-slate-700">Access to</p>
+            <div className="mt-2 inline-flex rounded-full bg-rose-50 p-1">
+              {memberOptions.map((opt, idx) => {
+                const isActive = idx === selIdx;
+                return (
+                  <button
+                    key={opt.ticketCode}
+                    type="button"
+                    onClick={() => setMemberSel((prev) => ({ ...prev, [title]: idx }))}
+                    aria-pressed={isActive}
+                    className={`cursor-pointer whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-semibold transition ${isActive
+                      ? "bg-white shadow-sm ring-1 ring-rose-200"
+                      : "text-slate-400 hover:text-slate-600"
+                      }`}
+                    style={isActive ? { color: RED } : undefined}
+                  >
+                    {opt.members}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Perks */}
         <div className="mt-4 space-y-2.5 border-t border-slate-100 pt-4">
@@ -418,11 +491,11 @@ export default function EventRegistration() {
 
           {/* Secure link — virtual card only */}
           {secure && (
-            <div className="flex items-start gap-2.5 rounded-lg bg-amber-50 px-3 py-2">
+            <div className="flex items-start gap-2.5 rounded-lg bg-amber-50  px-3 py-2">
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
                 <Lock className="h-3.5 w-3.5" />
               </span>
-              <span className="text-[12px] leading-snug text-slate-600">
+              <span className="text-[12px] leading-snug text-slate-600 ">
                 Secure Zoom / MS Teams link shared upon registration
               </span>
             </div>
@@ -456,7 +529,7 @@ export default function EventRegistration() {
     )}
           <button
             type="button"
-            onClick={() => openApply(tier)}
+            onClick={() => openApply({ eventCode, ticketCode })}
             className="mt-5 w-full cursor-pointer rounded-full border-2 px-8 py-2.5 text-sm font-semibold transition hover:bg-rose-50"
             style={{ borderColor: RED, color: RED }}
           >
@@ -477,7 +550,7 @@ export default function EventRegistration() {
         }}
       />
 
-      <div className="relative mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
+      <div className="relative mx-auto w-[95%] max-w-[1440px] px-5 py-14 md:px-8 md:py-20">
         {/* ---------- Top: title + speaker ---------- */}
         <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
           <div>
@@ -599,8 +672,8 @@ export default function EventRegistration() {
         </div>
 
         {/* ---------- Bottom: pricing ---------- */}
-        <div id={PRICING_ID} className="scroll-mt-24 mt-10 rounded-3xl border border-rose-200 bg-rose-50/70 p-6 md:mt-14 md:p-10">
-          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+        <div id={PRICING_ID} className="scroll-mt-24 mt-10 rounded-3xl border border-rose-200 bg-rose-50/70 p-6 md:mt-14 md:py-8 md:px-8">
+          <div className="grid items-center gap-5 lg:grid-cols-2 lg:gap-14">
             {/* Left: copy + highlights */}
             <div>
               <h2 className="font-inter-display text-3xl font-bold leading-tight text-slate-900 md:text-4xl">
