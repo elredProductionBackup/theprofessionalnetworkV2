@@ -480,11 +480,6 @@ const TICKET_PLAN_LABELS = {
   "ENT-VIRTUAL": "Enterprise (Virtual)",
   "ENT-INPERSON": "Enterprise (In Person - 5 Members)",
   "ENT-INPERSON-1": "Enterprise (In Person - 1 Member)",
-  // Dummy codes coming from the event page — replace/reconcile once the real
-  // ticket codes are finalised.
-  "ENT-VIRTUAL-5MEM": "Enterprise (Virtual - 5 Members)",
-  "ENT-INPERSON-1MEM": "Enterprise (In Person - 1 Member)",
-  "ENT-INPERSON-5MEM": "Enterprise (In Person - 5 Members)",
 };
 
 // Which optional fields are required, per ticket plan.
@@ -496,12 +491,13 @@ const REQUIRED_FIELD_RULES = {
   "SU-INPERSON":  { linkedIn: false, companyName: false, userTitle: false, exp: false, websiteURL: false, gstNumber: false, address: true, city: true, state: true, pincode: false },
   "ENT-VIRTUAL":  { linkedIn: false, companyName: true,  userTitle: true,  exp: false, websiteURL: true,  gstNumber: true,  address: true, city: true, state: true, pincode: false },
   "ENT-INPERSON": { linkedIn: false, companyName: true,  userTitle: true,  exp: false, websiteURL: true,  gstNumber: true,  address: true, city: true, state: true, pincode: false },
+  "ENT-INPERSON-1": { linkedIn: false, companyName: true,  userTitle: true,  exp: false, websiteURL: true,  gstNumber: true,  address: true, city: true, state: true, pincode: false },
 };
 const DEFAULT_FIELD_RULES = { linkedIn: false, companyName: false, userTitle: false, exp: false, websiteURL: false, gstNumber: false, address: true, city: true, state: true, pincode: false };
 
 // Plan-type fallbacks — used when the exact ticketCode isn't in the map above
 // (e.g. the dummy codes). Keeps the right fields required regardless of code.
-const ENTERPRISE_FIELD_RULES = { linkedIn: false, companyName: true,  userTitle: true,  exp: false, websiteURL: true,  gstNumber: true,  address: true, city: true, state: true, pincode: false };
+const ENTERPRISE_FIELD_RULES = { linkedIn: false, companyName: true,  userTitle: false,  exp: false, websiteURL: true,  gstNumber: true,  address: true, city: true, state: true, pincode: false,industry:true };
 const SINGLE_FIELD_RULES     = { linkedIn: false, companyName: false, userTitle: false, exp: false, websiteURL: false, gstNumber: false, address: true, city: true, state: true, pincode: false };
 
 const INITIAL_FORM = {
@@ -516,6 +512,7 @@ const INITIAL_FORM = {
   pincode: "",
   companyName: "",
   userTitle: "",
+  industry:"",
   exp: "",
   websiteURL: "",
   gstNumber: "",
@@ -649,12 +646,13 @@ const ApplyPopupContent = () => {
         city: formData.city,
         companyName: formData.companyName,
         userTitle: formData.userTitle,
+        industry:formData.industry,
         address: formData.address,
         state: formData.state,
         pincode: formData.pincode,
         exp: formData.exp,
         websiteURL: formData.websiteURL,
-        // gstNumber: formData.gstNumber,
+        gstNumber: formData.gstNumber,
         referalID: formData.referalID,
         utm: {
           utm_source: "",
@@ -795,7 +793,12 @@ const ApplyPopupContent = () => {
                     />
 
                     <FormField label={`Company Name${fieldRules.companyName ? "*" : ""}`} placeholder="Company Name" minLength={2} value={formData.companyName} onChange={(v) => handleChange("companyName", v)} />
-                    <FormField label={`${isEnterprise ? "Industry" : "Your title in the company"}${fieldRules.userTitle ? "*" : ""}`} placeholder={isEnterprise ? "Industry" : "Your title in the company"} minLength={2} value={formData.userTitle} onChange={(v) => handleChange("userTitle", v)} />
+
+                       {!isEnterprise && (
+                    <FormField label={`${"Your title in the company"}${fieldRules.userTitle ? "*" : ""}`} placeholder={"Your title in the company"} minLength={2} value={formData.userTitle} onChange={(v) => handleChange("userTitle", v)} />)}
+                      {isEnterprise && (
+                      <FormField label={"Industry"} placeholder={"Industry"} minLength={2} value={formData.industry} onChange={(v) => handleChange("industry", v)} />
+                      )}
 
                     {/* Years of experience — not collected for enterprise */}
                     {!isEnterprise && (

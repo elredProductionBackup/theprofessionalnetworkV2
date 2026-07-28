@@ -31,9 +31,9 @@ export default function HomeButton() {
   return (
     <div 
       onClick={scrollToTop}
-      className="fixed bottom-8 right-8 z-50 flex items-center justify-center w-[80px] h-[80px] bg-[#C01823] text-white font-inter font-bold text-[16px] rounded-full cursor-pointer shadow-lg hover:bg-[#C01823] transition-all transform hover:scale-105"
+      className="fixed right-6 bottom-6 md:bottom-8 md:right-8 z-50 flex items-center justify-center w-[60px] md:h-[80px] h-[60px] md:w-[80px] bg-[#C01823] text-white font-inter font-bold text-[16px] rounded-full cursor-pointer shadow-lg hover:bg-[#C01823] transition-all transform hover:scale-105"
     >
-      <p className="font-inter-display font-semibold text-[20px] leading-[110px]">HOME</p>
+      <p className="font-inter-display font-semibold text-sm md:text-[16px] leading-[110px]">HOME</p>
     </div>
   );
 }

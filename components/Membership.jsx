@@ -32,7 +32,7 @@ const PLANS = {
       descStrongEnd: "5 users",
       priceLabel: "Yearly",
       price: "INR 1 lac",
-      note: "+ GST",
+      note: "+18% GST",
     },
     {
       icon: Users,
@@ -41,7 +41,7 @@ const PLANS = {
       descStrongEnd: "5 users",
       priceLabel: "Per event",
       price: "INR 2 lacs",
-      note: "+ GST",
+      note: "+18% GST",
       // link: "Tap here for full year plans",
     },
   ],
