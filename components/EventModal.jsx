@@ -1,9 +1,6 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
-import columbiaLogo from "../public/icons/columbia.svg";
-import locationIcon from "../public/icons/location.svg";
-import calendarIcon from "../public/icons/calendar.svg";
 import searchIcon from '../public/icons/search.svg'
 import targetIcon from '../public/icons/target.svg'
 import chartIcon from '../public/icons/chart.svg'
@@ -11,13 +8,8 @@ import googleIcon from '../public/icons/google.svg'
 import cupIcon from '../public/icons/cup.svg'
 import foodIcon from '../public/icons/food.svg'
 import clockIcon from '../public/icons/clock.svg'
-import { slugify, buildEventShareUrl } from "../lib/eventShare";
 
 const EventModal = ({ event, onClose }) => {
-  const [shareOpen, setShareOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const shareRef = useRef(null);
-
   useEffect(() => {
     if (event) {
       document.body.style.overflow = "hidden";
@@ -29,80 +21,21 @@ const EventModal = ({ event, onClose }) => {
     };
   }, [event]);
 
-  useEffect(() => {
-    if (!shareOpen) return;
-    const onClickOutside = (e) => {
-      if (shareRef.current && !shareRef.current.contains(e.target)) {
-        setShareOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", onClickOutside);
-    return () => document.removeEventListener("mousedown", onClickOutside);
-  }, [shareOpen]);
-
-  useEffect(() => {
-    setShareOpen(false);
-    setCopied(false);
-  }, [event]);
-
   if (!event) return null;
-
-  const shareSlug = event.shareSlug || slugify(event.professorName || "");
-  const shareUrl = buildEventShareUrl(shareSlug);
-  const shareTitle = event.professorName || "Event";
-
-  const handleForwardClick = async () => {
-    if (typeof navigator !== "undefined" && navigator.share) {
-      try {
-        await navigator.share({ title: shareTitle, text: event.professorTitle, url: shareUrl });
-      } catch {
-        // user cancelled the native share sheet — no fallback needed
-      }
-      return;
-    }
-    setShareOpen((v) => !v);
-  };
-
-  const handleCopyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(shareUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    } catch {
-      // clipboard API unavailable — link stays visible for manual copy
-    }
-  };
-
-  const shareTargets = [
-    {
-      name: "WhatsApp",
-      href: `https://wa.me/?text=${encodeURIComponent(`${shareTitle} — ${shareUrl}`)}`,
-    },
-    {
-      name: "Email",
-      href: `mailto:?subject=${encodeURIComponent(shareTitle)}&body=${encodeURIComponent(shareUrl)}`,
-    },
-    {
-      name: "LinkedIn",
-      href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
-    },
-  ];
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
       <div className="no-scrollbar relative bg-white w-full max-w-[700px] max-h-[95vh] rounded-2xl shadow-2xl overflow-y-auto">
-        {/* Header with Logo */}
+        {/* Header */}
         <div className="sticky top-0 bg-white border-b border-zinc-100 px-6 md:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Image src={columbiaLogo} alt="columbia" />
-
-            <span className="text-base md:text-[35px] font-semibold text-zinc-900">
-              Columbia Business School
+            <span className="text-[18px] md:text-[35px] font-bold text-zinc-900">
+              {event.school}
             </span>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 bg-zinc-200 text-zinc-900 rounded-full flex items-center justify-center hover:bg-zinc-300 transition-colors"
+            className="w-8 h-8 cursor-pointer bg-zinc-200 text-zinc-900 rounded-full flex items-center justify-center hover:bg-zinc-300 transition-colors"
           >
             <svg
               width="16"
@@ -141,39 +74,13 @@ const EventModal = ({ event, onClose }) => {
             </div>
           </div>
 
-          {/* Event Details Section */}
-          <div className="mb-8">
-            <h3 className="text-xs md:text-base font-bold text-[#C01823]  tracking-normal mb-4">
-              Event Details
-            </h3>
-
-            <div className="space-y-3">
-              {/* Date */}
-              <div className="flex items-start gap-3">
-                <Image src={calendarIcon} alt="date" />
-                <span className="text-sm md:text-lg  text-[#231F20] font-medium">
-                  {event.date}
-                </span>
-              </div>
-
-              {/* Location */}
-              <div className="flex items-start gap-3">
-                <Image src={locationIcon} alt="date" />
-                <span className="text-sm md:text-lg  text-[#231F20] font-medium">
-                  {event.location}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* About This Session */}
           {event.description?.trim() && (
             <div className="mb-8">
-              <h3 className="text-xs md:text-base font-bold text-[#C01823] tracking-normal mb-4">
+              {/* <h3 className="text-xs md:text-base font-bold text-[#C01823] tracking-normal mb-4">
                 About This Session
-              </h3>
+              </h3> */}
               <div
-                className="prose prose-sm max-w-none text-sm md:text-base text-zinc-600 leading-relaxed
+                className="prose prose-sm max-w-none text-[16px] md:text-[18px] text-zinc-600 leading-relaxed
                   [&_p]:mb-3
                   [&_ul]:list-disc [&_ul]:pl-5
                   [&_ol]:list-decimal [&_ol]:pl-5
@@ -183,7 +90,7 @@ const EventModal = ({ event, onClose }) => {
             </div>
           )}
 
-          {/* Calendar Integration */}
+          {/* Calendar Integration
           <div className="mb-8">
             <h3 className="text-xs md:text-base font-bold text-[#C01823]  tracking-normal mb-4">
               Save to my Calendar
@@ -196,8 +103,9 @@ const EventModal = ({ event, onClose }) => {
               />
             </div>
           </div>
+          */}
 
-          {/* Key Takeaways */}
+          {/* Key Takeaways
           <div className="mb-8">
             <h3 className="text-xs md:text-base font-bold text-[#C01823]  tracking-normal mb-4">
               Key Takeaways
@@ -220,8 +128,9 @@ const EventModal = ({ event, onClose }) => {
               ))}
             </div>
           </div>
+          */}
 
-          {/* Modules Section */}
+          {/* Modules Section
           <div className="mb-8">
             <h3 className="text-xs md:text-base font-bold text-[#C01823]  tracking-normal mb-4">
               Modules
@@ -285,57 +194,21 @@ const EventModal = ({ event, onClose }) => {
               ))}
             </div>
           </div>
+          */}
 
         </div>
 
-        {/* Register / Forward Button Section */}
+        {/* Close Button */}
         <div className="sticky bottom-0 bg-white px-4 md:px-8 py-4 md:py-6 border-t border-zinc-100">
-          <div className="flex items-stretch gap-3">
-            <button
-              onClick={() => event.onRegister?.()}
-              className="flex-1 transition-colors text-white font-semibold py-3 px-4 rounded-full text-center"
-              style={{ backgroundColor: '#C01823' }}
-              onMouseEnter={(e) => e.target.style.backgroundColor = '#A01420'}
-              onMouseLeave={(e) => e.target.style.backgroundColor = '#C01823'}
-            >
-              Register
-            </button>
-
-            <div className="relative flex-1" ref={shareRef}>
-              <button
-                onClick={handleForwardClick}
-                className="w-full h-full transition-colors font-semibold py-3 px-4 rounded-full text-center border-2"
-                style={{ borderColor: '#C01823', color: '#C01823', backgroundColor: 'transparent' }}
-                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#C01823'; e.currentTarget.style.color = '#fff'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#C01823'; }}
-              >
-                Forward
-              </button>
-
-              {shareOpen && (
-                <div className="absolute bottom-full right-0 mb-2 w-56 bg-white rounded-xl shadow-xl border border-zinc-100 p-2 z-10">
-                  {shareTargets.map((target) => (
-                    <a
-                      key={target.name}
-                      href={target.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={() => setShareOpen(false)}
-                      className="block px-3 py-2 rounded-lg text-sm font-medium text-zinc-700 hover:bg-zinc-100 transition-colors"
-                    >
-                      {target.name}
-                    </a>
-                  ))}
-                  <button
-                    onClick={handleCopyLink}
-                    className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-zinc-700 hover:bg-zinc-100 transition-colors"
-                  >
-                    {copied ? "Link copied!" : "Copy link"}
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
+          <button
+            onClick={onClose}
+            className="w-full cursor-pointer transition-colors text-white font-semibold py-3 px-4 rounded-full text-center"
+            style={{ backgroundColor: '#C4122E' }}
+            onMouseEnter={(e) => e.target.style.backgroundColor = '#A00F26'}
+            onMouseLeave={(e) => e.target.style.backgroundColor = '#C4122E'}
+          >
+            Close
+          </button>
         </div>
       </div>
     </div>

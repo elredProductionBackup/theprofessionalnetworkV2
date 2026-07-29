@@ -70,6 +70,7 @@ export default function CalendarAhead({ onViewDetails }) {
     professorName: p.name,
     professorTitle: p.topic,
     professorImage: p.image,
+    school: p.school,
     date: p.date,
     location: p.location,
     description: p.description,
@@ -326,16 +327,15 @@ export default function CalendarAhead({ onViewDetails }) {
                     {blurb}
                   </p>
 
-                  {/* <div className="space-y-4 flex items-center justify-center md:justify-start">
+                  <div className="flex items-center justify-center md:justify-start">
                     <button
-                      onClick={() => {
-                        window.dispatchEvent(new Event('openApplyPopup'));
-                      }}
-                      className="flex h-9 w-[120px] cursor-pointer items-center justify-center rounded-full font-inter border-2 border-[#C01823] text-center font-medium text-[#C01823] transition-colors hover:bg-[#C01823] hover:text-white text-[15px] md:h-[48px] md:w-[160px] md:text-[20px]"
+                      type="button"
+                      onClick={() => setEventModalOpen(true)}
+                      className="cursor-pointer font-inter text-[15px] font-bold text-zinc-900 underline underline-offset-4 hover:opacity-80 md:text-[17px]"
                     >
-                      Register
+                      View Details
                     </button>
-                  </div> */}
+                  </div>
                 </div>
               </div>
             </div>
