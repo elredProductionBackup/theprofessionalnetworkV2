@@ -40,7 +40,7 @@ const speaker = {
   linkedinLink: "https://www.linkedin.com/in/oded-netzer-700255",
   schoolLink: "https://business.columbia.edu/faculty/people/oded-netzer",
   location: "Tata Classroom - Taj Lands End, Mumbai",
-  date: "2nd August",
+  date: "1st August",
   description:
     "The challenge today is not a lack of information (or analytics, dashboards, and AI outputs), but the judgment to use it well. What distinguishes leaders who consistently make smart decisions is their ability to quickly sort through signal and noise by asking essential questions, pressure-testing assumptions, and validating claims, not with statistical rigor, but from a business validity perspective. This form of leadership intelligence has become all the more important in the AI era. This session equips leaders to engage with AI productively. It teaches Quantitative Intuition (QI), a practical framework and set of rapid-response tools for making better decisions in a data-driven world where AI is accelerating answers but not necessarily improving judgment. Participants will learn to frame issues with precision before rushing to solutions, develop intuition for numbers using pragmatic methods and apply contextual lenses to assess relevance, risk, and trust when information is incomplete.",
 
@@ -89,7 +89,7 @@ const speaker = {
 const clips = [
   {
     name: "Prof. Oded Netzer",
-    date: "2nd August, Sunday",
+    date: "1st August, Sunday",
     topic: "Leadership Intelligence in an AI Era: Developing Quantitative Intuition",
     videoThumbnail: "/professor-clips/oded-thumb.png",
     // .mov often won't play in Chrome/Firefox — swap the extension to .mp4 if it doesn't:
@@ -97,7 +97,7 @@ const clips = [
   },
   {
     name: "Oded Netzer × Saurabh Goswamy",
-    date: "2nd August, Sunday",
+    date: "1st August, Sunday",
     topic: "QI & Leadership: What Executives Can Learn From It",
     videoThumbnail: "/professor-clips/odedxsaurabh.webp",
     video: "https://assets-pretest.elred.io/theProfessionalNetwork/Video_Podcast_Full_For+Website_v1_compressed.mp4",
@@ -120,16 +120,16 @@ const pricingPlans = {
   single: {
     label: "Single User",
     tiers: [
-      {
-        icon: MonitorSmartphone,
-        title: "VIRTUAL",
-        desc: "Access for world class learnings",
-        price: "5 k",
-        note: "including all taxes",
-        secure: true,
-        ticketCode: "SU-VIRTUAL",
-        eventCode: "TPN-LIQ-02AUG2026",
-      },
+      // {
+      //   icon: MonitorSmartphone,
+      //   title: "VIRTUAL",
+      //   desc: "Access for world class learnings",
+      //   price: "5 k",
+      //   note: "including all taxes",
+      //   secure: true,
+      //   ticketCode: "SU-VIRTUAL",
+      //   eventCode: "TPN-LIQ-02AUG2026",
+      // },
       {
         icon: Users,
         title: "IN PERSON",
@@ -145,21 +145,21 @@ const pricingPlans = {
   enterprise: {
     label: "Enterprise",
     tiers: [
-      {
-        icon: MonitorSmartphone,
-        title: "VIRTUAL",
-        desc: "Access for world class learnings",
-        secure: true,
-        eventCode: "TPN-LIQ-02AUG2026",
-        memberOptions: [
-          {
-            members: "5 members",
-            price: "10 k",
-            note: "+18% GST",
-            ticketCode: "ENT-VIRTUAL", 
-          },
-        ],
-      },
+      // {
+      //   icon: MonitorSmartphone,
+      //   title: "VIRTUAL",
+      //   desc: "Access for world class learnings",
+      //   secure: true,
+      //   eventCode: "TPN-LIQ-02AUG2026",
+      //   memberOptions: [
+      //     {
+      //       members: "5 members",
+      //       price: "10 k",
+      //       note: "+18% GST",
+      //       ticketCode: "ENT-VIRTUAL", 
+      //     },
+      //   ],
+      // },
       {
         icon: Users,
         title: "IN PERSON",
@@ -750,7 +750,7 @@ export default function EventRegistration() {
                 <PlanToggle />
               </div>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 sm:gap-5">
                 {activePlan.tiers.map((tier) => (
                   <TierCard key={tier.title} tier={tier} />
                 ))}
@@ -818,7 +818,7 @@ export default function EventRegistration() {
               <div className="mt-4 flex justify-center">
                 <PlanToggle />
               </div>
-              <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-1">
                 {activePlan.tiers.map((tier) => (
                   <TierCard key={`popup-${tier.title}`} tier={tier} />
                 ))}

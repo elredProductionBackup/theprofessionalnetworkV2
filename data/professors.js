@@ -114,7 +114,7 @@
 export const professors = [
   {
     name: "Prof. Oded Netzer",
-    date: "2nd August, Sunday",
+    date: "1st August, Saturday",
     topic: "Leadership Intelligence in an AI Era: Developing Quantitative Intuition",
     videoThumbnail: "/professor-clips/oded-thumb.png", // optional; falls back to `image`
     video: "https://res.cloudinary.com/dtrv7p3gg/video/upload/v1784109467/HELLO_INDIA_FROM_ODED_NETZER_tl8juq.mov",        // <-- replace with your real clip
@@ -130,7 +130,7 @@ export const professors = [
   },
   {
     name: "Oded Netzer × Saurabh Goswamy",
-    date: "2nd August, Sunday",
+    date: "1st August, Saturday",
     topic: "QI & Leadership: What Executives Can Learn From It",
     video: "https://assets-pretest.elred.io/theProfessionalNetwork/Video_Podcast_Full_For+Website_v1_compressed.mp4",
     videoThumbnail: "/professor-clips/odedxsaurabh.webp", // optional; falls back to `image`
@@ -148,7 +148,7 @@ export const professors = [
   {
     name: "Niro Sivanathan",
     showInClips: true, 
-    date: "6th September, Sunday",
+    date: "5th September, Saturday",
     topic: "Negotiations, Influence, and Decision-making",
     school: "London Business School",
     image: "/professor-profile/niro.png",
@@ -189,7 +189,7 @@ export const professors = [
   },
     {
     name: "Jonathan Levav",
-    date: "15th November, Sunday",
+    date: "14th November, Saturday",
     topic:
       "Understanding consumer’s judgments and choices by using tools from experimental psychology and behavioural economics.",
     school: "Stanford Business School",
@@ -203,7 +203,7 @@ export const professors = [
   },
   {
     name: "Danny Warshay",
-    date: "10th January, Sunday",
+    date: "9th January, Saturday",
     topic: "Turn unsolved problems into entrepreneurial successes",
     school: "Brown University",
     image: "/professor-profile/danny.jpg",
