@@ -163,7 +163,7 @@ export const professors = [
   {
     name: "Goutam Challagalla",
     showInClips: true,
-    date: "17th October, Saturday",
+    date: "17th October, Sunday",
     topic: "Turn conventional thinking on sustainability on its head to make money with it",
     highlightWords: 4,
     school: "IMD Switzerland",
