@@ -132,9 +132,9 @@ const pricingPlans = {
       // },
       {
         icon: Users,
-        title: "IN PERSON",
-        desc: "Immerse yourself in live, face-to-face learning.",
-        price: "25 k",
+        title: "Event Recording",
+        desc: "The complete event, now available at your own pace.",
+        price: "5 k",
         note: "including all taxes",
         inPerson: true,
         ticketCode: "SU-INPERSON",
@@ -162,20 +162,20 @@ const pricingPlans = {
       // },
       {
         icon: Users,
-        title: "IN PERSON",
-        desc: "Immerse yourself in live, face-to-face learning.",
+        title: "Event Recording",
+        desc: "The complete event, now available at your own pace.",
         inPerson: true,
         eventCode: "TPN-LIQ-02AUG2026",
         memberOptions: [
           {
             members: "1 member",
-            price: "25 k",
+            price: "10 k",
             note: "+18% GST",
             ticketCode: "ENT-INPERSON-1", 
           },
           {
             members: "5 members",
-            price: "1 lac",
+            price: "50 k",
             note: "+18% GST",
             ticketCode: "ENT-INPERSON",
           },
@@ -194,13 +194,13 @@ const highlights = [
   },
   {
     icon: Target,
-    title: "Practical, tool-based learning",
-    desc: "Frameworks and rapid-response tools you can apply right away",
+    title: "Frameworks you can apply immediately",
+    desc: "Rapid-response strategies drawn directly from real-world case studies",
   },
   {
     icon: CalendarDays,
-    title: "Full-day immersive session",
-    desc: `${speaker.date} · Taj Lands End, Mumbai`,
+    title: "Structured in learning modules",
+    desc: `Full-day session split into bite-sized modules — watch, pause, revisit`,
   },
 ];
 
@@ -506,9 +506,18 @@ export default function EventRegistration() {
               Downloadable &amp; sharable on LinkedIn
             </span>
           </div>
+          <div className="flex items-start gap-2.5">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
+              <Target className="h-3.5 w-3.5" />
+            </span>
+            <span className="text-[13px] leading-snug text-slate-600">
+              <span className="font-semibold text-slate-800">Module-wise progress tracking</span>
+              <br />
+             Resume where you left off, anytime
+            </span>
+          </div>
 
-          {/* Secure link — virtual card only */}
-          {secure && (
+          {/* {secure && (
             <div className="flex items-start gap-2.5 rounded-lg bg-amber-50  px-3 py-2">
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
                 <Lock className="h-3.5 w-3.5" />
@@ -519,7 +528,6 @@ export default function EventRegistration() {
             </div>
           )}
 
-          {/* Venue — in-person card only */}
           {inPerson && (
             <div className="flex items-start gap-2.5 rounded-lg bg-rose-50 px-3 py-2">
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
@@ -531,7 +539,7 @@ export default function EventRegistration() {
                 {speaker.location}
               </span>
             </div>
-          )}
+          )} */}
         </div>
 
         {/* Price + CTA — pinned to the bottom so cards stay aligned */}
@@ -572,81 +580,40 @@ export default function EventRegistration() {
       />
 
       <div className="relative mx-auto w-[95%] max-w-[1440px] px-5 py-14 md:px-8 md:py-20">
-        {/* ---------- Top: title + speaker ---------- */}
-        <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
-          <div>
-            <h1 className="font-inter-display text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
-              Leadership Intelligence in an AI Era: Developing{" "}
-              <span style={{ color: RED }}>Quantitative Intuition</span>
-            </h1>
-            <p className="mt-5 max-w-md text-sm leading-relaxed text-slate-600">{teaser}</p>
+<div className="text-center flex flex-col items-center">
+  {/* Past-event status badge */}
+  <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+    {/* <span className="h-1.5 w-1.5 rounded-full bg-slate-400" /> */}
+    Event Concluded
+  </span>
 
-            <div className="mt-4 flex flex-wrap items-center gap-4">
-              <button
-                type="button"
-                onClick={() => setDescOpen(true)}
-                className="text-sm font-semibold text-slate-900 underline underline-offset-4 hover:text-[#C4122E]"
-              >
-                Tap here for full schedule
-              </button>
+  <h1 className="mt-4 font-inter-display text-3xl max-w-[1000px] font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
+    Leadership Intelligence in an AI Era: Developing{" "}
+    <span style={{ color: RED }}>Quantitative Intuition</span>
+  </h1>
 
-              <button
-                type="button"
-                onClick={handleShare}
-                aria-label="Share this event"
-                className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-1.5 text-sm font-semibold shadow-sm ring-1 ring-rose-200 transition hover:bg-rose-50"
-                style={{ color: RED }}
-              >
-                {copied ? <Check className="h-4 w-4" /> : <Share2 className="h-4 w-4" />}
-                {copied ? "Link copied" : "Share"}
-              </button>
-            </div>
-          </div>
+  <p className="mt-5 mx-auto max-w-md text-sm leading-relaxed text-slate-600">{teaser}</p>
 
-          {/* Speaker card */}
-          <div className="rounded-2xl bg-white p-6 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)] md:p-7">
-            <div className="flex items-start gap-4">
-              <img src={speaker.image} alt={speaker.name} className="h-16 w-16 shrink-0 rounded-full object-cover" />
-              <div>
-                <h3 className="text-2xl font-bold text-slate-900 font-inter-display">{speaker.name}</h3>
-                <p className="mt-1 flex items-center gap-1.5 text-sm text-slate-500">
-                  {speaker.schoolLogo && <img src={speaker.schoolLogo} alt="" className="h-4 w-4 object-contain" />}
-                  {speaker.school}<sup >*</sup>
-                </p>
-                <div className="mt-2 flex items-center gap-2">
-                  <a href={speaker.linkedinLink} target="_blank" rel="noreferrer" aria-label={`${speaker.name} on LinkedIn`}
-                    className="flex h-6 w-6 items-center justify-center rounded bg-[#0A66C2] text-white transition-transform hover:scale-110">
-                    <LinkedInIcon />
-                  </a>
-                  <a href={speaker.schoolLink} target="_blank" rel="noreferrer" aria-label={`${speaker.name} faculty page`}
-                    className="flex h-6 w-6 items-center justify-center rounded bg-rose-100 transition-transform hover:scale-110" style={{ color: RED }}>
-                    <LinkIcon className="h-3.5 w-3.5" />
-                  </a>
-                </div>
-              </div>
-            </div>
+  <div className="mt-4 flex flex-wrap items-center justify-center gap-4">
+    <button
+      type="button"
+      onClick={() => setDescOpen(true)}
+      className="text-sm font-semibold text-slate-900 underline underline-offset-4 hover:text-[#C4122E]"
+    >
+      Tap here for more details
+    </button>
 
-            <div className="mt-6 border-t border-slate-100 pt-5">
-              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Event Details</p>
-              <div className="mt-3 space-y-3 text-sm text-slate-700">
-                <p className="flex items-start gap-2">
-                  <MapPin className="mt-0.5 h-4 w-4 shrink-0" style={{ color: RED }} />
-                  {speaker.location}
-                </p>
-                <p className="flex items-center gap-2">
-                  <CalendarDays className="h-4 w-4 shrink-0" style={{ color: RED }} />
-                  {speaker.date}
-                </p>
-              </div>
-            </div>
-
-            {/* College affiliation disclaimer */}
-            <p className="mt-5 border-t border-slate-100 pt-4 text-[11px] leading-relaxed text-slate-400">
-              {COLLEGE_DISCLAIMER}
-            </p>
-          </div>
-        </div>
-
+    {/* Jump straight to the recap */}
+    {/* 
+      href="#event-highlights"
+      className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:opacity-90"
+      style={{ backgroundColor: RED }}
+    >
+      <Play className="h-4 w-4" />
+      Watch highlights
+    </a> */}
+  </div>
+</div>
         {/* ---------- Videos (2 per row, play inline, one at a time) ---------- */}
         <div id={VIDEOS_ID} className="scroll-mt-24 mt-10 md:mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
           {clips.map((clip, i) => {
@@ -697,11 +664,11 @@ export default function EventRegistration() {
           <div className="grid items-center gap-5 lg:grid-cols-2 lg:gap-14">
             {/* Left: copy + highlights */}
             <div>
-              <h2 className="font-inter-display text-3xl font-bold leading-tight text-slate-900 md:text-4xl">
-                Preview price for <span style={{ color: RED }}>the first event</span>
+             <h2 className="font-inter-display text-3xl font-bold leading-tight text-slate-900 md:text-4xl">
+                Access the recording of <span style={{ color: RED }}>the full event</span>
               </h2>
               <p className="font-inter-display mt-4 max-w-md text-base leading-relaxed text-slate-600">
-                Experience the quality of our workshops before you commit to the full membership.
+                The complete event is now available on demand — structured as self-paced modules so you can learn at your own pace.
               </p>
 
               <ul className="mt-8 space-y-4">
@@ -722,7 +689,7 @@ export default function EventRegistration() {
               </ul>
 
               {/* Cancellation / refund policy note */}
-              <p className="mt-6 max-w-md text-[13px] leading-relaxed text-slate-600">
+              {/* <p className="mt-6 max-w-md text-[13px] leading-relaxed text-slate-600">
                 <span className="font-semibold text-slate-800">Cancellation policy:</span>{" "}
                  To check the cancellation / refund policy, please{" "}
                 <button
@@ -734,7 +701,7 @@ export default function EventRegistration() {
                   click here
                 </button>
                 .
-              </p>
+              </p> */}
 
               {/* College affiliation disclaimer */}
               <p className="mt-4 max-w-md text-[11px] leading-relaxed text-slate-400">
@@ -778,87 +745,57 @@ export default function EventRegistration() {
                 <X className="h-5 w-5" />
               </button>
             </div>
+<div className="overflow-y-auto px-6 pb-6 pt-7 sm:px-8">
+  <div className="flex items-center gap-3 pr-24">
+    {speaker.schoolLogo && ( <img src={speaker.schoolLogo} alt="" className="h-8 w-8 object-contain" />)}
+    <h3 className="text-xl md:text-2xl font-bold text-slate-900">
+      {speaker.school}
+      <sup>*</sup>
+    </h3>
+  </div>
 
-            <div className="overflow-y-auto px-6 pb-6 pt-7 sm:px-8">
-              <div className="flex items-center gap-3 pr-24">
-                {speaker.schoolLogo && ( <img src={speaker.schoolLogo} alt="" className="h-8 w-8 object-contain" />)}
-                <h3 className="text-xl md:text-2xl font-bold text-slate-900">
-                  {speaker.school}
-                  <sup >*</sup>
-                </h3>
-              </div>
+  {/* College affiliation disclaimer */}
+  <p className="mt-2 text-[11px] leading-relaxed text-slate-400">
+    {COLLEGE_DISCLAIMER}
+  </p>
 
-              {/* College affiliation disclaimer */}
-              <p className="mt-2 text-[11px] leading-relaxed text-slate-400">
-                {COLLEGE_DISCLAIMER}
-              </p>
+  <div className="mt-6 flex items-start gap-4">
+    <img src={speaker.image} alt={speaker.name} className="h-16 w-16 shrink-0 rounded-full object-cover" />
+    <div className="pt-1">
+      <h4 className="text-xl font-bold text-slate-900">{speaker.title}</h4>
+      <p className="mt-1 text-base italic leading-snug text-slate-500">{speaker.topic}</p>
+    </div>
+  </div>
 
-              <div className="mt-6 flex items-start gap-4">
-                <img src={speaker.image} alt={speaker.name} className="h-16 w-16 shrink-0 rounded-full object-cover" />
-                <div className="pt-1">
-                  <h4 className="text-xl font-bold text-slate-900">{speaker.title}</h4>
-                  <p className="mt-1 text-base italic leading-snug text-slate-500">{speaker.topic}</p>
-                </div>
-              </div>
+  {/* Description */}
+  <p className="mt-6 text-[15px] leading-relaxed text-slate-700">
+    {speaker.description}
+  </p>
 
-              <p className="mt-7 text-sm font-bold uppercase tracking-wider" style={{ color: RED }}>Event Details</p>
-              <div className="mt-3 space-y-3 text-base text-slate-800">
-                <p className="flex items-center gap-2.5">
-                  <CalendarDays className="h-5 w-5 shrink-0 text-slate-500" />
-                  {speaker.date}
-                </p>
-                <p className="flex items-start gap-2.5">
-                  <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-slate-500" />
-                  {speaker.location}
-                </p>
-              </div>
+  {/* <p className="mt-7 text-sm font-bold uppercase tracking-wider" style={{ color: RED }}>Choose your plan</p>
+  <div className="mt-4 flex justify-center">
+    <PlanToggle />
+  </div>
+  <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-1">
+    {activePlan.tiers.map((tier) => (
+      <TierCard key={`popup-${tier.title}`} tier={tier} />
+    ))}
+  </div>
 
-              {/* ---------- Plans inside the popup (pick a plan → opens apply popup) ---------- */}
-              <p className="mt-7 text-sm font-bold uppercase tracking-wider" style={{ color: RED }}>Choose your plan</p>
-              <div className="mt-4 flex justify-center">
-                <PlanToggle />
-              </div>
-              <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-1">
-                {activePlan.tiers.map((tier) => (
-                  <TierCard key={`popup-${tier.title}`} tier={tier} />
-                ))}
-              </div>
-
-
-              {/* Cancellation / refund policy note (popup) */}
-              <p className="mt-4 text-center text-[13px] leading-relaxed text-slate-600">
-                <span className="font-semibold text-slate-800">Cancellation policy:</span>{" "}
-                To check the cancellation / refund policy, please{" "}
-                <button
-                  type="button"
-                  onClick={() => setCancellationOpen(true)}
-                  className="cursor-pointer font-semibold underline underline-offset-2 hover:opacity-80"
-                  style={{ color: RED }}
-                >
-                  click here
-                </button>
-                .
-              </p>
-
-              <p className="mt-7 text-sm font-bold uppercase tracking-wider" style={{ color: RED }}>Key Takeaways</p>
-              <div className="mt-3 space-y-2.5">
-                {speaker.keyTakeaways.map((t, i) => (
-                  <div key={i} className="flex items-start gap-3 rounded-xl border border-rose-100 bg-white p-4">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100 text-xs font-bold" style={{ color: RED }}>
-                      {i + 1}
-                    </span>
-                    <p className="text-[15px] leading-relaxed text-slate-700">{t}</p>
-                  </div>
-                ))}
-              </div>
-
-              <p className="mt-7 text-sm font-bold uppercase tracking-wider" style={{ color: RED }}>Modules</p>
-              <div className="mt-3 space-y-3">
-                {speaker.schedule.map((item, i) => (
-                  <ScheduleRow key={i} item={item} />
-                ))}
-              </div>
-            </div>
+  <p className="mt-4 text-center text-[13px] leading-relaxed text-slate-600">
+    <span className="font-semibold text-slate-800">Cancellation policy:</span>{" "}
+    To check the cancellation / refund policy, please{" "}
+    <button
+      type="button"
+      onClick={() => setCancellationOpen(true)}
+      className="cursor-pointer font-semibold underline underline-offset-2 hover:opacity-80"
+      style={{ color: RED }}
+    >
+      click here
+    </button>
+    .
+  </p> */}
+</div>
 
             {/* Footer: no more "register by default" — just Share + Close */}
             <div className="border-t border-slate-100 bg-white px-6 py-4 sm:px-8">
