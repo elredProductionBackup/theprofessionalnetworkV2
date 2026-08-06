@@ -27,9 +27,9 @@ const PLANS = {
     {
       icon: TabletSmartphone,
       title: "Event Recording",
-      descStrong: "Yearly",
+      // descStrong: "Yearly",
       desc: "The complete event, now available at your own pace.",
-      descStrongEnd: "5 users",
+      // descStrongEnd: "5 users",
       priceLabel: "Yearly",
       price: "INR 1 lac",
       note: "+18% GST",
