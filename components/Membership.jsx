@@ -8,7 +8,7 @@ const PLANS = {
   single: [
     {
       icon: TabletSmartphone,
-      title: "Event Recording",
+      title: "Unlock Learning Access",
       desc: "The complete event, now available at your own pace.",
       priceLabel: "Per event",
       price: "INR 10 k",
@@ -26,7 +26,7 @@ const PLANS = {
   enterprise: [
     {
       icon: TabletSmartphone,
-      title: "Event Recording",
+      title: "Unlock Learning Access",
       // descStrong: "Yearly",
       desc: "The complete event, now available at your own pace.",
       // descStrongEnd: "5 users",
@@ -141,7 +141,7 @@ export default function Membership() {
                   disabled
                   className="mt-6 w-fit rounded-full border border-[#C4122E] px-8 py-2 text-[15px] md:text-base font-medium text-[#C4122E] cursor-not-allowed opacity-50"
                 >
-                  Coming Soon
+                  Get access
                 </button>
 
                 {/* Optional link */}

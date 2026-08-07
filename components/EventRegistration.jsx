@@ -87,14 +87,14 @@ const speaker = {
 
 /* --- video clips shown after the pricing block --- */
 const clips = [
-  {
-    name: "Prof. Oded Netzer",
-    date: "1st August, Sunday",
-    topic: "Leadership Intelligence in an AI Era: Developing Quantitative Intuition",
-    videoThumbnail: "/professor-clips/oded-thumb.png",
-    // .mov often won't play in Chrome/Firefox — swap the extension to .mp4 if it doesn't:
-    video: "https://res.cloudinary.com/dtrv7p3gg/video/upload/v1784109467/HELLO_INDIA_FROM_ODED_NETZER_tl8juq.mov",
-  },
+  // {
+  //   name: "Prof. Oded Netzer",
+  //   date: "1st August, Sunday",
+  //   topic: "Leadership Intelligence in an AI Era: Developing Quantitative Intuition",
+  //   videoThumbnail: "/professor-clips/oded-thumb.png",
+  //   // .mov often won't play in Chrome/Firefox — swap the extension to .mp4 if it doesn't:
+  //   video: "https://res.cloudinary.com/dtrv7p3gg/video/upload/v1784109467/HELLO_INDIA_FROM_ODED_NETZER_tl8juq.mov",
+  // },
   {
     name: "Oded Netzer × Saurabh Goswamy",
     date: "1st August, Sunday",
@@ -132,7 +132,7 @@ const pricingPlans = {
       // },
       {
         icon: Users,
-        title: "Event Recording",
+        title: "Unlock Learning Access",
         desc: "The complete event, now available at your own pace.",
         price: "5 k",
         note: "including all taxes",
@@ -162,7 +162,7 @@ const pricingPlans = {
       // },
       {
         icon: Users,
-        title: "Event Recording",
+        title: "Unlock Learning Access",
         desc: "The complete event, now available at your own pace.",
         inPerson: true,
         eventCode: "TPN-LIQ-02AUG2026",
@@ -562,7 +562,7 @@ export default function EventRegistration() {
             // className="mt-5 w-full cursor-pointer rounded-full border-2 px-8 py-2.5 text-base font-semibold transition hover:bg-rose-50"
             style={{ borderColor: RED, color: RED }}
           >
-            Register
+            Get access
           </button>
         </div>
       </div>
@@ -579,7 +579,7 @@ export default function EventRegistration() {
         }}
       />
 
-      <div className="relative mx-auto w-[95%] max-w-[1440px] px-5 py-14 md:px-8 md:py-20">
+      <div className="relative mx-auto w-[95%] max-w-[1440px] px-5 py-14 md:px-8 md:py-20 flex flex-col items-center">
 <div className="text-center flex flex-col items-center">
   {/* Past-event status badge */}
   <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
@@ -615,7 +615,7 @@ export default function EventRegistration() {
   </div>
 </div>
         {/* ---------- Videos (2 per row, play inline, one at a time) ---------- */}
-        <div id={VIDEOS_ID} className="scroll-mt-24 mt-10 md:mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
+        <div id={VIDEOS_ID} className="scroll-mt-24 mt-10 md:mt-14 grid grid-cols-1 gap-5 sm:grid-cols-1 max-w-[600px] sm:gap-6">
           {clips.map((clip, i) => {
             const poster = clip.videoThumbnail;
             const isPlaying = playingClip === i;
@@ -736,10 +736,10 @@ export default function EventRegistration() {
 
           <div className="relative z-10 flex max-h-[90vh] w-full max-w-[700px] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
             <div className="absolute right-4 top-4 z-20 flex items-center gap-2">
-              <button type="button" onClick={handleShare} aria-label="Share this event"
+              {/* <button type="button" onClick={handleShare} aria-label="Share this event"
                 className="grid h-9 w-9 place-items-center rounded-full bg-rose-100 transition-colors hover:bg-rose-200" style={{ color: RED }}>
                 {copied ? <Check className="h-5 w-5" /> : <Share2 className="h-5 w-5" />}
-              </button>
+              </button> */}
               <button type="button" onClick={() => setDescOpen(false)} aria-label="Close"
                 className="grid h-9 w-9 place-items-center rounded-full bg-slate-100 text-slate-600 transition-colors hover:bg-slate-200">
                 <X className="h-5 w-5" />
@@ -800,11 +800,11 @@ export default function EventRegistration() {
             {/* Footer: no more "register by default" — just Share + Close */}
             <div className="border-t border-slate-100 bg-white px-6 py-4 sm:px-8">
               <div className="flex items-center gap-3">
-                <button type="button" onClick={handleShare} aria-label="Share this event"
+                {/* <button type="button" onClick={handleShare} aria-label="Share this event"
                   className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-5 py-3.5 text-base font-semibold ring-1 ring-rose-200 transition hover:bg-rose-50" style={{ color: RED }}>
                   {copied ? <Check className="h-5 w-5" /> : <Share2 className="h-5 w-5" />}
                   <span className="hidden sm:inline">{copied ? "Copied" : "Share"}</span>
-                </button>
+                </button> */}
                 <button type="button" onClick={() => setDescOpen(false)}
                   className="flex-1 rounded-full py-3.5 text-base font-semibold text-white transition hover:opacity-90" style={{ backgroundColor: RED }}>
                   Close
