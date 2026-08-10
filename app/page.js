@@ -2,8 +2,9 @@
 import Membership from "@/components/Membership";
 import CalendarAhead from "@/components/CalendarAhead";
 import ProfessorClips from "@/components/ProfessorClips";
-import ProfessionalsHero from "@/components/Tagline";
+import CoverflowHero from "@/components/Tagline";
 import EventRegistration from "@/components/EventRegistration";
+import Calendar from "@/components/Calendar";
 
 export const dynamic = "force-dynamic"; // ensures OG variant isn't statically cached
 
@@ -51,10 +52,11 @@ console.log('deployed')
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <ProfessionalsHero />
+      <CoverflowHero />
       <EventRegistration />
       <ProfessorClips />
       <CalendarAhead />
+      {/* <Calendar/> */}
       <Membership />
     </main>
   );
