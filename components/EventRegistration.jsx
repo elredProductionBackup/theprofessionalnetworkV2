@@ -171,7 +171,7 @@ const pricingPlans = {
             members: "1 member",
             price: "10 k",
             note: "+18% GST",
-            ticketCode: "ENT-INPERSON-1", 
+            ticketCode: "ENT-INPERSON", 
           },
           {
             members: "5 members",
@@ -469,8 +469,8 @@ export default function EventRegistration() {
         {/* ---- Enterprise: "Access to" member toggle ---- */}
         {hasOptions && (
           <div className="mt-4 text-center">
-            <p className="text-sm font-semibold text-slate-700">Access to</p>
-            <div className="mt-2 inline-flex rounded-full bg-rose-50 p-1">
+            <p className="text-sm font-semibold text-slate-700">Access to 5 members</p>
+            {/* <div className="mt-2 inline-flex rounded-full bg-rose-50 p-1">
               {memberOptions.map((opt, idx) => {
                 const isActive = idx === selIdx;
                 return (
@@ -489,7 +489,7 @@ export default function EventRegistration() {
                   </button>
                 );
               })}
-            </div>
+            </div> */}
           </div>
         )}
 
@@ -837,7 +837,7 @@ export default function EventRegistration() {
       )}
 
       {/* ---------- Floating "Register" shortcut — pinned to the right edge; on mobile it only appears once the hero has scrolled past ---------- */}
-      <button
+      {/* <button
         type="button"
         onClick={() =>
           document.getElementById(PRICING_TIERS_ID)?.scrollIntoView({ behavior: "smooth", block: "start" })
@@ -846,7 +846,7 @@ export default function EventRegistration() {
         style={{ backgroundColor: RED, writingMode: "vertical-rl" }}
       >
         REGISTER
-      </button>
+      </button> */}
     </section>
   );
 }

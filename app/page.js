@@ -55,7 +55,7 @@ export default function Home() {
       <EventRegistration />
       <ProfessorClips />
       <CalendarAhead />
-      <Membership />
+      {/* <Membership /> */}
     </main>
   );
 }
