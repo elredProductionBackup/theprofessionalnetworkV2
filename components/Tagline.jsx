@@ -68,7 +68,7 @@ const SLIDES = [
   { src: 'https://res.cloudinary.com/dtrv7p3gg/image/upload/v1786339151/akdrkrzxpz2nkkhjhroh_bi7nbg.webp', name: 'Jamal', role: 'Data' },
   { src: 'https://res.cloudinary.com/dtrv7p3gg/image/upload/v1786339151/ale5b4auhphyva2b4zun_n6eabg.webp', name: 'Priya', role: 'Marketing' },
   { src: 'https://res.cloudinary.com/dtrv7p3gg/image/upload/v1786339152/e7nydhgrizlplhdo63zx_cqfok6.webp', name: 'Omar',  role: 'Support' },
-  { src: 'https://res.cloudinary.com/dtrv7p3gg/image/upload/v1786339153/qy1f4az5mbvfjycnshka_pqhdpn.webp', name: 'Omar',  role: 'Support' },
+  // { src: 'https://res.cloudinary.com/dtrv7p3gg/image/upload/v1786339153/qy1f4az5mbvfjycnshka_pqhdpn.webp', name: 'Omar',  role: 'Support' },
   { src: 'https://res.cloudinary.com/dtrv7p3gg/image/upload/v1786339153/ekz2vxs1fbo69ksaoshr_lijkz9.webp', name: 'Omar',  role: 'Support' },
   { src: 'https://res.cloudinary.com/dtrv7p3gg/image/upload/v1786339167/fluu438xcx5okotpglj2_kgcvlh.webp', name: 'Omar',  role: 'Support' },
   { src: 'https://res.cloudinary.com/dtrv7p3gg/image/upload/v1786339169/ktdgfso58h3g77ppbjbn_v9rlik.webp', name: 'Omar',  role: 'Support' },
