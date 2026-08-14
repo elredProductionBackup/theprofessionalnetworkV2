@@ -369,13 +369,10 @@ export default function EventRegistration() {
               <div className="flex items-center gap-3">
                 <img src={speaker.image} alt={speaker.name} className="h-15 w-15 shrink-0 rounded-full object-cover" />
                 <div>
-                  <p
-                    className="font-inter font-medium leading-[1.1] tracking-[-2px] text-slate-900"
-                    style={{ fontSize: "35px" }}
-                  >
+                  <p className="font-inter text-[20px] font-medium leading-[1.1] tracking-normal text-slate-900 sm:text-[28px] sm:tracking-[-1px] md:text-[35px] md:tracking-[-2px]">
                     {speaker.name}
                   </p>
-                  <p className="font-inter text-[18px] font-normal leading-[1.4] tracking-normal text-center text-[#231f20]">
+                  <p className="font-inter text-[13px] font-normal leading-[1.4] tracking-normal text-center text-[#231f20] sm:text-[16px] md:text-[18px]">
                     {speaker.school}
                     <sup>*</sup>
                   </p>
@@ -420,18 +417,18 @@ export default function EventRegistration() {
             A practical leadership training Program designed to help leaders separate signals from noise, challenge assumptions, and make smarter decisions in an AI-driven world.
           </p>
 
-          <div className="mx-auto mt-10 flex w-full max-w-[657px] items-start gap-4 rounded-2xl border-2 border-dashed border-rose-300 bg-transparent p-6">
+          <div className="mx-auto mt-10 flex w-full max-w-[657px] items-start gap-3 rounded-2xl border-2 border-dashed border-rose-300 bg-transparent p-4 sm:gap-4 sm:p-6">
             <span
-              className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-[#FFDADD]"
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#FFDADD] sm:h-16 sm:w-16 md:h-20 md:w-20"
               style={{ color: ONLINE_RED }}
             >
-              <FaRegBell className="h-10.75 w-10.75" />
+              <FaRegBell className="h-6 w-6 sm:h-8 sm:w-8 md:h-10.75 md:w-10.75" />
             </span>
             <div>
-              <h3 className="font-inter text-base text-[25px] font-semibold leading-[140%] tracking-0" style={{ color: ONLINE_RED }}>
+              <h3 className="font-inter text-[16px] font-semibold leading-[140%] tracking-normal sm:text-[20px] md:text-[25px]" style={{ color: ONLINE_RED }}>
                 Online Session Coming Soon
               </h3>
-              <p className="font-inter text-[16px] leading-[140%] font-medium tracking-normal text-[#67686B]">
+              <p className="font-inter text-[13px] leading-[140%] font-medium tracking-normal text-[#67686B] sm:text-[14px] md:text-[16px]">
                 The learning continues. Details for the upcoming online session will be announced soon. Stay tuned for further updates.
               </p>
             </div>
