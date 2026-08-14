@@ -1,13 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
 import {
-  MapPin,
-  CalendarDays,
-  Users,
-  MonitorSmartphone,
-  Lock,
   Award,
-  ScrollText,
   Link as LinkIcon,
   X,
   Clock,
@@ -20,6 +14,9 @@ import {
   Check,
   Play,
 } from "lucide-react";
+import { FaRegBell } from "react-icons/fa";
+
+const ONLINE_RED = "#C01823";
 
 const RED = "#C4122E";
 
@@ -104,112 +101,6 @@ const clips = [
   },
 ];
 
-/* --- pricing: two plans, each with Virtual + In Person tiers ---
- *
- * Single User tiers keep their own flat price / note / ticketCode.
- *
- * Enterprise tiers now carry a `memberOptions` array. Each entry is one
- * position of the inline "Access to" toggle (1 member / 5 members …) and
- * carries its OWN price, note and ticketCode. Selecting an option swaps the
- * displayed price and the ticketCode sent to the apply popup on Register.
- *
- *  ⚠️ Ticket codes below are DUMMIES — replace them once you have the real
- *     ones. Prices are taken straight from your reference mock.
- */
-const pricingPlans = {
-  single: {
-    label: "Single User",
-    tiers: [
-      // {
-      //   icon: MonitorSmartphone,
-      //   title: "VIRTUAL",
-      //   desc: "Access for world class learnings",
-      //   price: "5 k",
-      //   note: "including all taxes",
-      //   secure: true,
-      //   ticketCode: "SU-VIRTUAL",
-      //   eventCode: "TPN-LIQ-02AUG2026",
-      // },
-      {
-        icon: Users,
-        title: "Unlock Learning Access",
-        desc: "The complete event, now available at your own pace.",
-        price: "5 k",
-        note: "including all taxes",
-        inPerson: true,
-        ticketCode: "SU-INPERSON",
-        eventCode: "TPN-LIQ-02AUG2026",
-      },
-    ],
-  },
-  enterprise: {
-    label: "Enterprise",
-    tiers: [
-      // {
-      //   icon: MonitorSmartphone,
-      //   title: "VIRTUAL",
-      //   desc: "Access for world class learnings",
-      //   secure: true,
-      //   eventCode: "TPN-LIQ-02AUG2026",
-      //   memberOptions: [
-      //     {
-      //       members: "5 members",
-      //       price: "10 k",
-      //       note: "+18% GST",
-      //       ticketCode: "ENT-VIRTUAL", 
-      //     },
-      //   ],
-      // },
-      {
-        icon: Users,
-        title: "Unlock Learning Access",
-        desc: "The complete event, now available at your own pace.",
-        inPerson: true,
-        eventCode: "TPN-LIQ-02AUG2026",
-        memberOptions: [
-          {
-            members: "1 member",
-            price: "10 k",
-            note: "+18% GST",
-            ticketCode: "ENT-INPERSON", 
-          },
-          {
-            members: "5 members",
-            price: "50 k",
-            note: "+18% GST",
-            ticketCode: "ENT-INPERSON",
-          },
-        ],
-      },
-    ],
-  },
-};
-
-/* --- value highlights shown on the left of the pricing block --- */
-const highlights = [
-  {
-    icon: Award,
-    title: "World-class faculty",
-    desc: `Led by ${speaker.title}, ${speaker.school}*`,
-  },
-  {
-    icon: Target,
-    title: "Frameworks you can apply immediately",
-    desc: "Rapid-response strategies drawn directly from real-world case studies",
-  },
-  {
-    icon: CalendarDays,
-    title: "Structured in learning modules",
-    desc: `Full-day session split into bite-sized modules — watch, pause, revisit`,
-  },
-];
-
-const LinkedInIcon = () => (
-  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
-    <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4z" />
-  </svg>
-);
-
 const GoogleMark = () => (
   <svg viewBox="0 0 24 24" className="h-5 w-5">
     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1Z" />
@@ -232,11 +123,6 @@ const AppleMark = () => (
   </svg>
 );
 
-const teaser = (() => {
-  const t = speaker.description.slice(0, 180);
-  return t.slice(0, t.lastIndexOf(" ")) + "...";
-})();
-
 const SHARE_PARAM = "details";
 const SHARE_VALUE = "open";
 
@@ -245,9 +131,6 @@ const PRICING_ID = "preview-price";
 
 /* id of the videos block — QR / deep links (e.g. from a mailer) can scroll straight to it */
 const VIDEOS_ID = "event-videos";
-
-/* id of the tier cards (right column of the pricing block) — the floating "Register" shortcut scrolls here */
-const PRICING_TIERS_ID = "pricing-tier-cards";
 
 const ScheduleRow = ({ item }) => {
   if (item.type === "module") {
@@ -267,7 +150,7 @@ const ScheduleRow = ({ item }) => {
           </div>
         </div>
         {item.desc && (
-          <p className="mt-2 pl-[44px] text-[15px] leading-relaxed text-slate-500">{item.desc}</p>
+          <p className="mt-2 pl-11 text-[15px] leading-relaxed text-slate-500">{item.desc}</p>
         )}
       </div>
     );
@@ -305,23 +188,7 @@ export default function EventRegistration() {
   const [cancellationOpen, setCancellationOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [playingClip, setPlayingClip] = useState(null); // index of clip playing, or null
-  const [plan, setPlan] = useState("single"); // "single" | "enterprise"
-
-  // Selected member option per enterprise tier, keyed by tier title.
-  // e.g. { "IN PERSON": 1 } → the "5 members" option is selected.
-  // Lifted here (not inside TierCard) so the choice survives parent re-renders
-  // and stays in sync between the main pricing block and the details popup.
-  const [memberSel, setMemberSel] = useState({});
-
-  // const openApply = (detail) =>
-  //   window.dispatchEvent(new CustomEvent("openApplyPopup", { detail }));
   const [scrolledPast, setScrolledPast] = useState(false);
-  const openApply = (tier) =>
-    window.dispatchEvent(
-      new CustomEvent("openApplyPopup", {
-        detail: tier ? { eventCode: tier.eventCode, ticketCode: tier.ticketCode } : undefined,
-      })
-    );
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -411,166 +278,8 @@ export default function EventRegistration() {
     };
   }, [cancellationOpen]);
 
-  const activePlan = pricingPlans[plan];
-
-  const PlanToggle = ({ className = "" }) => (
-    <div className={`inline-flex rounded-full bg-rose-100/80 p-1 ${className}`}>
-      {Object.entries(pricingPlans).map(([key, p]) => {
-        const active = plan === key;
-        return (
-          <button
-            key={key}
-            type="button"
-            onClick={() => setPlan(key)}
-            aria-pressed={active}
-            className={`cursor-pointer whitespace-nowrap rounded-full px-6 py-2 text-sm font-semibold transition ${active ? "text-white shadow-sm" : "text-slate-500 hover:text-slate-700"
-              }`}
-            style={active ? { backgroundColor: RED } : undefined}
-          >
-            {p.label}
-          </button>
-        );
-      })}
-    </div>
-  );
-
-  /* One reusable tier card — used both in the main pricing block and inside the popup.
-   *
-   * Handles two shapes of tier:
-   *   • Single User  → flat price / note / ticketCode on the tier itself.
-   *   • Enterprise   → `memberOptions[]`; the selected option supplies the
-   *                    price / note / ticketCode, and an inline "Access to"
-   *                    toggle lets the user switch between them.
-   */
-  const TierCard = ({ tier }) => {
-    const { icon: Icon, title, desc, secure, inPerson, memberOptions, eventCode } = tier;
-
-    const hasOptions = Array.isArray(memberOptions) && memberOptions.length > 0;
-    const selIdx = hasOptions ? Math.min(memberSel[title] ?? 0, memberOptions.length - 1) : 0;
-    const activeOption = hasOptions ? memberOptions[selIdx] : null;
-
-    // Effective values fed to the price row + Register button.
-    const price = activeOption ? activeOption.price : tier.price;
-    const note = activeOption ? activeOption.note : tier.note;
-    const ticketCode = activeOption ? activeOption.ticketCode : tier.ticketCode;
-
-    return (
-      <div className="flex flex-col rounded-2xl bg-white p-5 shadow-sm md:p-6">
-        {/* Header */}
-        <div className="flex items-start justify-between gap-3">
-          <h4 className="text-lg font-bold tracking-wide text-slate-900">{title}</h4>
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
-            <Icon className="h-4 w-4" />
-          </span>
-        </div>
-
-        <p className="mt-3 text-sm leading-relaxed text-slate-500">{desc}</p>
-
-        {/* ---- Enterprise: "Access to" member toggle ---- */}
-        {hasOptions && (
-          <div className="mt-4 text-center">
-            <p className="text-sm font-semibold text-slate-700">Access to 5 members</p>
-            {/* <div className="mt-2 inline-flex rounded-full bg-rose-50 p-1">
-              {memberOptions.map((opt, idx) => {
-                const isActive = idx === selIdx;
-                return (
-                  <button
-                    key={opt.ticketCode}
-                    type="button"
-                    onClick={() => setMemberSel((prev) => ({ ...prev, [title]: idx }))}
-                    aria-pressed={isActive}
-                    className={`cursor-pointer whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-semibold transition ${isActive
-                      ? "bg-white shadow-sm ring-1 ring-rose-200"
-                      : "text-slate-400 hover:text-slate-600"
-                      }`}
-                    style={isActive ? { color: RED } : undefined}
-                  >
-                    {opt.members}
-                  </button>
-                );
-              })}
-            </div> */}
-          </div>
-        )}
-
-        {/* Perks */}
-        <div className="mt-4 space-y-2.5 border-t border-slate-100 pt-4">
-          {/* Certificate — shown in every card */}
-          <div className="flex items-start gap-2.5">
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
-              <ScrollText className="h-3.5 w-3.5" />
-            </span>
-            <span className="text-[13px] leading-snug text-slate-600">
-              <span className="font-semibold text-slate-800">Digital certificate</span>
-              <br />
-              Downloadable &amp; sharable on LinkedIn
-            </span>
-          </div>
-          <div className="flex items-start gap-2.5">
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
-              <Target className="h-3.5 w-3.5" />
-            </span>
-            <span className="text-[13px] leading-snug text-slate-600">
-              <span className="font-semibold text-slate-800">Module-wise progress tracking</span>
-              <br />
-             Resume where you left off, anytime
-            </span>
-          </div>
-
-          {/* {secure && (
-            <div className="flex items-start gap-2.5 rounded-lg bg-amber-50  px-3 py-2">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
-                <Lock className="h-3.5 w-3.5" />
-              </span>
-              <span className="text-[12px] leading-snug text-slate-600 ">
-                Secure Zoom / MS Teams link shared upon registration
-              </span>
-            </div>
-          )}
-
-          {inPerson && (
-            <div className="flex items-start gap-2.5 rounded-lg bg-rose-50 px-3 py-2">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: RED }}>
-                <MapPin className="h-3.5 w-3.5" />
-              </span>
-              <span className="text-[12px] leading-snug text-slate-600">
-                <span className="font-semibold text-slate-800">Venue</span>
-                <br />
-                {speaker.location}
-              </span>
-            </div>
-          )} */}
-        </div>
-
-        {/* Price + CTA — pinned to the bottom so cards stay aligned */}
-        <div className="mt-auto pt-5">
-          <p className="text-2xl font-bold" style={{ color: RED }}>
-            INR {price}
-          </p>
-          <p className="mt-0.5 text-xs text-slate-500">{note}</p>
-              {activePlan.footnote && (
-      <span className="text-base font-bold text-slate-900">
-        {activePlan.footnote}
-      </span>
-    )}
-          <button
-            type="button"
-            // Current
-            onClick={() => openApply({ eventCode, ticketCode })}
-            className="mt-5 w-full cursor-pointer rounded-full border-2 px-8 py-2.5 text-sm font-semibold transition hover:bg-rose-50"
-            // onClick={() => openApply(tier)}
-            // className="mt-5 w-full cursor-pointer rounded-full border-2 px-8 py-2.5 text-base font-semibold transition hover:bg-rose-50"
-            style={{ borderColor: RED, color: RED }}
-          >
-            Get access
-          </button>
-        </div>
-      </div>
-    );
-  };
-
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-rose-50 to-rose-100/60">
+    <section className="relative overflow-hidden bg-[#FDF4F4]">
       <div
         className="pointer-events-none absolute inset-0 opacity-40"
         style={{
@@ -579,49 +288,53 @@ export default function EventRegistration() {
         }}
       />
 
-      <div className="relative mx-auto w-[95%] max-w-[1440px] px-5 py-14 md:px-8 md:py-20 flex flex-col items-center">
-<div className="text-center flex flex-col items-center">
-  {/* Past-event status badge */}
-  <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
-    {/* <span className="h-1.5 w-1.5 rounded-full bg-slate-400" /> */}
-    Event Concluded
-  </span>
+      <div className="relative mx-auto w-[95%] max-w-[1440px] px-5 py-14 md:px-[100px] md:py-20 flex flex-col items-center">
+        <div className="grid w-full items-center gap-10 text-left lg:grid-cols-2 lg:gap-16">
+          {/* Left: event summary */}
+          <div>
+            {/* Past-event status badge */}
+            <span
+              className="inline-flex leading-[140%] tracking-[2px] font-inter items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-5 py-2 text-3.5 font-medium uppercase"
+              style={{ color: RED }}
+            >
+              Event Concluded
+            </span>
 
-  <h1 className="mt-4 font-inter-display text-3xl max-w-[1000px] font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
-    Leadership Intelligence in an AI Era: Developing{" "}
-    <span style={{ color: RED }}>Quantitative Intuition</span>
-  </h1>
+            <h1 className="font-inter mt-4 max-w-[538px] text-[32px] font-extrabold leading-[1.4] tracking-normal text-slate-900 sm:text-[38px] md:text-[45px]">
+              Leadership Intelligence in an AI Era: Developing{" "}
+              <span className="font-inter font-extrabold leading-[1.4] tracking-normal" style={{ color: RED }}>
+                Quantitative Intuition
+              </span>
+            </h1>
 
-  <p className="mt-5 mx-auto max-w-md text-sm leading-relaxed text-slate-600">{teaser}</p>
+            <p className="font-inter mt-6 text-4.5 leading-[140%] font-semibold uppercase tracking-wider" style={{ color: RED }}>
+              Event Details
+            </p>
+            <p
+              className="font-inter mt-2 max-w-[546px] text-[20px] font-medium leading-[1.4] tracking-normal"
+              style={{ color: "#231F20" }}
+            >
+              The in-person session at {speaker.location}, concluded successfully on 2nd August 2026.
+            </p>
 
-  <div className="mt-4 flex flex-wrap items-center justify-center gap-4">
-    <button
-      type="button"
-      onClick={() => setDescOpen(true)}
-      className="text-sm font-semibold text-slate-900 underline underline-offset-4 hover:text-[#C4122E]"
-    >
-      Tap here for more details
-    </button>
+            <button
+              type="button"
+              onClick={() => setDescOpen(true)}
+              className="font-inter leading-[140%] mt-6 cursor-pointer rounded-full border-2 px-6.25 py-2.5 text-4 font-medium transition hover:bg-rose-50"
+              style={{ borderColor: RED, color: RED }}
+            >
+              View Details
+            </button>
+          </div>
 
-    {/* Jump straight to the recap */}
-    {/* 
-      href="#event-highlights"
-      className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:opacity-90"
-      style={{ backgroundColor: RED }}
-    >
-      <Play className="h-4 w-4" />
-      Watch highlights
-    </a> */}
-  </div>
-</div>
-        {/* ---------- Videos (2 per row, play inline, one at a time) ---------- */}
-        <div id={VIDEOS_ID} className="scroll-mt-24 mt-10 md:mt-14 grid grid-cols-1 gap-5 sm:grid-cols-1 max-w-[600px] sm:gap-6">
-          {clips.map((clip, i) => {
-            const poster = clip.videoThumbnail;
-            const isPlaying = playingClip === i;
-            return (
-              <div key={clip.name} className="rounded-2xl bg-white p-4 shadow-sm">
-                <div className="group relative aspect-video w-full overflow-hidden rounded-xl bg-neutral-900">
+          {/* Right: recap video + speaker card */}
+          <div className="flex w-full flex-col items-start">
+          <div id={VIDEOS_ID} className="scroll-mt-24 flex w-full flex-col rounded-3xl bg-[#F8E6E6] p-[10px] shadow-sm lg:h-[420px] lg:w-[500px]">
+            {clips.map((clip, i) => {
+              const poster = clip.videoThumbnail;
+              const isPlaying = playingClip === i;
+              return (
+                <div key={clip.name} className="group relative aspect-video w-full shrink-0 overflow-hidden rounded-xl bg-neutral-900">
                   {isPlaying ? (
                     <video
                       key={clip.video}
@@ -635,7 +348,7 @@ export default function EventRegistration() {
                   ) : (
                     <>
                       <img src={poster} alt={clip.name} className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
-                      <div className="absolute inset-0 bg-black/10" />
+                      <div className="absolute inset-0 bg-black/40" />
                       <button
                         type="button"
                         onClick={() => setPlayingClip(i)}
@@ -649,81 +362,78 @@ export default function EventRegistration() {
                     </>
                   )}
                 </div>
-                <p className="mt-4 px-1 text-sm text-neutral-600">
-                  <span className="font-semibold text-neutral-900">{clip.name}</span>
-                  <span className="mx-2 text-neutral-300">|</span>
-                  {clip.topic.trim()}
-                </p>
+              );
+            })}
+
+            <div className="mt-5 flex items-center justify-between gap-3 px-1 py-2">
+              <div className="flex items-center gap-3">
+                <img src={speaker.image} alt={speaker.name} className="h-15 w-15 shrink-0 rounded-full object-cover" />
+                <div>
+                  <p
+                    className="font-inter font-medium leading-[1.1] tracking-[-2px] text-slate-900"
+                    style={{ fontSize: "35px" }}
+                  >
+                    {speaker.name}
+                  </p>
+                  <p className="font-inter text-[18px] font-normal leading-[1.4] tracking-normal text-center text-[#231f20]">
+                    {speaker.school}
+                    <sup>*</sup>
+                  </p>
+                </div>
               </div>
-            );
-          })}
+              <a
+                href={speaker.linkedinLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${speaker.name} on LinkedIn`}
+                className="relative grid h-8 w-8 shrink-0 place-items-center transition hover:opacity-90"
+              >
+                <img src="/icons/linkedin.svg" alt="" className="h-full w-full" />
+                <span className="absolute -bottom-1 -right-1 grid h-4 w-4 place-items-center rounded-full bg-white text-slate-500 shadow-sm ring-1 ring-slate-200">
+                  <LinkIcon className="h-2.5 w-2.5" />
+                </span>
+              </a>
+            </div>
+          </div>
+
+          {/* College affiliation disclaimer */}
+          <p className="font-inter mt-[10px] text-[13px] font-normal leading-[1.4] tracking-normal text-[#67686B] lg:h-[54px] lg:w-[476px]">
+            {COLLEGE_DISCLAIMER}
+          </p>
+          </div>
         </div>
 
-        {/* ---------- Bottom: pricing ---------- */}
-        <div id={PRICING_ID} className="scroll-mt-24 mt-10 rounded-3xl border border-rose-200 bg-rose-50/70 p-6 md:mt-14 md:py-8 md:px-8">
-          <div className="grid items-center gap-5 lg:grid-cols-2 lg:gap-14">
-            {/* Left: copy + highlights */}
+        {/* ---------- Bottom: online session announcement ---------- */}
+        <div id={PRICING_ID} className="scroll-mt-24 mt-10 w-full rounded-3xl border border-rose-200 bg-[#FDEAEB] p-6 shadow-[0px_4px_6px_1px_#F2DBDB80] md:mt-14 md:py-10 md:px-10">
+          <h2 className="font-inter text-[28px] font-semibold leading-[1.4] text-center tracking-normal text-slate-900 sm:text-[35px]">
+            How This{" "}
+            <span className="italic font-bold" style={{ color: ONLINE_RED }}>
+              Leadership Training Program
+            </span>{" "}
+            Helps Leaders Turn Data, Analytics, and AI into Better Business Decisions
+          </h2>
+
+          <p
+            className="font-inter mx-auto mt-4 max-w-[840px] text-[18px] font-medium leading-[1.4] text-center sm:text-[20px]"
+            style={{ color: "#67686B" }}
+          >
+            A practical leadership training Program designed to help leaders separate signals from noise, challenge assumptions, and make smarter decisions in an AI-driven world.
+          </p>
+
+          <div className="mx-auto mt-10 flex w-full max-w-[657px] items-start gap-4 rounded-2xl border-2 border-dashed border-rose-300 bg-transparent p-6">
+            <span
+              className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-[#FFDADD]"
+              style={{ color: ONLINE_RED }}
+            >
+              <FaRegBell className="h-10.75 w-10.75" />
+            </span>
             <div>
-             <h2 className="font-inter-display text-3xl font-bold leading-tight text-slate-900 md:text-4xl">
-                Access the recording of <span style={{ color: RED }}>the full event</span>
-              </h2>
-              <p className="font-inter-display mt-4 max-w-md text-base leading-relaxed text-slate-600">
-                The complete event is now available on demand — structured as self-paced modules so you can learn at your own pace.
+              <h3 className="font-inter text-base text-[25px] font-semibold leading-[140%] tracking-0" style={{ color: ONLINE_RED }}>
+                Online Session Coming Soon
+              </h3>
+              <p className="font-inter text-[16px] leading-[140%] font-medium tracking-normal text-[#67686B]">
+                The learning continues. Details for the upcoming online session will be announced soon. Stay tuned for further updates.
               </p>
-
-              <ul className="mt-8 space-y-4">
-                {highlights.map(({ icon: Icon, title, desc }) => (
-                  <li key={title} className="flex items-start gap-3.5">
-                    <span
-                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-rose-100"
-                      style={{ color: RED }}
-                    >
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <div>
-                      <p className="font-inter-display text-[15px] font-semibold text-slate-900">{title}</p>
-                      <p className="mt-0.5 text-sm leading-snug text-slate-500">{desc}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Cancellation / refund policy note */}
-              {/* <p className="mt-6 max-w-md text-[13px] leading-relaxed text-slate-600">
-                <span className="font-semibold text-slate-800">Cancellation policy:</span>{" "}
-                 To check the cancellation / refund policy, please{" "}
-                <button
-                  type="button"
-                  onClick={() => setCancellationOpen(true)}
-                  className="cursor-pointer font-semibold underline underline-offset-2 hover:opacity-80"
-                  style={{ color: RED }}
-                >
-                  click here
-                </button>
-                .
-              </p> */}
-
-              {/* College affiliation disclaimer */}
-              <p className="mt-4 max-w-md text-[11px] leading-relaxed text-slate-400">
-                {COLLEGE_DISCLAIMER}
-              </p>
-
-            </div>
-
-            {/* Right: tier cards */}
-            <div id={PRICING_TIERS_ID} className="scroll-mt-24">
-              {/* Centered toggle, sits right above the cards */}
-              <div className="mb-6 flex justify-center">
-                <PlanToggle />
-              </div>
-
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 sm:gap-5">
-                {activePlan.tiers.map((tier) => (
-                  <TierCard key={tier.title} tier={tier} />
-                ))}
-              </div>
-
-              
             </div>
           </div>
         </div>
@@ -731,7 +441,7 @@ export default function EventRegistration() {
 
       {/* ---------- Details popup (agenda) ---------- */}
       {descOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label={`${speaker.name} – event details`}>
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label={`${speaker.name} – event details`}>
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setDescOpen(false)} />
 
           <div className="relative z-10 flex max-h-[90vh] w-full max-w-[700px] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
