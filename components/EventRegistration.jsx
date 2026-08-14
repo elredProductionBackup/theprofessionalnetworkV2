@@ -288,7 +288,7 @@ export default function EventRegistration() {
         }}
       />
 
-      <div className="relative mx-auto w-[95%] max-w-[1440px] px-5 py-14 md:px-[100px] md:py-20 flex flex-col items-center">
+      <div className="relative mx-auto w-[95%] max-w-[1440px] px-5 py-14 md:px-25 md:py-20 flex flex-col items-center">
         <div className="grid w-full items-center gap-10 text-left lg:grid-cols-2 lg:gap-16">
           {/* Left: event summary */}
           <div>
@@ -329,7 +329,7 @@ export default function EventRegistration() {
 
           {/* Right: recap video + speaker card */}
           <div className="flex w-full flex-col items-start">
-          <div id={VIDEOS_ID} className="scroll-mt-24 flex w-full flex-col rounded-3xl bg-[#F8E6E6] p-[10px] shadow-sm lg:h-[420px] lg:w-[500px]">
+          <div id={VIDEOS_ID} className="scroll-mt-24 flex w-full flex-col rounded-3xl bg-[#F8E6E6] p-2.5 shadow-sm lg:h-[420px] lg:w-[500px]">
             {clips.map((clip, i) => {
               const poster = clip.videoThumbnail;
               const isPlaying = playingClip === i;
@@ -397,7 +397,7 @@ export default function EventRegistration() {
           </div>
 
           {/* College affiliation disclaimer */}
-          <p className="font-inter mt-[10px] text-[13px] font-normal leading-[1.4] tracking-normal text-[#67686B] lg:h-[54px] lg:w-[476px]">
+          <p className="font-inter mt-2.5 text-[13px] font-normal leading-[1.4] tracking-normal text-[#67686B] lg:h-[54px] lg:w-[476px]">
             {COLLEGE_DISCLAIMER}
           </p>
           </div>
