@@ -8,42 +8,42 @@ const PLANS = {
   single: [
     {
       icon: TabletSmartphone,
-      title: "Virtual",
-      desc: "Access for world class learnings",
+      title: "Unlock Learning Access",
+      desc: "The complete event, now available at your own pace.",
       priceLabel: "Per event",
       price: "INR 10 k",
       note: "including all taxes",
     },
-    {
-      icon: Users,
-      title: "In Person",
-      desc: "\u2060Immerse yourself in live, face-to-face learning",
-      priceLabel: "Per event",
-      price: "INR 50 k",
-      note: "including all taxes",
-    },
+    // {
+    //   icon: Users,
+    //   title: "In Person",
+    //   desc: "\u2060Immerse yourself in live, face-to-face learning",
+    //   priceLabel: "Per event",
+    //   price: "INR 50 k",
+    //   note: "including all taxes",
+    // },
   ],
   enterprise: [
     {
       icon: TabletSmartphone,
-      title: "Virtual",
-      descStrong: "Yearly",
-      desc: " access for all 6 workshops for upto ",
-      descStrongEnd: "5 users",
+      title: "Unlock Learning Access",
+      // descStrong: "Yearly",
+      desc: "The complete event, now available at your own pace.",
+      // descStrongEnd: "5 users",
       priceLabel: "Yearly",
       price: "INR 1 lac",
       note: "+18% GST",
     },
-    {
-      icon: Users,
-      title: "In Person",
-      desc: "\u2060Immerse yourself in live, face-to-face learning for upto ",
-      descStrongEnd: "5 users",
-      priceLabel: "Per event",
-      price: "INR 2 lacs",
-      note: "+18% GST",
-      // link: "Tap here for full year plans",
-    },
+    // {
+    //   icon: Users,
+    //   title: "In Person",
+    //   desc: "\u2060Immerse yourself in live, face-to-face learning for upto ",
+    //   descStrongEnd: "5 users",
+    //   priceLabel: "Per event",
+    //   price: "INR 2 lacs",
+    //   note: "+18% GST",
+    //   // link: "Tap here for full year plans",
+    // },
   ],
 };
 
@@ -93,7 +93,7 @@ export default function Membership() {
         </div>
 
         {/* ---------- Pricing cards ---------- */}
-        <div className="grid w-full max-w-[720px] gap-5 sm:grid-cols-2 mx-auto">
+        <div className="grid w-full max-w-[520px] gap-5 sm:grid-cols-1 mx-auto">
           {PLANS[tab].map(
             ({ icon: Icon, title, desc, descStrong, descStrongEnd, priceLabel, price, note, link }) => (
               <div
@@ -141,7 +141,7 @@ export default function Membership() {
                   disabled
                   className="mt-6 w-fit rounded-full border border-[#C4122E] px-8 py-2 text-[15px] md:text-base font-medium text-[#C4122E] cursor-not-allowed opacity-50"
                 >
-                  Coming Soon
+                  Get access
                 </button>
 
                 {/* Optional link */}
