@@ -405,7 +405,7 @@ export default function EventRegistration() {
 
         {/* ---------- Bottom: online session announcement ---------- */}
         <div id={PRICING_ID} className="scroll-mt-24 mt-10 w-full rounded-3xl border border-rose-200 bg-[#FDEAEB] p-6 shadow-[0px_4px_6px_1px_#F2DBDB80] md:mt-14 md:py-10 md:px-10">
-          <h2 className="font-inter text-[28px] font-semibold leading-[1.4] text-center tracking-normal text-slate-900 sm:text-[35px]">
+          <h2 className="font-inter text-[22px] font-semibold leading-[1.3] text-center tracking-normal text-slate-900 sm:text-[28px] sm:leading-[1.4] md:text-[35px]">
             How This{" "}
             <span className="italic font-bold" style={{ color: ONLINE_RED }}>
               Leadership Training Program
