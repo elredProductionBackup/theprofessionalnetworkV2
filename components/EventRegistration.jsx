@@ -12,12 +12,33 @@ import {
   Search,
   Share2,
   Check,
+  Presentation,
+  ScrollText,
+  User,
 } from "lucide-react";
-import { FaRegBell } from "react-icons/fa";
 import { RED, COLLEGE_DISCLAIMER, speaker } from "@/data/eventRegistration";
 import SpeakerRecapCard from "./SpeakerRecapCard";
 
 const ONLINE_RED = "#C01823";
+
+const TIERS = {
+  single: {
+    icon: User,
+    note: "The complete event, now available at your own pace.",
+    noteBold: "",
+    price: "INR 5 k",
+    priceNote: "(including all taxes)",
+    ticketCode: "SU-INPERSON",
+  },
+  enterprise: {
+    iconSrc: "/icons/multiuser.svg",
+    note: "The complete event, now available at your own pace. ",
+    noteBold: "Access for 5 members.",
+    price: "INR 10 k",
+    priceNote: "(+18% GST)",
+    ticketCode: "ENT-INPERSON",
+  },
+};
 
 const CANCELLATION_POLICY_TEXT =
   "All registrations are final. No refunds shall be provided under any circumstances if a Member cancels or is unable to attend an Event. A refund shall be considered only if The Professionals Network cancels the Event. The Network shall not be responsible for reimbursing airfare, accommodation, travel, or any other incidental expenses incurred by Members.";
@@ -109,6 +130,14 @@ export default function EventRegistration() {
   const [cancellationOpen, setCancellationOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [scrolledPast, setScrolledPast] = useState(false);
+  const [plan, setPlan] = useState("single"); // "single" | "enterprise"
+
+  const openApply = () =>
+    window.dispatchEvent(
+      new CustomEvent("openApplyPopup", {
+        detail: { eventCode: "TPN-LIQ-02AUG2026", ticketCode: TIERS[plan].ticketCode },
+      })
+    );
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -267,20 +296,90 @@ export default function EventRegistration() {
             A practical leadership training Program designed to help leaders separate signals from noise, challenge assumptions, and make smarter decisions in an AI-driven world.
           </p>
 
-          <div className="mx-auto mt-10 flex w-full max-w-[657px] items-start gap-3 rounded-2xl border-2 border-dashed border-rose-300 bg-transparent p-4 sm:gap-4 sm:p-6">
-            <span
-              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#FFDADD] sm:h-16 sm:w-16 md:h-20 md:w-20"
-              style={{ color: ONLINE_RED }}
-            >
-              <FaRegBell className="h-6 w-6 sm:h-8 sm:w-8 md:h-10.75 md:w-10.75" />
-            </span>
+          <div className="mt-10 grid w-full items-start gap-8 lg:grid-cols-2 lg:gap-12">
+            {/* Left: online session info */}
             <div>
-              <h3 className="font-inter text-[16px] font-semibold leading-[140%] tracking-normal sm:text-[20px] md:text-[25px]" style={{ color: ONLINE_RED }}>
-                Online Session Coming Soon
+              <span
+                className="flex h-14 w-14 items-center justify-center rounded-xl border-2"
+                style={{ borderColor: ONLINE_RED, color: ONLINE_RED }}
+              >
+                <Presentation className="h-6 w-6" />
+              </span>
+
+              <h3 className="font-inter mt-4 text-[22px] font-bold leading-[1.3] text-slate-900">
+                Online Session <span style={{ color: ONLINE_RED }}>Access</span>
               </h3>
-              <p className="font-inter text-[13px] leading-[140%] font-medium tracking-normal text-[#67686B] sm:text-[14px] md:text-[16px]">
-                The learning continues. Details for the upcoming online session will be announced soon. Stay tuned for further updates.
+              <p className="font-inter mt-2 max-w-sm text-[15px] leading-[1.5] text-[#67686B]">
+                The learning continues. Details for the upcoming online session will be updated soon. Stay tuned for further updates.
               </p>
+
+              <div className="mt-5 flex items-start gap-2">
+                <ScrollText className="mt-0.5 h-4 w-4 shrink-0" style={{ color: ONLINE_RED }} />
+                <div>
+                  <p className="font-inter text-[14px] font-bold text-slate-900">Digital certificate</p>
+                  <p className="font-inter text-[13px] text-[#67686B]">Downloadable and Sharable on Linkedin</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: pricing card */}
+            <div>
+              <div className="inline-flex rounded-full p-1" style={{ backgroundColor: "#F6DFE2" }}>
+                <button
+                  type="button"
+                  onClick={() => setPlan("single")}
+                  className={`cursor-pointer whitespace-nowrap rounded-full px-6 py-2 text-sm font-semibold transition ${
+                    plan === "single" ? "text-white shadow-sm" : "text-slate-500 hover:text-slate-700"
+                  }`}
+                  style={plan === "single" ? { backgroundColor: ONLINE_RED } : undefined}
+                >
+                  Single User
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPlan("enterprise")}
+                  className={`cursor-pointer whitespace-nowrap rounded-full px-6 py-2 text-sm font-semibold transition ${
+                    plan === "enterprise" ? "text-white shadow-sm" : "text-slate-500 hover:text-slate-700"
+                  }`}
+                  style={plan === "enterprise" ? { backgroundColor: ONLINE_RED } : undefined}
+                >
+                  Enterprise
+                </button>
+              </div>
+
+              <div className="mt-4 rounded-2xl bg-white p-5 shadow-sm">
+                <div className="flex items-start justify-between gap-3">
+                  <h4 className="font-inter text-[18px] font-bold text-slate-900">Unlock Learning Access</h4>
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: ONLINE_RED }}>
+                    {TIERS[plan].iconSrc ? (
+                      <img src={TIERS[plan].iconSrc} alt="" className="h-4 w-4" />
+                    ) : (
+                      (() => {
+                        const TierIcon = TIERS[plan].icon;
+                        return <TierIcon className="h-4 w-4" />;
+                      })()
+                    )}
+                  </span>
+                </div>
+                <p className="mt-2 text-[14px] leading-[1.4] text-[#67686B]">
+                  {TIERS[plan].note}
+                  {TIERS[plan].noteBold && (
+                    <strong className="font-bold text-slate-700">{TIERS[plan].noteBold}</strong>
+                  )}
+                </p>
+                <p className="mt-4">
+                  <span className="text-[26px] font-bold" style={{ color: ONLINE_RED }}>{TIERS[plan].price}</span>{" "}
+                  <span className="text-[13px] text-[#67686B]">{TIERS[plan].priceNote}</span>
+                </p>
+                <button
+                  type="button"
+                  onClick={openApply}
+                  className="mt-4 w-fit cursor-pointer rounded-full border-2 px-6 py-2 text-sm font-semibold transition hover:bg-rose-50"
+                  style={{ borderColor: ONLINE_RED, color: ONLINE_RED }}
+                >
+                  Get Access
+                </button>
+              </div>
             </div>
           </div>
         </div>
