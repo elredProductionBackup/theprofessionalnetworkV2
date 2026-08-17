@@ -868,7 +868,7 @@ const Section = ({ section, registerRef }) => (
       <h2 className="font-inter-display text-[28px] md:text-[38px] font-medium leading-[112%] tracking-[-1.4px] text-[#1f1f22]">
         <span className="relative inline-block">
           {section.title.charAt(0)}
-          <span className="absolute -bottom-[3px] left-0 w-[14px] h-[2px] bg-[#c01823]" />
+          {/* <span className="absolute -bottom-[3px] left-0 w-[14px] h-[2px] bg-[#c01823]" /> */}
         </span>
         {section.title.slice(1)}
       </h2>
@@ -967,7 +967,7 @@ export default function CharterPage() {
           <h1 className="font-inter-display font-medium text-[44px] leading-[104%] tracking-[-2px] text-[#1f1f22] md:text-[76px] md:tracking-[-3.5px]">
             <span className="relative inline-block">
               Governing
-              <span className="absolute -bottom-[2px] left-0 h-[3px] w-[64px] bg-[#c01823] md:w-[96px]" />
+              {/* <span className="absolute -bottom-[2px] left-0 h-[3px] w-[64px] bg-[#c01823] md:w-[96px]" /> */}
             </span>{" "}
             Charter
           </h1>

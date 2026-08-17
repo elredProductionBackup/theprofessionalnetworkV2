@@ -59,7 +59,7 @@ export default function ContactPage() {
           </Field>
 
           <Field label="Phone">
-            <a href="tel:+91XXXXXXXXXX" className={link}>+91 XXXXX XXXXX</a>
+            <a href="tel:+918108115508" className={link}>+91 81081 15508</a>
             <p className="mt-2 text-[15px] md:text-[16px] leading-[170%] text-[#8a8a91]">
               Available during business hours, Monday to Friday.
             </p>
@@ -106,10 +106,10 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <div className="mt-6 border border-[#E6E6E6] bg-[#FCFCFC] px-4 py-3 text-[14px] leading-[160%] text-[#8a8a91]">
+      {/* <div className="mt-6 border border-[#E6E6E6] bg-[#FCFCFC] px-4 py-3 text-[14px] leading-[160%] text-[#8a8a91]">
         Note for the Network: replace the phone placeholder with a real, reachable number before submitting to your
         payment gateway — most gateways require a working contact number on this page. Then remove this note.
-      </div>
+      </div> */}
     </LegalDoc>
   );
 }
