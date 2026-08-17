@@ -285,7 +285,7 @@ const Footer = () => {
                 alt="Professional Network"
                 width={190}
                 height={15}
-                className="inline-block align-baseline mr-1"
+                className="inline-block align-baseline mr-1 w-[190px] h-[15px]"
               />
 
               is one amongst many networks trademarked and operated by{" "}

@@ -547,8 +547,6 @@ const ApplyPopupContent = () => {
     const referId = params.get("ref");
     const ticketCode = params.get("ticketCode");
 
-    console.log(referId, 'referID')
-
     if (apply === "true") {
       setIsOpen(true);
     } else {
@@ -569,7 +567,6 @@ const ApplyPopupContent = () => {
       const fetchReferral = async () => {
         try {
           const res = await axios.get(`${BASE_URL}/smartOffice/getReferral?ref=${referId}`);
-          console.log(res, 'res')
           const networkClusterCode = res.data?.result?.[0]?.networkClusterCode || "6a040b84f639e889dcddcf5d";
           const image = res.data?.result?.[0]?.referralImage;
           setFormData((prev) => ({
@@ -584,8 +581,6 @@ const ApplyPopupContent = () => {
       fetchReferral();
     }
   }, []);
-
-  console.log(formData, 'FORM')
 
   // Custom event support
   useEffect(() => {
