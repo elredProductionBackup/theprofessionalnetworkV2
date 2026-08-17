@@ -1,8 +1,8 @@
 'use client'
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   Award,
-  Link as LinkIcon,
   X,
   Clock,
   Coffee,
@@ -12,94 +12,15 @@ import {
   Search,
   Share2,
   Check,
-  Play,
 } from "lucide-react";
 import { FaRegBell } from "react-icons/fa";
+import { RED, COLLEGE_DISCLAIMER, speaker } from "@/data/eventRegistration";
+import SpeakerRecapCard from "./SpeakerRecapCard";
 
 const ONLINE_RED = "#C01823";
 
-const RED = "#C4122E";
-
-// Confirm the exact wording with your CEO — this is a sensible default.
-const COLLEGE_DISCLAIMER =
-  "*Institution names indicate the faculty member's affiliation only. This event is independently organized and is not affiliated with, endorsed by, or sponsored by the named institutions.";
-
 const CANCELLATION_POLICY_TEXT =
   "All registrations are final. No refunds shall be provided under any circumstances if a Member cancels or is unable to attend an Event. A refund shall be considered only if The Professionals Network cancels the Event. The Network shall not be responsible for reimbursing airfare, accommodation, travel, or any other incidental expenses incurred by Members.";
-
-const speaker = {
-  name: "Oded Netzer",
-  title: "Prof. Oded Netzer",
-  school: "Columbia Business School",
-  topic: "Leadership Intelligence in an AI Era: Developing Quantitative Intuition",
-  image: "/professor-profile/oded.jpg",
-  // schoolLogo: "/professor-school/oded-school.png",
-  linkedinLink: "https://www.linkedin.com/in/oded-netzer-700255",
-  schoolLink: "https://business.columbia.edu/faculty/people/oded-netzer",
-  location: "Tata Classroom - Taj Lands End, Mumbai",
-  date: "1st August",
-  description:
-    "The challenge today is not a lack of information (or analytics, dashboards, and AI outputs), but the judgment to use it well. What distinguishes leaders who consistently make smart decisions is their ability to quickly sort through signal and noise by asking essential questions, pressure-testing assumptions, and validating claims, not with statistical rigor, but from a business validity perspective. This form of leadership intelligence has become all the more important in the AI era. This session equips leaders to engage with AI productively. It teaches Quantitative Intuition (QI), a practical framework and set of rapid-response tools for making better decisions in a data-driven world where AI is accelerating answers but not necessarily improving judgment. Participants will learn to frame issues with precision before rushing to solutions, develop intuition for numbers using pragmatic methods and apply contextual lenses to assess relevance, risk, and trust when information is incomplete.",
-
-  keyTakeaways: [
-    "Develop competencies to integrate data-driven and AI analysis with managerial judgment to make faster, smarter decisions under uncertainty",
-    "Strengthen credibility as a leader who combines analytical rigor with intuitive judgment",
-    "Develop methods to prioritize what matters most when data is incomplete or ambiguous",
-  ],
-
-  schedule: [
-    {
-      type: "module",
-      icon: BarChart3,
-      title: "Module 1: Developing quantitative intuition",
-      desc: "This session focuses on the framework and set of practical tools called Quantitative Intuition.",
-      time: "10:30 AM-12 PM",
-    },
-    { type: "break", title: "Coffee Break", time: "12 PM - 12:15 PM" },
-    {
-      type: "module",
-      icon: Target,
-      title: "Module 2: Framing the problem",
-      desc: "This session focuses on the ability to identify, analyze, and delineate problems.",
-      time: "12:15 PM - 1:30 PM",
-    },
-    { type: "lunch", title: "Lunch Break", time: "1:30 PM - 2:15 PM" },
-    {
-      type: "module",
-      icon: Search,
-      title: "Module 3: Becoming a fierce interrogator of data",
-      desc: "This session focuses on the ability to build intuition and honing your business acumen.",
-      time: "2:15 PM - 3:15 PM",
-    },
-    { type: "break", title: "Coffee Break", time: "3:15 PM - 3:30 PM" },
-    { type: "summary", icon: BarChart3, title: "Summary", time: "3:30 PM - 4:15 PM" },
-  ],
-
-  calendarLinks: {
-    google: "#",
-    outlook: "#",
-    apple: "#",
-  },
-};
-
-/* --- video clips shown after the pricing block --- */
-const clips = [
-  // {
-  //   name: "Prof. Oded Netzer",
-  //   date: "1st August, Sunday",
-  //   topic: "Leadership Intelligence in an AI Era: Developing Quantitative Intuition",
-  //   videoThumbnail: "/professor-clips/oded-thumb.png",
-  //   // .mov often won't play in Chrome/Firefox — swap the extension to .mp4 if it doesn't:
-  //   video: "https://res.cloudinary.com/dtrv7p3gg/video/upload/v1784109467/HELLO_INDIA_FROM_ODED_NETZER_tl8juq.mov",
-  // },
-  {
-    name: "Oded Netzer × Saurabh Goswamy",
-    date: "1st August, Sunday",
-    topic: "QI & Leadership: What Executives Can Learn From It",
-    videoThumbnail: "/professor-clips/odedxsaurabh.webp",
-    video: "https://assets-pretest.elred.io/theProfessionalNetwork/Video_Podcast_Full_For+Website_v1_compressed.mp4",
-  },
-];
 
 const GoogleMark = () => (
   <svg viewBox="0 0 24 24" className="h-5 w-5">
@@ -187,7 +108,6 @@ export default function EventRegistration() {
   const [descOpen, setDescOpen] = useState(false);
   const [cancellationOpen, setCancellationOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [playingClip, setPlayingClip] = useState(null); // index of clip playing, or null
   const [scrolledPast, setScrolledPast] = useState(false);
 
   useEffect(() => {
@@ -317,87 +237,17 @@ export default function EventRegistration() {
               The in-person session at {speaker.location}, concluded successfully on 2nd August 2026.
             </p>
 
-            <button
-              type="button"
-              onClick={() => setDescOpen(true)}
-              className="font-inter leading-[140%] mt-6 cursor-pointer rounded-full border-2 px-6.25 py-2.5 text-4 font-medium transition hover:bg-rose-50"
+            <Link
+              href="/view-details"
+              className="font-inter leading-[140%] mt-6 inline-block w-fit cursor-pointer rounded-full border-2 px-6.25 py-2.5 text-4 font-medium transition hover:bg-rose-50"
               style={{ borderColor: RED, color: RED }}
             >
               View Details
-            </button>
+            </Link>
           </div>
 
           {/* Right: recap video + speaker card */}
-          <div className="flex w-full flex-col items-start">
-          <div id={VIDEOS_ID} className="scroll-mt-24 flex w-full flex-col rounded-3xl bg-[#F8E6E6] p-2.5 shadow-sm lg:h-[420px] lg:w-[500px]">
-            {clips.map((clip, i) => {
-              const poster = clip.videoThumbnail;
-              const isPlaying = playingClip === i;
-              return (
-                <div key={clip.name} className="group relative aspect-video w-full shrink-0 overflow-hidden rounded-xl bg-neutral-900">
-                  {isPlaying ? (
-                    <video
-                      key={clip.video}
-                      src={clip.video}
-                      poster={poster}
-                      controls
-                      autoPlay
-                      playsInline
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <>
-                      <img src={poster} alt={clip.name} className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
-                      <div className="absolute inset-0 bg-black/40" />
-                      <button
-                        type="button"
-                        onClick={() => setPlayingClip(i)}
-                        aria-label={`Play ${clip.name}'s clip`}
-                        className="absolute inset-0 grid place-items-center"
-                      >
-                        <span className="grid h-16 w-16 place-items-center rounded-full text-white transition-transform duration-300 hover:scale-110" style={{ backgroundColor: RED }}>
-                          <Play className="ml-0.5 h-7 w-7" fill="currentColor" />
-                        </span>
-                      </button>
-                    </>
-                  )}
-                </div>
-              );
-            })}
-
-            <div className="mt-5 flex items-center justify-between gap-3 px-1 py-2">
-              <div className="flex items-center gap-3">
-                <img src={speaker.image} alt={speaker.name} className="h-15 w-15 shrink-0 rounded-full object-cover" />
-                <div>
-                  <p className="font-inter text-[20px] font-medium leading-[1.1] tracking-normal text-slate-900 sm:text-[28px] sm:tracking-[-1px] md:text-[35px] md:tracking-[-2px]">
-                    {speaker.name}
-                  </p>
-                  <p className="font-inter text-[13px] font-normal leading-[1.4] tracking-normal text-center text-[#231f20] sm:text-[16px] md:text-[18px]">
-                    {speaker.school}
-                    <sup>*</sup>
-                  </p>
-                </div>
-              </div>
-              <a
-                href={speaker.linkedinLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${speaker.name} on LinkedIn`}
-                className="relative grid h-8 w-8 shrink-0 place-items-center transition hover:opacity-90"
-              >
-                <img src="/icons/linkedin.svg" alt="" className="h-full w-full" />
-                <span className="absolute -bottom-1 -right-1 grid h-4 w-4 place-items-center rounded-full bg-white text-slate-500 shadow-sm ring-1 ring-slate-200">
-                  <LinkIcon className="h-2.5 w-2.5" />
-                </span>
-              </a>
-            </div>
-          </div>
-
-          {/* College affiliation disclaimer */}
-          <p className="font-inter mt-2.5 text-[13px] font-normal leading-[1.4] tracking-normal text-[#67686B] lg:h-[54px] lg:w-[476px]">
-            {COLLEGE_DISCLAIMER}
-          </p>
-          </div>
+          <SpeakerRecapCard id={VIDEOS_ID} />
         </div>
 
         {/* ---------- Bottom: online session announcement ---------- */}
