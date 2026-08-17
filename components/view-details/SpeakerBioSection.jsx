@@ -36,7 +36,7 @@ export default function SpeakerBioSection() {
 
           <div className="mt-8 flex flex-col items-center">
             <span
-              className="font-inter text-center text-[20px] font-bold uppercase leading-none tracking-[5px]"
+              className="font-inter text-center text-[20px] font-bold uppercase leading-none tracking-[5px] mt-[40px]"
               style={{ color: RED }}
             >
               Key Takeaway
