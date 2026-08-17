@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 
 const LAST_UPDATED = "8 July 2026";
-const EMAIL = "info@theprofessional.network";
+const EMAIL = "info@theprofessionals.network";
 
 /* ------------------------------------------------------------------ */
 /*  Content — edit freely. Each section can have `paragraphs` and/or   */
@@ -12,7 +12,7 @@ const sections = [
   {
     heading: "1. Who we are",
     paragraphs: [
-      "Rex-Tone Digital Pvt. Ltd. is the data fiduciary responsible for your personal data. Registered office: 16, Yashodham Center, Film City Road, Goregaon (E), Mumbai 400063, Maharashtra, India. For any privacy question or request, contact us at info@theprofessional.network.",
+      "Rex-Tone Digital Pvt. Ltd. is the data fiduciary responsible for your personal data. Registered office: 16, Yashodham Center, Film City Road, Goregaon (E), Mumbai 400063, Maharashtra, India. For any privacy question or request, contact us at info@theprofessionals.network.",
     ],
   },
   {
@@ -113,7 +113,7 @@ const sections = [
   {
     heading: "14. Contact us",
     paragraphs: [
-      "If you have questions, requests, or grievances regarding this Privacy Policy or your personal data, contact our Grievance Officer at info@theprofessional.network or write to us at 16, Yashodham Center, Film City Road, Goregaon (E), Mumbai 400063, Maharashtra, India.",
+      "If you have questions, requests, or grievances regarding this Privacy Policy or your personal data, contact our Grievance Officer at info@theprofessionals.network or write to us at 16, Yashodham Center, Film City Road, Goregaon (E), Mumbai 400063, Maharashtra, India.",
     ],
   },
 ];

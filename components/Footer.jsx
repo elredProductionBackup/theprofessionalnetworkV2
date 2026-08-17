@@ -42,7 +42,7 @@
 //   <SocialLink
 //     text="Email"
 //     noBorderBottom={true}
-//     href="mailto:info@theprofessional.network"
+//     href="mailto:info@theprofessionals.network"
 //   />
 // </div>
 // </div>
@@ -226,7 +226,7 @@ const Footer = () => {
 <div className="grid grid-cols-1 lg:grid-cols-3 ">
 
 {/* First child = 2 blocks */}
-<div className="lg:col-span-2 flex w-full gap-[140px] px-[24px] md:pl-[40px] border-b border-[#E6E6E6] md:border-b-0 md:border-r ">
+<div className="lg:col-span-2 flex flex-col md:flex-row w-full gap-[24px] md:gap-[80px] lg:gap-[140px] px-[24px] md:pl-[40px] border-b border-[#E6E6E6] md:border-b-0 md:border-r ">
   
   {/* Left Navigation */}
   <div className="w-auto md:space-y-4 space-y-[16px] py-[24px] ">
@@ -256,7 +256,7 @@ const Footer = () => {
   <SocialLink
     text="Email"
     noBorderBottom={true}
-    href="mailto:info@theprofessional.network"
+    href="mailto:info@theprofessionals.network"
   />
 </div>
 </div>
@@ -383,7 +383,7 @@ const FooterLink = ({ text }) => {
   return (
     <div className="group cursor-pointer w-full" onClick={handleClick}>
       <div className="flex flex-col items-start w-full">
-        <span className="font-inter-display font-medium md:text-[28px] text-[19px] leading-[120%] tracking-[-1.3px] align-middle text-[#333336] group-hover:text-[#c01823] transition-colors">
+        <span className="font-inter-display font-medium md:text-[28px] text-[19px] leading-[120%] tracking-[-1.3px] align-middle text-[#333336] group-hover:text-[#c01823] transition-colors whitespace-nowrap">
           <span className="relative inline-block">
             {firstLetter}
 

@@ -100,7 +100,7 @@ const SECTIONS = [
               <>
                 If you have not received access after a successful payment, or have any question about delivery, contact
                 us at{" "}
-                <a href="mailto:info@theprofessional.network" className={link}>info@theprofessional.network</a>. Full
+                <a href="mailto:info@theprofessionals.network" className={link}>info@theprofessionals.network</a>. Full
                 details are on our <Link href="/contact-us" className={link}>Contact Us</Link> page.
               </>
             ),
@@ -129,8 +129,8 @@ export default function ShippingExchangePage() {
         <>
           This Shipping &amp; Exchange Policy is issued by The Professionals Network, a network trademarked and operated by
           Rextone Digital Pvt. Ltd. For questions, contact{" "}
-          <a href="mailto:info@theprofessional.network" className="text-[#c01823] underline underline-offset-2">
-            info@theprofessional.network
+          <a href="mailto:info@theprofessionals.network" className="text-[#c01823] underline underline-offset-2">
+            info@theprofessionals.network
           </a>
           .
         </>

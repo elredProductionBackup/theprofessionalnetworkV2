@@ -251,7 +251,7 @@ const SECTIONS = [
             p: (
               <>
                 For any questions about these Terms, contact us at{" "}
-                <a href="mailto:info@theprofessional.network" className={link}>info@theprofessional.network</a>{" "}
+                <a href="mailto:info@theprofessionals.network" className={link}>info@theprofessionals.network</a>{" "}
                 or write to Rextone Digital Pvt. Ltd., 16, Yashodham Center, Film City Road, Goregaon (E),
                 Mumbai 400063, Maharashtra, India. Full contact details are on our{" "}
                 <Link href="/contact-us" className={link}>Contact Us</Link> page.
@@ -285,8 +285,8 @@ export default function TermsPage() {
         <>
           These Terms are issued by The Professionals Network, a network trademarked and operated by Rextone Digital
           Pvt. Ltd. For questions relating to these Terms, contact{" "}
-          <a href="mailto:info@theprofessional.network" className="text-[#c01823] underline underline-offset-2">
-            info@theprofessional.network
+          <a href="mailto:info@theprofessionals.network" className="text-[#c01823] underline underline-offset-2">
+            info@theprofessionals.network
           </a>
           .
         </>

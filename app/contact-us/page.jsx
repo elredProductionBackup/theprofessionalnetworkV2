@@ -34,8 +34,8 @@ export default function ContactPage() {
         <>
           The Professionals Network is one amongst many networks trademarked and operated by Rextone Digital Pvt. Ltd. For
           all enquiries, write to{" "}
-          <a href="mailto:info@theprofessional.network" className="text-[#c01823] underline underline-offset-2">
-            info@theprofessional.network
+          <a href="mailto:info@theprofessionals.network" className="text-[#c01823] underline underline-offset-2">
+            info@theprofessionals.network
           </a>
           .
         </>
@@ -52,7 +52,7 @@ export default function ContactPage() {
           </Field>
 
           <Field label="Email">
-            <a href="mailto:info@theprofessional.network" className={link}>info@theprofessional.network</a>
+            <a href="mailto:info@theprofessionals.network" className={link}>info@theprofessionals.network</a>
             <p className="mt-2 text-[15px] md:text-[16px] leading-[170%] text-[#8a8a91]">
               For membership, events, billing, and general enquiries.
             </p>

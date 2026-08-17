@@ -163,10 +163,10 @@ function Footnote({ children }) {
             trademarked and operated by Rextone Digital Pvt. Ltd. For questions,
             contact{" "}
             <a
-              href="mailto:info@theprofessional.network"
+              href="mailto:info@theprofessionals.network"
               className="text-[#c01823] underline underline-offset-2"
             >
-              info@theprofessional.network
+              info@theprofessionals.network
             </a>
             .
           </>

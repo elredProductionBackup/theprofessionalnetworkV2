@@ -1075,10 +1075,10 @@ export default function CharterPage() {
                 and operated by Rextone Digital Pvt. Ltd. For questions relating to this
                 Charter, contact{" "}
                 <a
-                  href="mailto:info@theprofessional.network"
+                  href="mailto:info@theprofessionals.network"
                   className="text-[#c01823] underline underline-offset-2"
                 >
-                  info@theprofessional.network
+                  info@theprofessionals.network
                 </a>
                 .
               </p>
