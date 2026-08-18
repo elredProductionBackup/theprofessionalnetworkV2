@@ -190,20 +190,20 @@ const SECTIONS = [
           {
             p: (
               <>
-                <strong className="text-[#333336] font-semibold">Grievance Officer</strong>
+                <strong className="text-[#333336] font-semibold">Grievance Officer: Ananya Palav</strong>
                 <br />
                 Rextone Digital Pvt. Ltd.
                 <br />
                 16, Yashodham Center, Film City Road, Goregaon (E), Mumbai 400063, Maharashtra, India
                 <br />
                 Email:{" "}
-                <a href="mailto:info@theprofessionals.network" className={link}>info@theprofessionals.network</a>
+                <a href="mailto:support@theprofessionals.network" className={link}>support@theprofessionals.network</a>
               </>
             ),
           },
-          {
-            note: `Note for the Network: applicable Indian rules require a named Grievance Officer and a response timeline (typically acknowledging within 24–48 hours and resolving within 15 days). Please insert the officer’s name and a dedicated email or phone before publishing, then remove this note.`,
-          },
+          // {
+          //   note: `Note for the Network: applicable Indian rules require a named Grievance Officer and a response timeline (typically acknowledging within 24–48 hours and resolving within 15 days). Please insert the officer’s name and a dedicated email or phone before publishing, then remove this note.`,
+          // },
         ],
       },
     ],
