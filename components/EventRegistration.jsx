@@ -28,7 +28,7 @@ const TIERS = {
     noteBold: "",
     price: "INR 5 k",
     priceNote: "(including all taxes)",
-    ticketCode: "SU-INPERSON",
+    ticketCode: "SU-VIRTUAL",
   },
   enterprise: {
     iconSrc: "/icons/multiuser.svg",
@@ -36,7 +36,7 @@ const TIERS = {
     noteBold: "Access for 5 members.",
     price: "INR 10 k",
     priceNote: "(+18% GST)",
-    ticketCode: "ENT-INPERSON",
+    ticketCode: "ENT-VIRTUAL",
   },
 };
 
