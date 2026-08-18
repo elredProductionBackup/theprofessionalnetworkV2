@@ -1,10 +1,11 @@
 'use client'
 import { useState } from "react";
 import { Link as LinkIcon, Play } from "lucide-react";
-import { RED, COLLEGE_DISCLAIMER, speaker, clips } from "@/data/eventRegistration";
+import { RED, COLLEGE_DISCLAIMER, speaker as defaultSpeaker, clips as defaultClips } from "@/data/eventRegistration";
 
-/* Video + speaker profile card used both on the event page and the view-details page. */
-export default function SpeakerRecapCard({ id }) {
+/* Video + speaker profile card used both on the event page and the view-details pages.
+ * Defaults to Oded Netzer's data; pass `speaker` / `clips` to reuse it for another professor. */
+export default function SpeakerRecapCard({ id, speaker = defaultSpeaker, clips = defaultClips }) {
   const [playingClip, setPlayingClip] = useState(null); // index of clip playing, or null
 
   return (

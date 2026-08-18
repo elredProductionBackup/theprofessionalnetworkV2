@@ -1,7 +1,15 @@
 import { CheckCircle2 } from "lucide-react";
 import { RED } from "@/data/eventRegistration";
 
-const LEARNING_POINTS = [
+const DEFAULT_HEADING = "What You’ll Learn in This Leadership Training Program";
+
+const DEFAULT_SUBHEADING = (
+  <>
+    Through this practical <strong className="font-bold">leadership training Program</strong>, participants will learn how to:
+  </>
+);
+
+const DEFAULT_POINTS = [
   {
     lead: "Separate signal from noise",
     rest: "and focus on information that matters.",
@@ -28,20 +36,25 @@ const LEARNING_POINTS = [
   },
 ];
 
-export default function WhatYoullLearnSection() {
+export default function WhatYoullLearnSection({
+  heading = DEFAULT_HEADING,
+  subheading = DEFAULT_SUBHEADING,
+  points = DEFAULT_POINTS,
+  closingText,
+}) {
   return (
     <section className="font-inter bg-white">
       <div className="mx-auto w-[95%] max-w-[1440px] px-5 py-14 md:px-[100px] md:py-20">
         <h2 className="font-inter text-[26px] font-extrabold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
-          What You&rsquo;ll Learn in This Leadership Training Program
+          {heading}
         </h2>
 
         <p className="font-inter mt-3 max-w-[720px] text-[16px] font-normal leading-[1.4] tracking-normal text-[#231F20]">
-          Through this practical <strong className="font-bold">leadership training Program</strong>, participants will learn how to:
+          {subheading}
         </p>
 
         <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {LEARNING_POINTS.map(({ lead, rest }) => (
+          {points.map(({ lead, rest }) => (
             <div
               key={lead}
               className="flex items-start gap-3 rounded-xl border border-rose-100 bg-white p-4"
@@ -53,6 +66,12 @@ export default function WhatYoullLearnSection() {
             </div>
           ))}
         </div>
+
+        {closingText && (
+          <p className="font-inter mt-8 max-w-[900px] text-[16px] font-normal leading-[1.4] tracking-normal text-[#231F20]">
+            {closingText}
+          </p>
+        )}
       </div>
     </section>
   );
