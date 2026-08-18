@@ -11,7 +11,7 @@ export default function HeroSection() {
         }}
       />
 
-      <div className="relative mx-auto w-[95%] max-w-[1440px] px-5 py-14 md:px-[100px] md:py-20">
+      <div className="relative mx-auto w-[95%] max-w-[1440px] px-5 pb-14 pt-28 md:px-[100px] md:py-20">
         <div className="grid w-full items-center gap-10 text-left lg:grid-cols-2 lg:gap-16">
           {/* Left: copy */}
           <div>
