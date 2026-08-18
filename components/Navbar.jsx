@@ -18,7 +18,7 @@ const navigateTo = (path, label) => {
     window.dispatchEvent(new Event("openFaqPopup"));
   } else if (label === "Contact") {
     window.location.href =
-      "mailto:info@theprofessional.network";
+      "mailto:info@theprofessionals.network";
   } else {
     router.push(path);
   }
@@ -71,7 +71,7 @@ const navigateTo = (path, label) => {
     option.label === "Contact" ? (
       <a
         key={option.label}
-        href="mailto:info@theprofessional.network"
+        href="mailto:info@theprofessionals.network"
         onClick={() => setIsOpen(false)}
         className="text-white font-inter-display font-medium text-[28px] leading-[120%] tracking-[-0.04em] text-right hover:opacity-70 transition-opacity "
       >

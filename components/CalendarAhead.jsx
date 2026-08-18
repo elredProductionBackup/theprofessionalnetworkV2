@@ -1,6 +1,6 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
-import { ImLinkedin } from 'react-icons/im';
+import { FaRegBell } from 'react-icons/fa';
 import Image from 'next/image';
 import { professors } from '../data/professors';
 import EventModal from './EventModal';
@@ -169,10 +169,9 @@ export default function CalendarAhead({ onViewDetails }) {
                           href={p.linkedinLink}
                           target="_blank"
                           rel="noreferrer"
-                          className="relative flex h-6 w-6 items-center justify-center rounded-md bg-[#0A66C2] text-white shadow-md md:h-9 md:w-9"
+                          className="relative flex h-6 w-6 items-center justify-center shadow-md md:h-9 md:w-9"
                         >
-                          <ImLinkedin size={12} className="md:hidden" />
-                          <ImLinkedin size={18} className="hidden md:block" />
+                          <img src="/icons/linkedin.svg" alt="" className="h-full w-full" />
                           <span className="absolute -bottom-1 -right-1 flex h-3 w-3 items-center justify-center rounded-full bg-white shadow ring-1 ring-black/5 md:h-4 md:w-4">
                             <svg
                               width="7"
@@ -323,18 +322,29 @@ export default function CalendarAhead({ onViewDetails }) {
                     </span>
                   </h3>
 
-                  <p className="font-inter mb-5 min-h-[4rem] text-[14px] font-normal leading-[150%] tracking-[0px] text-[#231F20] line-clamp-3 md:mb-8">
-                    {blurb}
-                  </p>
+                  {p.cardBlurb ? (
+                    <p
+                      className="font-inter mb-5 text-[14px] font-normal leading-[150%] tracking-[0px] text-[#231F20] md:mb-6"
+                      dangerouslySetInnerHTML={{ __html: p.cardBlurb }}
+                    />
+                  ) : (
+                    <p className="font-inter mb-5 min-h-[4rem] text-[14px] font-normal leading-[150%] tracking-[0px] text-[#231F20] line-clamp-3 md:mb-8">
+                      {blurb}
+                    </p>
+                  )}
 
-                  <div className="flex items-center justify-center md:justify-start">
-                    <button
-                      type="button"
-                      onClick={() => setEventModalOpen(true)}
-                      className="cursor-pointer font-inter text-[15px] font-bold text-zinc-900 underline underline-offset-4 hover:opacity-80 md:text-[17px]"
-                    >
-                      View Details
-                    </button>
+                  <div className="mb-5 flex w-full max-w-[450px] items-center gap-3 rounded-lg border-2 border-dashed border-rose-300 px-[20px] py-[10px] md:mb-0 md:h-[94px] md:w-[450px]">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FFDADD] text-[#C01823] md:h-10 md:w-10">
+                      <FaRegBell className="h-4 w-4 md:h-4.5 md:w-4.5" />
+                    </span>
+                    <div>
+                      <p className="font-inter text-[18px] font-bold leading-[1.4] tracking-normal text-[#C01823]">
+                        Online Session Coming Soon
+                      </p>
+                      <p className="font-inter text-[13px] font-medium leading-[1.4] tracking-normal text-[#67686B]">
+                        The learning continues. Details for the upcoming online session will be announced soon. Stay tuned for further updates.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

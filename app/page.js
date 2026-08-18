@@ -4,6 +4,7 @@ import CalendarAhead from "@/components/CalendarAhead";
 import ProfessorClips from "@/components/ProfessorClips";
 import CoverflowHero from "@/components/Tagline";
 import EventRegistration from "@/components/EventRegistration";
+import Calendar from "@/components/Calendar";
 
 export const dynamic = "force-dynamic"; // ensures OG variant isn't statically cached
 
