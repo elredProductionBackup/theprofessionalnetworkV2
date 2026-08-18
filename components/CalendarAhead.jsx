@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { FaRegBell } from 'react-icons/fa';
 import Image from 'next/image';
+import Link from 'next/link';
 import { professors } from '../data/professors';
 import EventModal from './EventModal';
 import { slugify, getEventSlugFromUrl } from '../lib/eventShare';
@@ -346,6 +347,15 @@ export default function CalendarAhead({ onViewDetails }) {
                       </p>
                     </div>
                   </div>
+
+                  {p.viewDetailsSlug && (
+                    <Link
+                      href={`/view-details/${p.viewDetailsSlug}`}
+                      className="mt-4 inline-block cursor-pointer font-inter text-[15px] font-bold text-[#C01823] underline underline-offset-4 hover:opacity-80"
+                    >
+                      View Details
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
