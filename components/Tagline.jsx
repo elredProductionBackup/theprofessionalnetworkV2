@@ -33,7 +33,7 @@ const TAGLINE_PILL  = 'Actionable intelligence'
 /* =========================================================
    2) Slider feel — tweak these numbers to taste.
    ========================================================= */
-const STEP       = 150   // base gap between card centres (px @ desktop). Spacing auto-widens
+const STEP       = 170   // base gap between card centres (px @ desktop). Spacing auto-widens
                          // if needed so cards always fill the full width (no black gaps).
 const AUTO_SPEED = 0.4    // auto-scroll drift (px/frame). 0 to disable
 const CARD_W     = 225    // desktop card width
@@ -68,7 +68,7 @@ export default function CoverflowHero() {
       const E  = edge.current
       // spacing: base value, but auto-widened so the N cards always span the
       // full viewport width -> the track can never leave black gaps on the sides.
-      const sp = Math.max(STEP * k.current, (E * 2 * 1.04) / N)
+      const sp = Math.max(STEP * k.current, (E * 2 * 1.12) / N)
       const TOTAL = N * sp
       const HALF  = TOTAL / 2
       const cw = CARD_W * k.current
@@ -89,6 +89,14 @@ export default function CoverflowHero() {
         const opacity = Math.max(0, Math.min(1, (E - dist) / fadeBand))
         // brightness: centre pops, sides dim toward the edge (floored, never full black)
         const brightness = 1 - DIM * Math.min(1, dist / E)
+
+        // shadow: strongest dead-centre, fades out on the sides so overlapping
+        // cards never stack their drop-shadows into muddy dark bands.
+        const sMix = Math.max(0, 1 - dist / (E * 0.55))
+        const sy   = (10 + 12 * sMix) * k.current
+        const sb   = (18 + 26 * sMix) * k.current
+        const sa   = 0.10 + 0.28 * sMix
+        card.style.boxShadow = `0 ${sy}px ${sb}px rgba(0,0,0,${sa})`
 
         card.style.width = `${cw}px`
         card.style.height = `${ch}px`
@@ -115,6 +123,7 @@ export default function CoverflowHero() {
     }
 
     render()
+    if (stageRef.current) stageRef.current.style.opacity = '1'  // reveal once cards are laid out
     raf = requestAnimationFrame(tick)
     return () => {
       cancelAnimationFrame(raf)
@@ -189,20 +198,21 @@ export default function CoverflowHero() {
         onPointerCancel={onPointerUp}
         onMouseEnter={() => { hovering.current = true }}
         onMouseLeave={() => { hovering.current = false }}
-        className="relative  z-10 mt-12 h-[380px] w-screen  cursor-grab touch-pan-y select-none overflow-hidden [perspective:1400px] active:cursor-grabbing"
+        className="relative  z-10 mt-12 h-[380px] w-screen  cursor-grab touch-pan-y select-none overflow-hidden opacity-0 transition-opacity duration-500 [perspective:1400px] active:cursor-grabbing"
       >
         {SLIDES.map((s, i) => (
           <div
             key={i}
             ref={(el) => (cardRefs.current[i] = el)}
-            style={{ width: CARD_W, height: CARD_H }}
-            className="absolute left-1/2 top-1/2 overflow-hidden rounded-2xl shadow-[0_18px_40px_rgba(0,0,0,0.4)] ring-1 ring-white/10 will-change-transform"
+            style={{ width: CARD_W, height: CARD_H, transform: 'translate(-50%, -50%)', opacity: 0 }}
+            className="absolute left-1/2 top-1/2 overflow-hidden rounded-2xl ring-1 ring-white/5 will-change-transform"
           >
             <Image
               src={s.src}
               alt={s.name}
               fill
               quality={100}
+              loading="eager"
               sizes="(max-width: 640px) 220px, 250px"
               draggable={false}
               className="pointer-events-none select-none object-cover"

@@ -48,7 +48,7 @@ export default function FaqSection() {
                   aria-expanded={isOpen}
                   className="flex w-full cursor-pointer items-start justify-between gap-4 text-left"
                 >
-                  <span className="font-inter text-[24px] font-bold leading-[1.4] tracking-normal text-slate-900">
+                  <span className="font-inter text-[24px] font-medium leading-[1.4] tracking-normal text-slate-900 sm:font-bold">
                     {item.question}
                   </span>
                   <span className="mt-0.5 shrink-0" style={{ color: RED }}>
