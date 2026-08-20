@@ -1,55 +1,3 @@
-// export default function Tagline() {
-//   return (
-//     <section className="relative min-h-[500px] md:min-h-screen md:h-auto flex flex-col items-center justify-center md:justify-center text-white text-center md:pt-[60px] px-4 md:px-[40px] overflow-hidden">
-//       {/* Background Image */}
-//       <div
-//         className="absolute inset-0 bg-cover bg-center z-0"
-//         style={{ backgroundImage: "url('/assets/hero-globe.webp')" }}
-//       >
-//         {/* <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div> */}
-//       </div>
-
-//       <div className="relative z-10 flex flex-col h-full items-center justify-center pt-[100px] md:pt-0 pb-[40px]  md:pb-0 gap-[82px] md:gap-[100px]">
-//         {/* Upper Tagline */}
-//         <div className="w-full md:w-[90%] max-w-[1350px]">
-//           <h2
-//             className="font-inter font-[700] text-[35px] lg:text-[66px] md:text-[55px] leading-[120%] tracking-[-0.5px] md:tracking-[-1.46px] text-center"
-//           >
-//            a network for ambitious professionals who are keen to learn from the best academic minds of the world
-//           </h2>
-//         </div>
-
-//         {/* Lower Section Text */}
-//         <div
-//           className="mt-auto md:mt-0 font-[family-name:var(--font-inter-display)] text-center tracking-[-0.5px] font-[400] text-[18px] lg:text-[50px] md:text-[40px] leading-[100%] flex items-center justify-center gap-2 md:gap-4 w-full md:max-w-none"
-//         >
-//           <span className="whitespace-nowrap">Learn. Stay ahead.</span>
-//           <span className="bg-[#C01823] font-bold px-1 md:px-3 py-1 inline-block whitespace-nowrap">
-//             Actionable intelligence
-//           </span>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
-// 'use client'
-// import { useEffect, useRef } from 'react'
-
-/**
- * ProfessionalsHero
- * -----------------
- * Curved 3D coverflow slider (dark theme, #D71A21 accent), matching the
- * reference fan: the CENTER card is flat and closest, and the side cards
- * toe INWARD and recede — a concave curved wall. It auto-slides, pauses on
- * hover (snapping a card dead-center), and you can drag to move through it.
- *
- * No external libraries. Scoped under `.anh` so it drops into any Next.js +
- * Tailwind project untouched. Swap the portraits in PEOPLE.
- *
- * Tuning lives in the CONFIG block below. To reverse the slide direction,
- * flip the sign of AUTO.
- */
 'use client'
 
 import Image from 'next/image'
@@ -68,7 +16,6 @@ const SLIDES = [
   { src: 'https://res.cloudinary.com/dtrv7p3gg/image/upload/v1786339151/akdrkrzxpz2nkkhjhroh_bi7nbg.webp', name: 'Jamal', role: 'Data' },
   { src: 'https://res.cloudinary.com/dtrv7p3gg/image/upload/v1786339151/ale5b4auhphyva2b4zun_n6eabg.webp', name: 'Priya', role: 'Marketing' },
   { src: 'https://res.cloudinary.com/dtrv7p3gg/image/upload/v1786339152/e7nydhgrizlplhdo63zx_cqfok6.webp', name: 'Omar',  role: 'Support' },
-  // { src: 'https://res.cloudinary.com/dtrv7p3gg/image/upload/v1786339153/qy1f4az5mbvfjycnshka_pqhdpn.webp', name: 'Omar',  role: 'Support' },
   { src: 'https://res.cloudinary.com/dtrv7p3gg/image/upload/v1786339153/ekz2vxs1fbo69ksaoshr_lijkz9.webp', name: 'Omar',  role: 'Support' },
   { src: 'https://res.cloudinary.com/dtrv7p3gg/image/upload/v1786339167/fluu438xcx5okotpglj2_kgcvlh.webp', name: 'Omar',  role: 'Support' },
   { src: 'https://res.cloudinary.com/dtrv7p3gg/image/upload/v1786339169/ktdgfso58h3g77ppbjbn_v9rlik.webp', name: 'Omar',  role: 'Support' },
@@ -167,19 +114,11 @@ export default function CoverflowHero() {
       raf = requestAnimationFrame(tick)
     }
 
-    const stage = stageRef.current
-    const onWheel = (e) => {
-      offset.current += Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX
-      e.preventDefault()
-    }
-    stage?.addEventListener('wheel', onWheel, { passive: false })
-
     render()
     raf = requestAnimationFrame(tick)
     return () => {
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', setK)
-      stage?.removeEventListener('wheel', onWheel)
     }
   }, [])
 
@@ -250,7 +189,7 @@ export default function CoverflowHero() {
         onPointerCancel={onPointerUp}
         onMouseEnter={() => { hovering.current = true }}
         onMouseLeave={() => { hovering.current = false }}
-        className="relative  z-10 mt-12 h-[380px] w-screen  cursor-grab touch-none select-none overflow-hidden [perspective:1400px] active:cursor-grabbing"
+        className="relative  z-10 mt-12 h-[380px] w-screen  cursor-grab touch-pan-y select-none overflow-hidden [perspective:1400px] active:cursor-grabbing"
       >
         {SLIDES.map((s, i) => (
           <div
