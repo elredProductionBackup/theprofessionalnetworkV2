@@ -352,7 +352,7 @@ export default function CalendarAhead({ onViewDetails }) {
           </div>
 
           {/* College affiliation disclaimer */}
-          <p className="font-inter mx-auto mt-6 max-w-2xl text-center text-[11px] leading-relaxed text-zinc-400 md:mt-8">
+          <p className="font-inter mx-auto mt-6 max-w-2xl text-center text-[13px] font-normal leading-[140%] tracking-normal md:mt-8" style={{ color: "#67686B" }}>
             {COLLEGE_DISCLAIMER}
           </p>
         </div>

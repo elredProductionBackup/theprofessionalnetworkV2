@@ -1,4 +1,4 @@
-import { RED, speaker as defaultSpeaker } from "@/data/eventRegistration";
+import { RED, COLLEGE_DISCLAIMER, speaker as defaultSpeaker } from "@/data/eventRegistration";
 
 export default function SpeakerBioSection({ speaker = defaultSpeaker }) {
   return (
@@ -56,6 +56,11 @@ export default function SpeakerBioSection({ speaker = defaultSpeaker }) {
             </span>
           </blockquote>
         </div>
+
+        {/* College affiliation disclaimer */}
+        <p className="font-inter mx-auto mt-4 max-w-2xl text-center text-[13px] font-normal leading-[140%] tracking-normal" style={{ color: "#67686B" }}>
+          {COLLEGE_DISCLAIMER}
+        </p>
       </div>
     </section>
   );

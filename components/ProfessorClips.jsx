@@ -34,33 +34,15 @@ const PlayIcon = ({ className = "" }) => (
   </svg>
 );
 
-const NoVideoIcon = ({ className = "" }) => (
+const CursorIcon = ({ className = "" }) => (
   <svg
     viewBox="0 0 24 24"
     className={className}
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.6"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    fill="currentColor"
     aria-hidden="true"
   >
-    <path d="M4 4l6.5 15 1.9-5.6 5.6-1.9z" />
-    <line x1="3" y1="3" x2="21" y2="21" />
+    <path d="M4 2l16 7.5-6.5 1.7L11 18z" />
   </svg>
-);
-
-const SchoolBadge = ({ logo, school }) => (
-  <div className="absolute left-3 top-3 z-10 flex items-center gap-1.5 rounded-full bg-black/45 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
-    {logo && ( <img src={logo} alt="" className="h-3.5 w-3.5 object-contain" />)}
-     {/* ) : (
-       <span className="h-3.5 w-3.5 rounded-sm bg-blue-500" />
-     )} */}
-    <span className="flex items-center gap-0.5">
-      <span className="max-w-[160px] truncate">{school}</span>
-      <sup >*</sup>
-    </span>
-  </div>
 );
 
 const ProfessorClips = () => {
@@ -87,17 +69,17 @@ const ProfessorClips = () => {
         .sc-reveal.in { animation: scFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards; }
       `}</style>
 
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-6xl">
         {/* Heading */}
         <div className={`sc-reveal ${inView ? "in" : ""} text-center flex flex-col gap-[20px]`}>
           {/* Main Heading */}
-          <h2 className="font-inter-display font-semibold text-[25px] lg:text-[72px] md:text-[60px] leading-[110%] md:leading-[100%] tracking-[-1.5px] md:tracking-[-2.6px] text-[#333333] max-w-[1100px] mx-auto mb-[40px] md:mb-[50px]">
-            ⁠The world’s greatest minds, in their own words.
+          <h2 className="font-inter-display font-semibold text-[25px] lg:text-[56px] md:text-[45px] leading-[110%] md:leading-[100%] tracking-[-1.5px] md:tracking-[-2px] text-[#333333] max-w-[900px] mx-auto mb-[40px] md:mb-[50px]">
+            The best minds in the world, in their own words.
           </h2>
         </div>
 
-        {/* Video grid — 2 per row so each clip is large */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {/* Video grid — 3 per row, compact cards */}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {clips.map((p, i) => {
             const poster = p.videoThumbnail || p.image;
             const hasVideo = Boolean(p.video);
@@ -105,12 +87,10 @@ const ProfessorClips = () => {
             return (
               <div
                 key={p.name}
-                className={`sc-reveal ${inView ? "in" : ""} group`}
+                className={`sc-reveal ${inView ? "in" : ""} group rounded-2xl bg-neutral-100 p-2.5`}
                 style={{ animationDelay: `${0.15 + i * 0.08}s` }}
               >
                 <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-neutral-900">
-                  <SchoolBadge logo={p.schoolLogo} school={p.school} />
-
                   {isPlaying ? (
                     <video
                       src={p.video}
@@ -135,17 +115,17 @@ const ProfessorClips = () => {
                           className="absolute inset-0 grid place-items-center"
                         >
                           <span
-                            className="grid h-16 w-16 place-items-center rounded-full bg-red-600 text-white transition-transform duration-300 hover:scale-110"
+                            className="grid h-14 w-14 place-items-center rounded-full bg-red-600 text-white transition-transform duration-300 hover:scale-110"
                             style={{ animation: "scPulse 2.4s ease-in-out infinite" }}
                           >
-                            <PlayIcon className="ml-0.5 h-7 w-7" />
+                            <PlayIcon className="ml-0.5 h-6 w-6" />
                           </span>
                         </button>
                       ) : (
-                        <div className="absolute inset-0 grid place-items-center bg-neutral-900/70 text-neutral-400">
-                          <div className="flex flex-col items-center gap-2">
-                            <NoVideoIcon className="h-7 w-7" />
-                            <span className="text-sm">Coming Soon</span>
+                        <div className="absolute inset-0 grid place-items-center bg-black/45 text-white">
+                          <div className="flex flex-col items-center gap-1.5">
+                            <CursorIcon className="h-5 w-5" />
+                            <span className="text-sm font-medium">Coming soon</span>
                           </div>
                         </div>
                       )}
@@ -153,11 +133,10 @@ const ProfessorClips = () => {
                   )}
                 </div>
 
-                <p className="mt-4 px-1 text-sm text-neutral-600">
-                  <span className="font-semibold text-neutral-900">{p.name}</span>
-                  <span className="mx-2 text-neutral-300">|</span>
-                  {p.topic.trim()}
-                </p>
+                <div className="mt-3 px-1 pb-1">
+                  <p className="truncate text-sm font-semibold text-neutral-900">{p.name}</p>
+                  <p className="truncate text-sm text-neutral-500">{p.topic.trim()}</p>
+                </div>
               </div>
             );
           })}
