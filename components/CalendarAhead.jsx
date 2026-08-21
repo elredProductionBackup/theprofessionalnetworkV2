@@ -268,44 +268,18 @@ export default function CalendarAhead({ onViewDetails }) {
                     </span>
                   </div>
 
-                  {/* Event Details */}
-                  <div className="w-full">
-                    <h4 className="font-inter mb-2 inline-block text-center align-middle text-[10px] font-semibold uppercase leading-[140%] text-zinc-400 md:mb-3 md:text-[12px]">
-                      Event Details
-                    </h4>
-                    <div className="font-inter space-y-1.5 text-[13px] font-medium leading-[140%] align-middle text-zinc-700 md:space-y-2.5 md:text-[16px]">
-                      <div className="flex items-center gap-2">
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          className="flex-shrink-0 text-zinc-400 md:h-4 md:w-4"
-                        >
-                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                          <circle cx="12" cy="10" r="3" />
-                        </svg>
-                        <span>{p.location}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          className="flex-shrink-0 text-zinc-400 md:h-4 md:w-4"
-                        >
-                          <rect x="3" y="4" width="18" height="18" rx="2" />
-                          <line x1="16" y1="2" x2="16" y2="6" />
-                          <line x1="8" y1="2" x2="8" y2="6" />
-                          <line x1="3" y1="10" x2="21" y2="10" />
-                        </svg>
-                        <span>{p.date}</span>
-                      </div>
+                  {/* Online session note (replaces location/date) */}
+                  <div className="flex w-full items-center gap-3">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FFDADD] text-[#C01823]">
+                      <FaRegBell className="h-4 w-4" />
+                    </span>
+                    <div>
+                      <p className="font-inter text-[18px] font-bold leading-[140%] tracking-normal text-[#C01823]">
+                        Online Session Coming Soon
+                      </p>
+                      <p className="font-inter max-w-[290px] text-[12px] font-medium leading-[140%] tracking-normal text-[#67686B]">
+                        Details for the upcoming online session will be announced soon. Stay tuned for further updates.
+                      </p>
                     </div>
                   </div>
                 </div>
