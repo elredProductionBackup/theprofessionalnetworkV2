@@ -14,7 +14,7 @@ import {
   Check,
   Presentation,
   ScrollText,
-  User,
+  Link as LinkIcon,
 } from "lucide-react";
 import { RED, COLLEGE_DISCLAIMER, speaker } from "@/data/eventRegistration";
 import SpeakerRecapCard from "./SpeakerRecapCard";
@@ -23,19 +23,15 @@ const ONLINE_RED = "#C01823";
 
 const TIERS = {
   single: {
-    icon: User,
-    note: "The complete event, now available at your own pace.",
-    noteBold: "",
-    price: "INR 5 k",
-    priceNote: "(including all taxes)",
+    priceLabel: "INR",
+    priceValue: "5 k",
+    priceNote: "(including all taxes & interest free emi)",
     ticketCode: "SU-VIRTUAL",
   },
   enterprise: {
-    iconSrc: "/icons/multiuser.svg",
-    note: "The complete event, now available at your own pace. ",
-    noteBold: "Access for 5 members.",
-    price: "INR 10 k",
-    priceNote: "(+18% GST)",
+    priceLabel: "INR",
+    priceValue: "10 k",
+    priceNote: "(+18% GST & interest free emi)",
     ticketCode: "ENT-VIRTUAL",
   },
 };
@@ -241,30 +237,35 @@ export default function EventRegistration() {
         <div className="grid w-full items-center gap-10 text-left lg:grid-cols-2 lg:gap-16">
           {/* Left: event summary */}
           <div>
-            {/* Past-event status badge */}
-            <span
-              className="inline-flex leading-[140%] tracking-[2px] font-inter items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-5 py-2 text-3.5 font-medium uppercase"
-              style={{ color: RED }}
-            >
-              Event Concluded
-            </span>
-
-            <h1 className="font-inter mt-4 max-w-[538px] text-[32px] font-extrabold leading-[1.4] tracking-normal text-slate-900 sm:text-[38px] md:text-[45px]">
+            <h1 className="font-inter max-w-[538px] text-[32px] font-extrabold leading-[1.4] tracking-normal text-slate-900 sm:text-[38px] md:text-[45px]">
               Leadership Intelligence in an AI Era: Developing{" "}
               <span className="font-inter font-extrabold leading-[1.4] tracking-normal" style={{ color: RED }}>
                 Quantitative Intuition
               </span>
             </h1>
 
-            <p className="font-inter mt-6 text-4.5 leading-[140%] font-semibold uppercase tracking-wider" style={{ color: RED }}>
-              Event Details
-            </p>
-            <p
-              className="font-inter mt-2 max-w-[546px] text-[20px] font-medium leading-[1.4] tracking-normal"
-              style={{ color: "#231F20" }}
-            >
-              The in-person session at {speaker.location}, concluded successfully on 2nd August 2026.
-            </p>
+            <div className="mt-5 flex items-center gap-3">
+              <img src={speaker.image} alt={speaker.name} className="h-13 w-13 shrink-0 rounded-full object-cover" />
+              <div>
+                <p className="font-inter text-[30px] font-medium leading-[1.1] tracking-normal text-slate-900 align-middle">{speaker.title}</p>
+                <p className="font-inter text-[16px] font-normal leading-[1.4] tracking-normal text-[#231F20] align-middle">
+                  {speaker.school}
+                  <sup>*</sup>
+                </p>
+              </div>
+              <a
+                href={speaker.linkedinLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${speaker.name} on LinkedIn`}
+                className="relative ml-2 grid h-[28px] w-[28px] shrink-0 place-items-center transition hover:opacity-90"
+              >
+                <img src="/icons/linkedin.svg" alt="" className="h-[28px] w-[28px]" />
+                <span className="absolute -bottom-1 -right-1 grid h-3.5 w-3.5 place-items-center rounded-full bg-[#E3E3E3] text-slate-500 shadow-sm ring-1 ring-slate-200">
+                  <LinkIcon className="h-2 w-2" />
+                </span>
+              </a>
+            </div>
 
             <Link
               href="/view-details"
@@ -276,17 +277,17 @@ export default function EventRegistration() {
           </div>
 
           {/* Right: recap video + speaker card */}
-          <SpeakerRecapCard id={VIDEOS_ID} />
+          <SpeakerRecapCard id={VIDEOS_ID} showProfile={false} />
         </div>
 
         {/* ---------- Bottom: online session announcement ---------- */}
         <div id={PRICING_ID} className="scroll-mt-24 mt-10 w-full rounded-3xl border border-rose-200 bg-[#FDEAEB] p-6 shadow-[0px_4px_6px_1px_#F2DBDB80] md:mt-14 md:py-10 md:px-10">
           <h2 className="font-inter text-[22px] font-semibold leading-[1.3] text-center tracking-normal text-slate-900 sm:text-[28px] sm:leading-[1.4] md:text-[35px]">
-            How This{" "}
+            This{" "}
             <span className="italic font-bold" style={{ color: ONLINE_RED }}>
-              Leadership Training Program
+              leadership training program
             </span>{" "}
-            Helps Leaders Turn Data, Analytics, and AI into Better Business Decisions
+            helps leaders turn data, analytics, and AI into better business decisions
           </h2>
 
           <p
@@ -338,7 +339,7 @@ export default function EventRegistration() {
                 <button
                   type="button"
                   onClick={() => setPlan("enterprise")}
-                  className={`cursor-pointer whitespace-nowrap rounded-full px-6 py-2 text-sm font-semibold transition ${
+                  className={`cursor-pointer font-inter whitespace-nowrap rounded-full px-6 py-2 text-sm font-semibold transition ${
                     plan === "enterprise" ? "text-white shadow-sm" : "text-slate-500 hover:text-slate-700"
                   }`}
                   style={plan === "enterprise" ? { backgroundColor: ONLINE_RED } : undefined}
@@ -347,34 +348,17 @@ export default function EventRegistration() {
                 </button>
               </div>
 
-              <div className="mt-4 rounded-2xl bg-white p-5 shadow-sm">
-                <div className="flex items-start justify-between gap-3">
-                  <h4 className="font-inter text-[18px] font-bold text-slate-900">Unlock Learning Access</h4>
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose-100" style={{ color: ONLINE_RED }}>
-                    {TIERS[plan].iconSrc ? (
-                      <img src={TIERS[plan].iconSrc} alt="" className="h-4 w-4" />
-                    ) : (
-                      (() => {
-                        const TierIcon = TIERS[plan].icon;
-                        return <TierIcon className="h-4 w-4" />;
-                      })()
-                    )}
+              <div className="mt-4 flex w-full max-w-[320px] flex-col items-center rounded-2xl bg-white px-6 py-8 text-center shadow-sm" style={{ border: "1px solid #C0182333" }}>
+                <p>
+                  <span className="text-[35px] font-medium leading-[120%]" style={{ color: ONLINE_RED }}>
+                    {TIERS[plan].priceLabel} <span className="font-bold">{TIERS[plan].priceValue}</span>
                   </span>
-                </div>
-                <p className="mt-2 text-[14px] leading-[1.4] text-[#67686B]">
-                  {TIERS[plan].note}
-                  {TIERS[plan].noteBold && (
-                    <strong className="font-bold text-slate-700">{TIERS[plan].noteBold}</strong>
-                  )}
                 </p>
-                <p className="mt-4">
-                  <span className="text-[26px] font-bold" style={{ color: ONLINE_RED }}>{TIERS[plan].price}</span>{" "}
-                  <span className="text-[13px] text-[#67686B]">{TIERS[plan].priceNote}</span>
-                </p>
+                <p className="mt-1 text-[12px] font-medium font-inter leading-[120%] text-[#67686B]">{TIERS[plan].priceNote}</p>
                 <button
                   type="button"
                   onClick={openApply}
-                  className="mt-4 w-fit cursor-pointer rounded-full border-2 px-6 py-2 text-sm font-semibold transition hover:bg-rose-50"
+                  className="font-inter mt-5 w-fit cursor-pointer rounded-full border-2 px-8 py-2 text-sm font-semibold transition hover:bg-rose-50"
                   style={{ borderColor: ONLINE_RED, color: ONLINE_RED }}
                 >
                   Get Access
