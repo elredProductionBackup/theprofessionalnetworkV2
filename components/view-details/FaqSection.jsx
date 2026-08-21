@@ -4,7 +4,7 @@ import { Plus, X } from "lucide-react";
 import { RED } from "@/data/eventRegistration";
 import { viewDetailsFaqs } from "@/data/view-details-faq";
 
-const HIGHLIGHT_PHRASES = ["leadership training Program", "leadership Program online"];
+const HIGHLIGHT_PHRASES = ["leadership training Program", "leadership Program online", "For Single User:", "For Enterprise:"];
 const HIGHLIGHT_PATTERN = new RegExp(`(${HIGHLIGHT_PHRASES.join("|")})`, "g");
 
 function renderWithHighlights(text) {
@@ -57,7 +57,7 @@ export default function FaqSection() {
                 </button>
 
                 {isOpen && (
-                  <p className="font-inter mt-3 max-w-[820px] text-[20px] font-medium leading-[1.4] tracking-normal text-slate-500">
+                  <p className="font-inter mt-3 max-w-[820px] whitespace-pre-line text-[20px] font-medium leading-[1.4] tracking-normal text-slate-500">
                     {renderWithHighlights(item.answer)}
                   </p>
                 )}

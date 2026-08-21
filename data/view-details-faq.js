@@ -29,4 +29,9 @@ export const viewDetailsFaqs = [
     answer:
       "Yes. A well-designed leadership Program online can help professionals understand how AI and data are changing leadership and decision-making. They can develop skills such as questioning AI-generated outputs, evaluating information critically, identifying assumptions, and combining technology with human judgment to make better business decisions.",
   },
+  {
+    question: "How long can I access a purchased online session?",
+    answer:
+      "For Single User: If you purchase an online session as an single user, you can access and watch the session recording for 3 months from the date of purchase.\n\nFor Enterprise: If your Enterprise plan includes access for up to 5 members, all registered members can access the session recording for 3 months from the date of purchase.\n\nThe recording can be viewed anytime during the applicable access period.",
+  },
 ];
