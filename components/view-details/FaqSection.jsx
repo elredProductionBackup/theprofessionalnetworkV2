@@ -19,7 +19,7 @@ function renderWithHighlights(text) {
   );
 }
 
-export default function FaqSection() {
+export default function FaqSection({ faqs = viewDetailsFaqs }) {
   const [openIndex, setOpenIndex] = useState(-1);
 
   return (
@@ -38,7 +38,7 @@ export default function FaqSection() {
         </h2>
 
         <div className="mt-6">
-          {viewDetailsFaqs.map((item, i) => {
+          {faqs.map((item, i) => {
             const isOpen = openIndex === i;
             return (
               <div key={item.question} className="border-b border-slate-100 py-5">
