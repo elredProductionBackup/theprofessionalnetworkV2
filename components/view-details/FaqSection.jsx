@@ -56,11 +56,15 @@ export default function FaqSection({ faqs = viewDetailsFaqs }) {
                   </span>
                 </button>
 
-                {isOpen && (
-                  <p className="font-inter mt-3 max-w-[820px] whitespace-pre-line text-[20px] font-medium leading-[1.4] tracking-normal text-slate-500">
+                <div
+                  className={`grid transition-all duration-300 ease-in-out ${
+                    isOpen ? "mt-3 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <p className="font-inter max-w-[820px] overflow-hidden whitespace-pre-line text-[20px] font-medium leading-[1.4] tracking-normal text-slate-500">
                     {renderWithHighlights(item.answer)}
                   </p>
-                )}
+                </div>
               </div>
             );
           })}
