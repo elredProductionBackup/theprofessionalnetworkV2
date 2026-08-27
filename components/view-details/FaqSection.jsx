@@ -26,12 +26,12 @@ export default function FaqSection({ faqs = viewDetailsFaqs }) {
     <section className="font-inter bg-white">
       <div className="mx-auto w-[95%] max-w-[1440px] px-5 pb-14 md:px-[100px] md:pb-20">
         <p
-          className="font-inter text-center text-[25px] font-medium uppercase leading-none tracking-[5px] text-slate-400"
+          className="font-inter text-center text-[14px] font-medium uppercase leading-none tracking-[3px] text-slate-400 sm:text-[25px] sm:tracking-[5px]"
         >
           FAQ
         </p>
         <h2
-          className="font-inter mt-2 text-[28px] font-semibold leading-[1.4] tracking-normal"
+          className="font-inter mt-2 text-[20px] font-semibold leading-[1.4] tracking-normal sm:text-[28px]"
           style={{ color: RED }}
         >
           Frequently asked
@@ -48,7 +48,7 @@ export default function FaqSection({ faqs = viewDetailsFaqs }) {
                   aria-expanded={isOpen}
                   className="flex w-full cursor-pointer items-start justify-between gap-4 text-left"
                 >
-                  <span className="font-inter text-[24px] font-medium leading-[1.4] tracking-normal text-slate-900 sm:font-bold">
+                  <span className="font-inter text-[16px] font-medium leading-[1.4] tracking-normal text-slate-900 sm:text-[24px] sm:font-bold">
                     {item.question}
                   </span>
                   <span className="mt-0.5 shrink-0" style={{ color: RED }}>
@@ -61,7 +61,7 @@ export default function FaqSection({ faqs = viewDetailsFaqs }) {
                     isOpen ? "mt-3 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
-                  <p className="font-inter max-w-[820px] overflow-hidden whitespace-pre-line text-[20px] font-medium leading-[1.4] tracking-normal text-slate-500">
+                  <p className="font-inter max-w-[820px] overflow-hidden whitespace-pre-line text-[14px] font-medium leading-normal tracking-normal text-slate-500 sm:text-[20px] sm:leading-[1.4]">
                     {renderWithHighlights(item.answer)}
                   </p>
                 </div>
