@@ -1,7 +1,8 @@
 import HeroSection from "@/components/view-details/HeroSection";
-import WhatYoullLearnSection from "@/components/view-details/WhatYoullLearnSection";
+import KeyTakeawaysSection from "@/components/view-details/KeyTakeawaysSection";
+import EventModulesSection from "@/components/view-details/EventModulesSection";
+import EarnCertificateSection from "@/components/view-details/EarnCertificateSection";
 import WhyItMattersSection from "@/components/view-details/WhyItMattersSection";
-import SpeakerBioSection from "@/components/view-details/SpeakerBioSection";
 import FaqSection from "@/components/view-details/FaqSection";
 
 export const metadata = {
@@ -12,9 +13,10 @@ export default function ViewDetailsPage() {
   return (
     <main>
       <HeroSection />
-      <WhatYoullLearnSection />
+      <KeyTakeawaysSection />
+      <EventModulesSection />
+      <EarnCertificateSection />
       <WhyItMattersSection />
-      <SpeakerBioSection />
       <FaqSection />
     </main>
   );

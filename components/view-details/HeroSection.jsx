@@ -1,6 +1,15 @@
+'use client';
 import SpeakerRecapCard from "@/components/SpeakerRecapCard";
+import { RED } from "@/data/eventRegistration";
 
 export default function HeroSection() {
+  const openApply = () =>
+    window.dispatchEvent(
+      new CustomEvent("openApplyPopup", {
+        detail: { eventCode: "TPN-LIQ-02AUG2026", ticketCode: "SU-VIRTUAL" },
+      })
+    );
+
   return (
     <section className="relative overflow-hidden bg-[#FDF4F4]">
       <div
@@ -16,16 +25,36 @@ export default function HeroSection() {
           {/* Left: copy */}
           <div>
             <h1 className="font-inter max-w-[538px] text-[32px] font-extrabold leading-[1.4] tracking-normal text-slate-900 sm:text-[38px] md:text-[45px]">
-              Leadership Intelligence in an AI Era: Developing Quantitative Intuition
+              Leadership Intelligence in an AI Era: Developing{" "}
+              <span style={{ color: RED }}>Quantitative Intuition</span>
             </h1>
 
             <p className="font-inter mt-6 max-w-[546px] text-[16px] font-normal leading-[1.4] tracking-normal text-[#231F20]">
               In an AI-driven world, leaders have access to more data, analytics, dashboards, and AI-generated answers than ever before. The real challenge is knowing what to trust, what to question, and how to turn information into better business decisions.
             </p>
 
-            <p className="font-inter mt-5 max-w-[546px] text-[16px] font-normal leading-[1.4] tracking-normal text-[#231F20]">
-              This <strong className="font-bold">leadership training Program</strong> with Prof. Oded Netzer introduces Quantitative Intuition (QI), a practical framework that helps leaders combine data, experience, and business judgment to make smarter decisions
-            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-5">
+              <div>
+                <p className="font-inter text-[15px] font-medium leading-[1.4] text-[#231F20]">Single User</p>
+                <p className="font-inter text-[22px] font-bold leading-[1.3]" style={{ color: RED }}>INR 5 k</p>
+              </div>
+
+              <div className="h-10 w-px bg-[#67686B80]" />
+
+              <div>
+                <p className="font-inter text-[15px] font-medium leading-[1.4] text-[#231F20]">Enterprise</p>
+                <p className="font-inter text-[22px] font-bold leading-[1.3]" style={{ color: RED }}>INR 10 k</p>
+              </div>
+
+              <button
+                type="button"
+                onClick={openApply}
+                className="font-inter ml-10 cursor-pointer rounded-full border-2 px-[25px] py-2.5 text-[20px] font-semibold transition hover:bg-rose-50"
+                style={{ borderColor: RED, color: RED }}
+              >
+                Get Access
+              </button>
+            </div>
           </div>
 
           {/* Right: recap video + speaker card — same card as the event page */}
