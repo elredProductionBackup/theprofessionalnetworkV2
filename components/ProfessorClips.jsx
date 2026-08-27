@@ -90,11 +90,6 @@ const clips = professors.filter((p) => p.showInClips && p.showInProfessorClips !
       <div className="mx-auto max-w-5xl">
         {/* Heading */}
         <div className={`sc-reveal ${inView ? "in" : ""} text-center flex flex-col gap-[20px]`}>
-          {/* Label */}
-          <span className="font-inter-display font-medium text-[15px] md:text-[35px] text-[#A3A3A3] tracking-[-0.8px] leading-[110%]">
-            Clips
-          </span>
-
           {/* Main Heading */}
           <h2 className="font-inter-display font-semibold text-[25px] lg:text-[72px] md:text-[60px] leading-[110%] md:leading-[100%] tracking-[-1.5px] md:tracking-[-2.6px] text-[#333333] max-w-[1100px] mx-auto mb-[40px] md:mb-[50px]">
             ⁠The world’s greatest minds, in their own words.
