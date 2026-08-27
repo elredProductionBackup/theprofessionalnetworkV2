@@ -12,7 +12,6 @@ import {
   Search,
   Share2,
   Check,
-  Presentation,
   ScrollText,
   Link as LinkIcon,
 } from "lucide-react";
@@ -281,75 +280,55 @@ export default function EventRegistration() {
         </div>
 
         {/* ---------- Bottom: online session announcement ---------- */}
-        <div id={PRICING_ID} className="scroll-mt-24 mt-10 w-full rounded-3xl border border-rose-200 bg-[#FDEAEB] p-6 shadow-[0px_4px_6px_1px_#F2DBDB80] md:mt-14 md:py-10 md:px-10">
-          <h2 className="font-inter text-[22px] font-semibold leading-[1.3] text-center tracking-normal text-slate-900 sm:text-[28px] sm:leading-[1.4] md:text-[35px]">
-            This{" "}
-            <span className="italic font-bold" style={{ color: ONLINE_RED }}>
-              leadership training program
-            </span>{" "}
-            helps leaders turn data, analytics, and AI into better business decisions
-          </h2>
-
-          <p
-            className="font-inter mx-auto mt-4 max-w-[840px] text-[18px] font-medium leading-[1.4] text-center sm:text-[20px]"
-            style={{ color: "#67686B" }}
-          >
-            A practical leadership training Program designed to help leaders separate signals from noise, challenge assumptions, and make smarter decisions in an AI-driven world.
-          </p>
-
-          <div className="mt-10 grid w-full items-start gap-8 lg:grid-cols-2 lg:gap-12">
+        <div id={PRICING_ID} className="scroll-mt-24 mt-10 w-full rounded-3xl border border-rose-200 bg-[#FDEAEB] p-6 shadow-[0px_4px_6px_1px_#F2DBDB80] md:mt-14 md:py-8 md:px-10">
+          <div className="grid w-full items-center gap-8 lg:grid-cols-2 lg:gap-12">
             {/* Left: online session info */}
             <div>
-              <span
-                className="flex h-14 w-14 items-center justify-center rounded-xl border-2"
-                style={{ borderColor: ONLINE_RED, color: ONLINE_RED }}
-              >
-                <Presentation className="h-6 w-6" />
-              </span>
+              <img src="/icons/home_card_icon.svg" alt="" className="h-[65px] w-auto" />
 
-              <h3 className="font-inter mt-4 text-[22px] font-bold leading-[1.3] text-slate-900">
+              <h3 className="font-inter mt-4 text-[30px] font-bold leading-[1.3] text-slate-900">
                 Online Session <span style={{ color: ONLINE_RED }}>Access</span>
               </h3>
-              <p className="font-inter mt-2 max-w-sm text-[15px] leading-[1.5] text-[#67686B]">
+              <p className="font-inter mt-2 max-w-sm text-[18px] leading-[1.5] text-[#67686B]">
                 The learning continues. Details for the upcoming online session will be updated soon. Stay tuned for further updates.
               </p>
 
-              <div className="mt-5 flex items-start gap-2">
-                <ScrollText className="mt-0.5 h-4 w-4 shrink-0" style={{ color: ONLINE_RED }} />
-                <div>
-                  <p className="font-inter text-[14px] font-bold text-slate-900">Digital certificate</p>
-                  <p className="font-inter text-[13px] text-[#67686B]">Downloadable and Sharable on Linkedin</p>
-                </div>
+              <div className="mt-5">
+                <p className="font-inter flex items-center gap-1.5 text-[16px] font-bold text-slate-900">
+                  Digital certificate
+                  <ScrollText className="h-4 w-4" style={{ color: ONLINE_RED }} />
+                </p>
+                <p className="font-inter mt-1 text-[14px] text-[#67686B]">Downloadable and Sharable on Linkedin</p>
               </div>
             </div>
 
             {/* Right: pricing card */}
-            <div>
-              <div className="inline-flex rounded-full p-1" style={{ backgroundColor: "#F6DFE2" }}>
-                <button
-                  type="button"
-                  onClick={() => setPlan("single")}
-                  className={`cursor-pointer whitespace-nowrap rounded-full px-6 py-2 text-sm font-semibold transition ${
-                    plan === "single" ? "text-white shadow-sm" : "text-slate-500 hover:text-slate-700"
-                  }`}
-                  style={plan === "single" ? { backgroundColor: ONLINE_RED } : undefined}
-                >
-                  Single User
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPlan("enterprise")}
-                  className={`cursor-pointer font-inter whitespace-nowrap rounded-full px-6 py-2 text-sm font-semibold transition ${
-                    plan === "enterprise" ? "text-white shadow-sm" : "text-slate-500 hover:text-slate-700"
-                  }`}
-                  style={plan === "enterprise" ? { backgroundColor: ONLINE_RED } : undefined}
-                >
-                  Enterprise
-                </button>
-              </div>
+            <div className="flex justify-center lg:justify-end">
+              <div className="flex w-full max-w-[320px] flex-col items-center rounded-2xl bg-white px-6 pt-5 pb-8 text-center shadow-sm lg:mr-27.5" style={{ border: "1px solid #C0182333" }}>
+                <div className="inline-flex rounded-full p-1" style={{ backgroundColor: "#F6DFE2" }}>
+                  <button
+                    type="button"
+                    onClick={() => setPlan("single")}
+                    className={`cursor-pointer whitespace-nowrap rounded-full px-6 py-2 text-sm font-semibold transition ${
+                      plan === "single" ? "text-white shadow-sm" : "text-slate-500 hover:text-slate-700"
+                    }`}
+                    style={plan === "single" ? { backgroundColor: ONLINE_RED } : undefined}
+                  >
+                    Single User
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPlan("enterprise")}
+                    className={`cursor-pointer font-inter whitespace-nowrap rounded-full px-6 py-2 text-sm font-semibold transition ${
+                      plan === "enterprise" ? "text-white shadow-sm" : "text-slate-500 hover:text-slate-700"
+                    }`}
+                    style={plan === "enterprise" ? { backgroundColor: ONLINE_RED } : undefined}
+                  >
+                    Enterprise
+                  </button>
+                </div>
 
-              <div className="mt-4 flex w-full max-w-[320px] flex-col items-center rounded-2xl bg-white px-6 py-8 text-center shadow-sm" style={{ border: "1px solid #C0182333" }}>
-                <p>
+                <p className="mt-4">
                   <span className="text-[35px] font-medium leading-[120%]" style={{ color: ONLINE_RED }}>
                     {TIERS[plan].priceLabel} <span className="font-bold">{TIERS[plan].priceValue}</span>
                   </span>
