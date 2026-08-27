@@ -163,7 +163,7 @@ export const professors = [
     description: `In an era defined by rapid technological shifts and complex market dynamics, the ability to secure favorable terms, influence key stakeholders, and architect robust deals is paramount. The professionals network is designed for the ambitious and the restless—those seeking to protect their legacy while remaining future-ready. Aligning with the professionals network’s mission to solve high-stakes problems through "First Principles" peer learning, this intensive 1-day masterclass distills the science of negotiation and influence into actionable strategies for ultra-high-net-worth individuals, family board members, and top-tier professionals. The curriculum is structured around two core pillars: the cognitive psychology of influence and the strategic architecture of deal-making.<br /><br />THE COGNITIVE PSYCHOLOGY OF INFLUENCE<br /><br />The morning sessions focus on the psychological mechanisms that drive decision-making at the bargaining table and in the boardroom. Members will explore how the framing and presentation of information can be leveraged to nudge counterparts toward desired outcomes. For family business owners navigating succession, or startup founders pitching to institutional investors, mastering these tools ensures that proposals are structured to maximize acceptance and reduce friction. The focus is on acting as an agenda-setter rather than a reactive participant.<br /><br />STRATEGIC DEAL ARCHITECTURE AND VALUE CREATION<br /><br />The afternoon transitions into the mechanics of negotiation. Participants will engage in dynamic simulation that mirror the high-stakes environments of private capital and enterprise leadership. Members will learn to uncover hidden interests and structure agreements that bridge valuation gaps and align long-term incentives. Drawing on extensive advisory experience in the private capital ecosystem—including complex exits, acquisitions, and strategic negotiations ranging from $35M to $2B USD—the session provides deep insights into liquidity events and M&A dynamics. This is particularly relevant for family offices and owners looking to scale operations, manage syndicate investments, without compromising their core objectives.<br /><br />By the conclusion of the day, the professionals network members and their leadership teams will possess a sophisticated toolkit for leading difficult commercial conversations with confidence. This masterclass ensures that the learnings reach deep into member organizations, driving consensus-driven execution and securing future success in an uncertain landscape.`,
   },
   {
-    name: "Niro Sivanathan × Saurabh Goswamy",
+    name: "Niro Sivanathan ",
     date: "4th September, Friday",
     topic: "Negotiations, Influence, and Decision-making",
     school: "London Business School",
@@ -210,7 +210,7 @@ export const professors = [
 `,
   },
   {
-    name: "Goutam Challagalla × Saurabh Goswamy",
+    name: "Goutam Challagalla ",
     showInClips: true,
     date: "16th October, Saturday",
         video: "https://assets-pretest.elred.io/theProfessionalNetwork/Recording+with+Prof+Goutam.mp4",

@@ -29,8 +29,8 @@ export default function CalendarAhead({ onViewDetails }) {
       p.showInClips !== false && 
       p.name !== 'Oded Netzer × Saurabh Goswamy' &&
       p.name !== 'Prof. Oded Netzer' &&
-      p.name !== 'Niro Sivanathan × Saurabh Goswamy' &&
-      p.name !== 'Goutam Challagalla × Saurabh Goswamy'
+      p.name !== 'Niro Sivanathan ' &&
+      p.name !== 'Goutam Challagalla '
       
   );
   const total = events.length;

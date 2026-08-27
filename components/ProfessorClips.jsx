@@ -109,7 +109,7 @@ const clips = professors.filter((p) => p.showInClips && p.showInProfessorClips !
                 style={{ animationDelay: `${0.15 + i * 0.08}s` }}
               >
                 <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-neutral-900">
-                  <SchoolBadge logo={p.schoolLogo} school={p.school} />
+                  {/* <SchoolBadge logo={p.schoolLogo} school={p.school} /> */}
 
                   {isPlaying ? (
                     <video
@@ -126,7 +126,7 @@ const clips = professors.filter((p) => p.showInClips && p.showInProfessorClips !
                         alt={p.name}
                         className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                       />
-                      <div className="absolute inset-0 bg-black/10" />
+                      <div className="absolute inset-0 bg-black/40" />
                       {hasVideo ? (
                         <button
                           type="button"
