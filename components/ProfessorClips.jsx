@@ -69,7 +69,7 @@ const ProfessorClips = () => {
   const [playingIndex, setPlayingIndex] = useState(null);
 
   // Only professors flagged with `showInClips: true` appear in this section.
-  const clips = professors.filter((p) => p.showInClips);
+const clips = professors.filter((p) => p.showInClips && p.showInProfessorClips !== false);
 
   // Nothing to show yet — don't render the section at all.
   if (!clips.length) return null;

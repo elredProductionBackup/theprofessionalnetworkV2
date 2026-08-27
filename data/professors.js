@@ -148,24 +148,72 @@ export const professors = [
   {
     name: "Niro Sivanathan",
     showInClips: true, 
-    date: "5th September, Saturday",
+    date: "4th September, Friday",
     topic: "Negotiations, Influence, and Decision-making",
     school: "London Business School",
     image: "/professor-profile/niro.png",
     // schoolLogo: "/professor-school/niro-school.svg",
-    linkedinLink: "https://www.linkedin.com/in/nirosivanathan",
     video: "https://res.cloudinary.com/dtrv7p3gg/video/upload/v1784177373/Teaser_Video_India_Sessions_Niro_1_-compressed_e6vm0j.mp4",        // <-- replace with your real clip
     schoolLink: "https://www.london.edu/faculty-and-research/faculty-profiles/s/sivanathan-n",
+    linkedinLink: "https://www.linkedin.com/in/nirosivanathan",
     location: "Tata Room, Taj Lands End, Mumbai",
     comingSoon: true,
     cardBlurb: `<strong>How people attain, maintain (and lose) influence through status and power.</strong> A practical <strong>negotiation training workshop</strong> for leaders looking to negotiate stronger outcomes, influence key stakeholders, and make better decisions in complex business situations.`,
     description: `In an era defined by rapid technological shifts and complex market dynamics, the ability to secure favorable terms, influence key stakeholders, and architect robust deals is paramount. The professionals network is designed for the ambitious and the restless—those seeking to protect their legacy while remaining future-ready. Aligning with the professionals network’s mission to solve high-stakes problems through "First Principles" peer learning, this intensive 1-day masterclass distills the science of negotiation and influence into actionable strategies for ultra-high-net-worth individuals, family board members, and top-tier professionals. The curriculum is structured around two core pillars: the cognitive psychology of influence and the strategic architecture of deal-making.<br /><br />THE COGNITIVE PSYCHOLOGY OF INFLUENCE<br /><br />The morning sessions focus on the psychological mechanisms that drive decision-making at the bargaining table and in the boardroom. Members will explore how the framing and presentation of information can be leveraged to nudge counterparts toward desired outcomes. For family business owners navigating succession, or startup founders pitching to institutional investors, mastering these tools ensures that proposals are structured to maximize acceptance and reduce friction. The focus is on acting as an agenda-setter rather than a reactive participant.<br /><br />STRATEGIC DEAL ARCHITECTURE AND VALUE CREATION<br /><br />The afternoon transitions into the mechanics of negotiation. Participants will engage in dynamic simulation that mirror the high-stakes environments of private capital and enterprise leadership. Members will learn to uncover hidden interests and structure agreements that bridge valuation gaps and align long-term incentives. Drawing on extensive advisory experience in the private capital ecosystem—including complex exits, acquisitions, and strategic negotiations ranging from $35M to $2B USD—the session provides deep insights into liquidity events and M&A dynamics. This is particularly relevant for family offices and owners looking to scale operations, manage syndicate investments, without compromising their core objectives.<br /><br />By the conclusion of the day, the professionals network members and their leadership teams will possess a sophisticated toolkit for leading difficult commercial conversations with confidence. This masterclass ensures that the learnings reach deep into member organizations, driving consensus-driven execution and securing future success in an uncertain landscape.`,
   },
-
+  {
+    name: "Niro Sivanathan × Saurabh Goswamy",
+    date: "4th September, Friday",
+    topic: "Negotiations, Influence, and Decision-making",
+    school: "London Business School",
+    video: "https://assets-pretest.elred.io/theProfessionalNetwork/Conversation+with+Prof+Niro.mp4",
+    videoThumbnail: "/professor-clips/niroxsg-thumbnail.webp", // optional; falls back to `image`
+    showInClips: true,
+    showInSessions: false, // clips-only — hidden from the SessionDetails carousel
+    // image: "/professor-profile/oded.jpg",
+    // schoolLogo: "/professor-school/oded-school.png",
+    schoolLink: "https://www.london.edu/faculty-and-research/faculty-profiles/s/sivanathan-n",
+    linkedinLink: "https://www.linkedin.com/in/nirosivanathan",
+    location: "Tata Room, Taj Lands End, Mumbai",
+        cardBlurb: `<strong>How people attain, maintain (and lose) influence through status and power.</strong> A practical <strong>negotiation training workshop</strong> for leaders looking to negotiate stronger outcomes, influence key stakeholders, and make better decisions in complex business situations.`,
+    description: `In an era defined by rapid technological shifts and complex market dynamics, the ability to secure favorable terms, influence key stakeholders, and architect robust deals is paramount. The professionals network is designed for the ambitious and the restless—those seeking to protect their legacy while remaining future-ready. Aligning with the professionals network’s mission to solve high-stakes problems through "First Principles" peer learning, this intensive 1-day masterclass distills the science of negotiation and influence into actionable strategies for ultra-high-net-worth individuals, family board members, and top-tier professionals. The curriculum is structured around two core pillars: the cognitive psychology of influence and the strategic architecture of deal-making.<br /><br />THE COGNITIVE PSYCHOLOGY OF INFLUENCE<br /><br />The morning sessions focus on the psychological mechanisms that drive decision-making at the bargaining table and in the boardroom. Members will explore how the framing and presentation of information can be leveraged to nudge counterparts toward desired outcomes. For family business owners navigating succession, or startup founders pitching to institutional investors, mastering these tools ensures that proposals are structured to maximize acceptance and reduce friction. The focus is on acting as an agenda-setter rather than a reactive participant.<br /><br />STRATEGIC DEAL ARCHITECTURE AND VALUE CREATION<br /><br />The afternoon transitions into the mechanics of negotiation. Participants will engage in dynamic simulation that mirror the high-stakes environments of private capital and enterprise leadership. Members will learn to uncover hidden interests and structure agreements that bridge valuation gaps and align long-term incentives. Drawing on extensive advisory experience in the private capital ecosystem—including complex exits, acquisitions, and strategic negotiations ranging from $35M to $2B USD—the session provides deep insights into liquidity events and M&A dynamics. This is particularly relevant for family offices and owners looking to scale operations, manage syndicate investments, without compromising their core objectives.<br /><br />By the conclusion of the day, the professionals network members and their leadership teams will possess a sophisticated toolkit for leading difficult commercial conversations with confidence. This masterclass ensures that the learnings reach deep into member organizations, driving consensus-driven execution and securing future success in an uncertain landscape.`,
+  },
   {
     name: "Goutam Challagalla",
+    showInProfessorClips:false,
     showInClips: true,
-    date: "17th October, Sunday",
+    date: "16th October, Saturday",
+    //     video: "https://assets-pretest.elred.io/theProfessionalNetwork/Recording+with+Prof+Goutam.mp4",
+    // videoThumbnail: "/professor-clips/gautamxsg-thumbnail.webp",
+    topic: "Turn conventional thinking on sustainability on its head to make money with it",
+    highlightWords: 4,
+    school: "IMD Switzerland",
+    image: "/professor-profile/gautam.png",
+    // schoolLogo: "/professor-school/gautam-school.svg",
+    linkedinLink: "https://www.linkedin.com/in/goutam-challagalla-161118bb/",
+    schoolLink: "https://www.imd.org/faculty/professors/goutam-challagalla/",
+    location: "Tata Room, Taj Lands End, Mumbai",
+    description: `
+<p>Scores of business books had promoted the wisdom that if a business embraced sustainability – doing good for the planet and society – customers and profits will follow. But, as the experience of companies show, it’s not so simple.</p>
+
+<p>What can companies do? Give up on sustainability? Slow down? Neither of these responses will solve the sustainability problems that are present today and will be present in the future.</p>
+
+<p><strong>Learning Objectives</strong></p>
+
+<ul>
+  <li>Why is there a backlash and slowdown in sustainability?</li>
+  <li>The real impact or evidence of the business case of sustainability</li>
+  <li>Facing uncomfortable truths regarding sustainability</li>
+  <li>Turning the tables - using sustainability to create real customer value and willingness to pay</li>
+</ul>
+`,
+  },
+  {
+    name: "Goutam Challagalla × Saurabh Goswamy",
+    showInClips: true,
+    date: "16th October, Saturday",
+        video: "https://assets-pretest.elred.io/theProfessionalNetwork/Recording+with+Prof+Goutam.mp4",
+    videoThumbnail: "/professor-clips/gautamxsg-thumbnail.webp",
     topic: "Turn conventional thinking on sustainability on its head to make money with it",
     highlightWords: 4,
     school: "IMD Switzerland",
@@ -191,7 +239,7 @@ export const professors = [
   },
     {
     name: "Jonathan Levav",
-    date: "14th November, Saturday",
+    date: "13th November, Friday",
     topic:
       "Understanding consumer’s judgments and choices by using tools from experimental psychology and behavioural economics.",
     school: "Stanford Business School",
@@ -205,7 +253,7 @@ export const professors = [
   },
   {
     name: "Danny Warshay",
-    date: "9th January, Saturday",
+    date: "8th January, Friday",
     topic: "Turn unsolved problems into entrepreneurial successes",
     school: "Brown University",
     image: "/professor-profile/danny.jpg",
