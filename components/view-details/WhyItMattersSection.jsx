@@ -74,7 +74,7 @@ export default function WhyItMattersSection({
               {attendParagraphs.map((para, i) => (
                 <p
                   key={i}
-                  className={`font-inter text-[20px] font-normal leading-[1.4] tracking-normal text-[#231F20] ${i === 0 ? "" : "mt-4"}`}
+                  className={`font-inter sm:text-[20px] text-[14px] font-normal leading-[1.4] tracking-normal text-[#231F20] ${i === 0 ? "" : "mt-4"}`}
                 >
                   {para}
                 </p>

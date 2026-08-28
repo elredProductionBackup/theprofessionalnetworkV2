@@ -76,7 +76,7 @@ export default function UpcomingEventDetailsSection({ currentName }) {
             <div key={p.name} className="rounded-2xl border border-rose-100 bg-white p-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <h3 className="font-inter text-[18px] font-bold text-slate-900">{p.name}</h3>
+                  <h3 className="font-inter text-[14px] font-bold text-slate-900 sm:text-[18px]">{p.name}</h3>
                   <p className="font-inter text-[14px] text-[#67686B]">{p.school}</p>
                 </div>
                 <img src={p.image} alt={p.name} className="h-11 w-11 shrink-0 rounded-full object-cover" />
