@@ -54,7 +54,7 @@ export default function SpeakerRecapCard({ id, speaker = defaultSpeaker, clips =
                 <p className="font-inter text-[20px] font-medium leading-[1.1] tracking-normal text-slate-900 sm:text-[28px] sm:tracking-[-1px] md:text-[35px] md:tracking-[-2px]">
                   {speaker.name}
                 </p>
-                <p className="font-inter text-[13px] font-normal leading-[1.4] tracking-normal text-center text-[#231f20] sm:text-[16px] md:text-[18px]">
+                <p className="font-inter text-[13px] font-normal leading-[1.4] tracking-normal text-left text-[#231f20] sm:text-[16px] md:text-[18px]">
                   {speaker.school}
                   <sup>*</sup>
                 </p>

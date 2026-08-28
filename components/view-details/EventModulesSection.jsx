@@ -38,13 +38,13 @@ const TIERS = {
   },
 };
 
-export default function EventModulesSection() {
+export default function EventModulesSection({ eventCode = "TPN-LIQ-02AUG2026" } = {}) {
   const [plan, setPlan] = useState("single");
 
   const openApply = () =>
     window.dispatchEvent(
       new CustomEvent("openApplyPopup", {
-        detail: { eventCode: "TPN-LIQ-02AUG2026", ticketCode: TIERS[plan].ticketCode },
+        detail: { ...(eventCode ? { eventCode } : {}), ticketCode: TIERS[plan].ticketCode },
       })
     );
 

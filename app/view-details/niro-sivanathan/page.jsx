@@ -1,7 +1,9 @@
 import HeroSection from "@/components/view-details/niro-sivanathan/HeroSection";
-import WhatYoullLearnSection from "@/components/view-details/niro-sivanathan/WhatYoullLearnSection";
+import KeyTakeawaysSection from "@/components/view-details/niro-sivanathan/KeyTakeawaysSection";
+import EventModulesSection from "@/components/view-details/niro-sivanathan/EventModulesSection";
+import EarnCertificateSection from "@/components/view-details/niro-sivanathan/EarnCertificateSection";
+import UpcomingEventDetailsSection from "@/components/view-details/UpcomingEventDetailsSection";
 import WhyItMattersSection from "@/components/view-details/niro-sivanathan/WhyItMattersSection";
-import SpeakerBioSection from "@/components/view-details/niro-sivanathan/SpeakerBioSection";
 import FaqSection from "@/components/view-details/niro-sivanathan/FaqSection";
 
 export const metadata = {
@@ -12,9 +14,11 @@ export default function NiroSivanathanViewDetailsPage() {
   return (
     <main>
       <HeroSection />
-      <WhatYoullLearnSection />
+      <KeyTakeawaysSection />
+      <EventModulesSection />
+      <EarnCertificateSection />
+      <UpcomingEventDetailsSection currentName="Prof. Niro Sivanathan" />
       <WhyItMattersSection />
-      <SpeakerBioSection />
       <FaqSection />
     </main>
   );

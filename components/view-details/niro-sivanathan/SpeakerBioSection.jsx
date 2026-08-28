@@ -1,7 +1,7 @@
 import SpeakerBioSection from "@/components/view-details/SpeakerBioSection";
 import { professors } from "@/data/professors";
 
-const niro = professors.find((p) => p.name === "Niro Sivanathan");
+const niro = professors.find((p) => p.name === "Prof. Niro Sivanathan");
 
 const speaker = {
   name: niro.name,

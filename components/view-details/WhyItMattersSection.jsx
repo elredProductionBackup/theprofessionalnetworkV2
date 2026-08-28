@@ -1,4 +1,4 @@
-import { RED } from "@/data/eventRegistration";
+import { RED, COLLEGE_DISCLAIMER } from "@/data/eventRegistration";
 
 const DEFAULT_ATTENDEE_ROLES = [
   "Executive Leadership Programs",
@@ -96,6 +96,10 @@ export default function WhyItMattersSection({
             </div>
           </div>
         </div>
+
+        <p className="font-inter mt-10 text-center text-[13px] font-normal leading-[1.4] tracking-normal text-[#67686B]">
+          {COLLEGE_DISCLAIMER}
+        </p>
       </div>
     </section>
   );

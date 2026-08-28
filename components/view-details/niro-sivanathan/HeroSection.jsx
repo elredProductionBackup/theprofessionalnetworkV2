@@ -1,7 +1,9 @@
+'use client';
 import SpeakerRecapCard from "@/components/SpeakerRecapCard";
 import { professors } from "@/data/professors";
+import { RED } from "@/data/eventRegistration";
 
-const niro = professors.find((p) => p.name === "Niro Sivanathan");
+const niro = professors.find((p) => p.name === "Prof. Niro Sivanathan");
 
 const speaker = {
   name: niro.name,
@@ -19,6 +21,13 @@ const clips = [
 ];
 
 export default function HeroSection() {
+  const openApply = () =>
+    window.dispatchEvent(
+      new CustomEvent("openApplyPopup", {
+        detail: { ticketCode: "SU-VIRTUAL" },
+      })
+    );
+
   return (
     <section className="relative overflow-hidden bg-[#FDF4F4]">
       <div
@@ -34,30 +43,41 @@ export default function HeroSection() {
           {/* Left: copy */}
           <div>
             <h1 className="font-inter max-w-[538px] text-[32px] font-extrabold leading-[1.4] tracking-normal text-slate-900 sm:text-[38px] md:text-[45px]">
-              Negotiating Skills Workshop on Influence and Decision-making
+              Negotiating Skills Workshop on Influence and{" "}
+              <span style={{ color: RED }}>Decision-making</span>
             </h1>
 
             <p className="font-inter mt-6 max-w-[546px] text-[16px] font-normal leading-[1.4] tracking-normal text-[#231F20]">
               Negotiation today goes far beyond reaching an agreement. Leaders must navigate competing interests, influence stakeholders, understand power dynamics, and make sound decisions when the stakes are high.
             </p>
 
-            <p className="font-inter mt-5 max-w-[546px] text-[16px] font-normal leading-[1.4] tracking-normal text-[#231F20]">
-              This <strong className="font-bold">negotiation training workshop</strong> with Prof. Niro Sivanathan explores the psychology behind negotiation, influence, status, and power. Through research-backed insights and practical frameworks, participants will understand what shapes behaviour at the negotiating table and how these dynamics can influence business outcomes.
-            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-5">
+              <div>
+                <p className="font-inter text-[15px] font-medium leading-[1.4] text-[#231F20]">Single User</p>
+                <p className="font-inter text-[22px] font-bold leading-[1.3]" style={{ color: RED }}>INR 5 k</p>
+              </div>
+
+              <div className="h-10 w-px bg-[#67686B80]" />
+
+              <div>
+                <p className="font-inter text-[15px] font-medium leading-[1.4] text-[#231F20]">Enterprise</p>
+                <p className="font-inter text-[22px] font-bold leading-[1.3]" style={{ color: RED }}>INR 10 k</p>
+              </div>
+
+              <button
+                type="button"
+                onClick={openApply}
+                className="font-inter ml-10 cursor-pointer rounded-full border-2 px-6.25 py-2.5 text-[20px] font-semibold transition hover:bg-rose-50"
+                style={{ borderColor: RED, color: RED }}
+              >
+                Get Access
+              </button>
+            </div>
           </div>
 
           {/* Right: recap video + speaker card — reuses the same card, pointed at Niro's data */}
           <SpeakerRecapCard speaker={speaker} clips={clips} />
         </div>
-
-        {/* These two paragraphs run the full section width, unlike the two above */}
-        <p className="font-inter mt-5 w-full text-[16px] font-normal leading-[1.4] tracking-normal text-[#231F20]">
-          Unlike conventional <strong className="font-bold">negotiation workshops</strong> that focus primarily on tactics and techniques, this program delves deeper into the human dynamics of negotiation. It examines how people gain influence, how power and status affect behaviour, and why certain approaches to persuasion work better than others.
-        </p>
-
-        <p className="font-inter mt-5 w-full text-[16px] font-normal leading-[1.4] tracking-normal text-[#231F20]">
-          For professionals seeking a practical <strong className="font-bold">negotiation skills workshop</strong>, the program offers insights applicable to stakeholder conversations, business negotiations, internal discussions, partnerships, and other high-stakes situations.
-        </p>
       </div>
     </section>
   );

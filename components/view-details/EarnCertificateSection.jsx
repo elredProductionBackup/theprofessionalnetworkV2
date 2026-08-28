@@ -7,14 +7,17 @@ const FEATURES = [
   { icon: ScrollText, title: "Digital & Print", desc: "High-res formats" },
 ];
 
-export default function EarnCertificateSection() {
+export default function EarnCertificateSection({
+  certificateSrc = "/icons/certificate.svg",
+  certificateAlt = "Sample certificate of completion",
+}) {
   return (
     <section className="font-inter bg-white">
       <div className="mx-auto w-[95%] max-w-[1440px] px-5 pb-14 md:px-[100px] md:pb-20">
         <div className="grid w-full items-center gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Left: copy + features */}
           <div>
-            <h2 className="font-inter text-[26px] font-extrabold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
+            <h2 className="font-inter text-[35px] font-semibold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
               Earn Certificate
             </h2>
             <p className="font-inter mt-3 text-[16px] font-normal leading-[1.5] tracking-normal text-[#67686B]">
@@ -40,8 +43,8 @@ export default function EarnCertificateSection() {
           {/* Right: certificate preview */}
           <div className="flex justify-center lg:justify-end">
             <img
-              src="/icons/certificate.svg"
-              alt="Sample certificate of completion"
+              src={certificateSrc}
+              alt={certificateAlt}
               className="w-full max-w-[520px]"
             />
           </div>

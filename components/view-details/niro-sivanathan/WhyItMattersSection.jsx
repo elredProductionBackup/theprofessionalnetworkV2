@@ -27,7 +27,7 @@ export default function NiroWhyItMattersSection() {
       heading="Why This Negotiating Skills Workshop Matters for Leaders"
       paragraphs={PARAGRAPHS}
       callout={CALLOUT}
-      attendHeading="Who should access this Negotiation Training Workshop?"
+      attendHeading="Who Should Access This Negotiation Training Workshop?"
       attendParagraphs={ATTEND_PARAGRAPHS}
     />
   );
