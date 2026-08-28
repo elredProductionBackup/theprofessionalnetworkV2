@@ -26,9 +26,12 @@ export default function CalendarAhead({ onViewDetails }) {
 
   const events = professors.filter(
     (p) =>
-      p.showInClips !== false &&
+      p.showInClips !== false && 
       p.name !== 'Oded Netzer × Saurabh Goswamy' &&
-      p.name !== 'Prof. Oded Netzer'
+      p.name !== 'Prof. Oded Netzer' &&
+      p.name !== 'Niro Sivanathan ' &&
+      p.name !== 'Goutam Challagalla '
+      
   );
   const total = events.length;
 
