@@ -49,7 +49,7 @@ export default function HeroSection() {
               <button
                 type="button"
                 onClick={openApply}
-                className="font-inter ml-10 cursor-pointer rounded-full border-2 px-[25px] py-2.5 text-[20px] font-semibold transition hover:bg-rose-50"
+                className="font-inter cursor-pointer rounded-full border-2 px-[25px] py-2.5 text-[20px] font-semibold transition hover:bg-rose-50 sm:ml-10"
                 style={{ borderColor: RED, color: RED }}
               >
                 Get Access

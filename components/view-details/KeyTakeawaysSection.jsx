@@ -10,7 +10,7 @@ export default function KeyTakeawaysSection({ takeaways = DEFAULT_TAKEAWAYS }) {
   return (
     <section className="font-inter bg-white py-[60px]">
       <div className="mx-auto w-[95%] max-w-[1440px] px-5 pb-14 md:px-[100px] md:pb-20">
-        <h2 className="font-inter text-[24px] font-semibold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
+        <h2 className="font-inter text-[22px] font-semibold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
           Event Key Takeaways
         </h2>
 
@@ -26,7 +26,7 @@ export default function KeyTakeawaysSection({ takeaways = DEFAULT_TAKEAWAYS }) {
               >
                 {i + 1}
               </span>
-              <p className="font-inter mt-3 text-[20px] font-normal leading-[1.4] tracking-normal text-[#231F20]">
+              <p className="font-inter mt-3 text-[15px] sm:text-[17px] font-normal leading-[1.4] tracking-normal text-[#231F20]">
                 {takeaway}
               </p>
             </div>
