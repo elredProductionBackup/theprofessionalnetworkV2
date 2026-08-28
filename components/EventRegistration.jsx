@@ -236,7 +236,7 @@ export default function EventRegistration() {
         <div className="grid w-full items-center gap-10 text-left lg:grid-cols-2 lg:gap-16">
           {/* Left: event summary */}
           <div>
-            <h1 className="font-inter max-w-[538px] text-[32px] font-extrabold leading-[1.4] tracking-normal text-slate-900 sm:text-[38px] md:text-[45px]">
+            <h1 className="font-inter max-w-[538px] text-[24px] font-extrabold leading-[1.4] tracking-normal text-slate-900 sm:text-[38px] md:text-[45px]">
               Leadership Intelligence in an AI Era: Developing{" "}
               <span className="font-inter font-extrabold leading-[1.4] tracking-normal" style={{ color: RED }}>
                 Quantitative Intuition
@@ -246,7 +246,7 @@ export default function EventRegistration() {
             <div className="mt-5 flex items-center gap-3">
               <img src={speaker.image} alt={speaker.name} className="h-13 w-13 shrink-0 rounded-full object-cover" />
               <div>
-                <p className="font-inter text-[30px] font-medium leading-[1.1] tracking-normal text-slate-900 align-middle">{speaker.title}</p>
+                <p className="font-inter text-[18px] font-medium leading-[1.1] tracking-normal text-slate-900 align-middle sm:text-[24px] md:text-[30px]">{speaker.title}</p>
                 <p className="font-inter text-[16px] font-normal leading-[1.4] tracking-normal text-[#231F20] align-middle">
                   {speaker.school}
                   <sup>*</sup>
@@ -286,10 +286,10 @@ export default function EventRegistration() {
             <div>
               <img src="/icons/home_card_icon.svg" alt="" className="h-[65px] w-auto" />
 
-              <h3 className="font-inter mt-4 text-[30px] font-bold leading-[1.3] text-slate-900">
+              <h3 className="font-inter mt-4 text-[20px] font-bold leading-[1.3] text-slate-900 sm:text-[26px] md:text-[30px]">
                 Online Session <span style={{ color: ONLINE_RED }}>Access</span>
               </h3>
-              <p className="font-inter mt-2 max-w-sm text-[18px] leading-[1.5] text-[#67686B]">
+              <p className="font-inter mt-2 max-w-sm text-[14px] sm:text-[18px] leading-[1.5] text-[#67686B]">
                 The learning continues. Details for the upcoming online session will be updated soon. Stay tuned for further updates.
               </p>
 
