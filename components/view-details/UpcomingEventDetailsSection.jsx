@@ -46,7 +46,7 @@ export default function UpcomingEventDetailsSection({ currentName }) {
     <section className="font-inter bg-white">
       <div className="mx-auto w-[95%] max-w-[1440px] px-5 pb-14 md:px-[100px] md:pb-20">
         <div className="flex items-center justify-between">
-          <h2 className="font-inter text-[35px] font-semibold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
+          <h2 className="font-inter text-[24px] font-semibold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
             Upcoming Event Details
           </h2>
           <div className="flex items-center gap-2">

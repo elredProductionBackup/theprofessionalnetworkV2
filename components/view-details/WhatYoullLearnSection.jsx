@@ -45,7 +45,7 @@ export default function WhatYoullLearnSection({
   return (
     <section className="font-inter bg-white">
       <div className="mx-auto w-[95%] max-w-[1440px] px-5 py-14 md:px-[100px] md:py-20">
-        <h2 className="font-inter text-[26px] font-extrabold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
+        <h2 className="font-inter text-[24px] font-semibold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
           {heading}
         </h2>
 
