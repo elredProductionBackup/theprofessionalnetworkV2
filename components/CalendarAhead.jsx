@@ -14,10 +14,6 @@ const stripHtml = (html = '') =>
     .replace(/\s+/g, ' ')
     .trim();
 
-// Confirm the exact wording with your CEO — this is a sensible default.
-const COLLEGE_DISCLAIMER =
-  "*Institution names indicate the faculty member's affiliation only. This event is independently organized and is not affiliated with, endorsed by, or sponsored by the named institutions.";
-
 export default function CalendarAhead({ onViewDetails }) {
   const [active, setActive] = useState(0);
   const [eventModalOpen, setEventModalOpen] = useState(false);
@@ -311,20 +307,6 @@ export default function CalendarAhead({ onViewDetails }) {
                     </p>
                   )}
 
-                  <div className="mb-5 flex w-full max-w-[450px] items-center gap-3 rounded-lg border-2 border-dashed border-rose-300 px-[20px] py-[10px] md:mb-0 md:h-[94px] md:w-[450px]">
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FFDADD] text-[#C01823] md:h-10 md:w-10">
-                      <FaRegBell className="h-4 w-4 md:h-4.5 md:w-4.5" />
-                    </span>
-                    <div>
-                      <p className="font-inter text-[18px] font-bold leading-[1.4] tracking-normal text-[#C01823]">
-                        Online Session Coming Soon
-                      </p>
-                      <p className="font-inter text-[13px] font-medium leading-[1.4] tracking-normal text-[#67686B]">
-                        The learning continues. Details for the upcoming online session will be announced soon. Stay tuned for further updates.
-                      </p>
-                    </div>
-                  </div>
-
                   {p.viewDetailsSlug && (
                     <Link
                       href={`/view-details/${p.viewDetailsSlug}`}
@@ -353,11 +335,6 @@ export default function CalendarAhead({ onViewDetails }) {
               />
             ))}
           </div>
-
-          {/* College affiliation disclaimer */}
-          <p className="font-inter mx-auto mt-6 max-w-2xl text-center text-[13px] font-normal leading-[140%] tracking-normal md:mt-8" style={{ color: "#67686B" }}>
-            {COLLEGE_DISCLAIMER}
-          </p>
         </div>
       </section>
 

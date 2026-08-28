@@ -17,7 +17,7 @@ export default function EarnCertificateSection({
         <div className="grid w-full items-center gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Left: copy + features */}
           <div>
-            <h2 className="font-inter text-[35px] font-semibold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
+            <h2 className="font-inter text-[24px] font-semibold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
               Earn Certificate
             </h2>
             <p className="font-inter mt-3 text-[16px] font-normal leading-[1.5] tracking-normal text-[#67686B]">

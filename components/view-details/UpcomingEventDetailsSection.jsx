@@ -46,7 +46,7 @@ export default function UpcomingEventDetailsSection({ currentName }) {
     <section className="font-inter bg-white">
       <div className="mx-auto w-[95%] max-w-[1440px] px-5 pb-14 md:px-[100px] md:pb-20">
         <div className="flex items-center justify-between">
-          <h2 className="font-inter text-[35px] font-semibold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
+          <h2 className="font-inter text-[24px] font-semibold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
             Upcoming Event Details
           </h2>
           <div className="flex items-center gap-2">
@@ -76,7 +76,7 @@ export default function UpcomingEventDetailsSection({ currentName }) {
             <div key={p.name} className="rounded-2xl border border-rose-100 bg-white p-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <h3 className="font-inter text-[18px] font-bold text-slate-900">{p.name}</h3>
+                  <h3 className="font-inter text-[14px] font-bold text-slate-900 sm:text-[18px]">{p.name}</h3>
                   <p className="font-inter text-[14px] text-[#67686B]">{p.school}</p>
                 </div>
                 <img src={p.image} alt={p.name} className="h-11 w-11 shrink-0 rounded-full object-cover" />

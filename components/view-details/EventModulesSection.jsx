@@ -51,7 +51,7 @@ export default function EventModulesSection({ eventCode = "TPN-LIQ-02AUG2026" } 
   return (
     <section className="font-inter bg-white">
       <div className="mx-auto w-[95%] max-w-[1440px] px-5 pb-14 md:px-[100px] md:pb-20">
-        <h2 className="font-inter text-[35px] font-semibold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
+        <h2 className="font-inter text-[24px] font-semibold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
           Event Modules
         </h2>
 
@@ -68,7 +68,7 @@ export default function EventModulesSection({ eventCode = "TPN-LIQ-02AUG2026" } 
                     <m.icon className="h-4 w-4" />
                   </span>
                   <div>
-                    <h3 className="font-inter text-[20px] font-semibold text-slate-900">{m.title}</h3>
+                    <h3 className="font-inter text-[14px] font-semibold text-slate-900 sm:text-[20px]">{m.title}</h3>
                     <p className="font-inter mt-1 text-[20px] leading-[1.5] text-[#67686B]">{m.desc}</p>
                   </div>
                 </div>
@@ -78,7 +78,7 @@ export default function EventModulesSection({ eventCode = "TPN-LIQ-02AUG2026" } 
 
           {/* Right: online session access card */}
           <div className="rounded-3xl border border-rose-200 bg-[#FDEAEB] p-6 md:p-8">
-            <h3 className="font-inter text-center text-[24px] font-bold leading-[1.3] text-slate-900">
+            <h3 className="font-inter text-center text-[14px] font-bold leading-[1.3] text-slate-900 sm:text-[24px]">
               Online Session <span style={{ color: ONLINE_RED }}>Access</span>
             </h3>
             <p className="font-inter mx-auto mt-2 max-w-sm text-center text-[14px] leading-[1.5] text-[#67686B]">

@@ -45,7 +45,7 @@ export default function WhyItMattersSection({
   return (
     <section className="font-inter bg-white">
       <div className="mx-auto w-[95%] max-w-[1440px] px-5 pb-14 md:px-[100px] md:pb-20">
-        <h2 className="font-inter text-[26px] font-semibold leading-[1.4] tracking-normal text-slate-900 sm:text-[35px]">
+        <h2 className="font-inter text-[24px] font-semibold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
           {heading}
         </h2>
 
@@ -65,7 +65,7 @@ export default function WhyItMattersSection({
         </div>
 
         <div className="mt-14">
-          <h2 className="font-inter w-full text-[26px] font-semibold leading-[1.4] tracking-normal text-slate-900 sm:text-[35px]">
+          <h2 className="font-inter w-full text-[24px] font-semibold leading-[1.4] tracking-normal text-slate-900 sm:text-[32px]">
             {attendHeading}
           </h2>
 
@@ -74,7 +74,7 @@ export default function WhyItMattersSection({
               {attendParagraphs.map((para, i) => (
                 <p
                   key={i}
-                  className={`font-inter text-[20px] font-normal leading-[1.4] tracking-normal text-[#231F20] ${i === 0 ? "" : "mt-4"}`}
+                  className={`font-inter sm:text-[20px] text-[14px] font-normal leading-[1.4] tracking-normal text-[#231F20] ${i === 0 ? "" : "mt-4"}`}
                 >
                   {para}
                 </p>
