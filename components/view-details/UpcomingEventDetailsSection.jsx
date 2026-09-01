@@ -31,16 +31,23 @@ const asModalEvent = (p) => ({
 
 export default function UpcomingEventDetailsSection({ currentName }) {
   const total = sessions.length;
-  const startIndex = (() => {
+  const homeStart = (() => {
     const i = sessions.findIndex((p) => p.name === currentName);
-    return i === -1 ? 0 : (i + 1) % total;
+    const next = i === -1 ? 0 : i + 1;
+    return Math.min(next, Math.max(0, total - 3));
   })();
 
-  const [active, setActive] = useState(startIndex);
+  const homeVisible = sessions.slice(homeStart, homeStart + 3);
+  const extraCard = sessions[homeStart + 3];
+
+  const [shifted, setShifted] = useState(false);
   const [modalEvent, setModalEvent] = useState(null);
 
-  const go = (dir) => setActive((a) => (a + dir + total) % total);
-  const visible = [0, 1, 2].map((offset) => sessions[(active + offset) % total]);
+  const go = (dir) => {
+    if (dir > 0 && extraCard) setShifted(true);
+    if (dir < 0) setShifted(false);
+  };
+  const visible = shifted && extraCard ? [extraCard] : homeVisible;
 
   return (
     <section className="font-inter bg-white">
@@ -53,8 +60,9 @@ export default function UpcomingEventDetailsSection({ currentName }) {
             <button
               type="button"
               onClick={() => go(-1)}
+              disabled={!shifted}
               aria-label="Previous"
-              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border transition hover:bg-rose-50"
+              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border transition hover:bg-rose-50 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
               style={{ borderColor: RED, color: RED }}
             >
               <ChevronLeft className="h-4 w-4" />
@@ -62,8 +70,9 @@ export default function UpcomingEventDetailsSection({ currentName }) {
             <button
               type="button"
               onClick={() => go(1)}
+              disabled={shifted || !extraCard}
               aria-label="Next"
-              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border transition hover:bg-rose-50"
+              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border transition hover:bg-rose-50 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
               style={{ borderColor: RED, color: RED }}
             >
               <ChevronRight className="h-4 w-4" />
@@ -108,18 +117,20 @@ export default function UpcomingEventDetailsSection({ currentName }) {
           ))}
         </div>
 
-        <div className="mt-8 flex items-center justify-center gap-2">
-          {sessions.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => setActive(i)}
-              aria-label={`Go to slide ${i + 1}`}
-              className="h-2 rounded-full transition-all duration-300"
-              style={{ width: i === active ? 24 : 8, backgroundColor: i === active ? RED : "#E5B9BE" }}
-            />
-          ))}
-        </div>
+        {extraCard && (
+          <div className="mt-8 flex items-center justify-center gap-2">
+            {[false, true].map((state) => (
+              <button
+                key={String(state)}
+                type="button"
+                onClick={() => setShifted(state)}
+                aria-label={state ? "Go to next card" : "Go to first cards"}
+                className="h-2 rounded-full transition-all duration-300"
+                style={{ width: state === shifted ? 24 : 8, backgroundColor: state === shifted ? RED : "#E5B9BE" }}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       <EventModal event={modalEvent} onClose={() => setModalEvent(null)} />
