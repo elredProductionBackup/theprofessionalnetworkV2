@@ -125,6 +125,7 @@ export const professors = [
     schoolLink: "https://business.columbia.edu/faculty/people/oded-netzer",
     location: "Tata Room, Taj Lands End, Mumbai",
     showInClips: true,
+    showInSessions: false, // excluded from the Upcoming Event Details carousel
     description:
     "The challenge today is not a lack of information (or analytics, dashboards, and AI outputs), but the judgment to use it well. What distinguishes leaders who consistently make smart decisions is their ability to quickly sort through signal and noise by asking essential questions, pressure-testing assumptions, and validating claims, not with statistical rigor, but from a business validity perspective. This form of leadership intelligence has become all the more important in the AI era. This session equips leaders to engage with AI productively. It teaches Quantitative Intuition (QI), a practical framework and set of rapid-response tools for making better decisions in a data-driven world where AI is accelerating answers but not necessarily improving judgment. Participants will learn to frame issues with precision before rushing to solutions, develop intuition for numbers using pragmatic methods and apply contextual lenses to assess relevance, risk, and trust when information is incomplete.",
   },
