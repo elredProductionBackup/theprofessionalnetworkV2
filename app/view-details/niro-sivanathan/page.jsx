@@ -3,6 +3,7 @@ import KeyTakeawaysSection from "@/components/view-details/niro-sivanathan/KeyTa
 import EventModulesSection from "@/components/view-details/niro-sivanathan/EventModulesSection";
 import EarnCertificateSection from "@/components/view-details/niro-sivanathan/EarnCertificateSection";
 import UpcomingEventDetailsSection from "@/components/view-details/UpcomingEventDetailsSection";
+import ShowMoreSection from "@/components/view-details/ShowMoreSection";
 import WhyItMattersSection from "@/components/view-details/niro-sivanathan/WhyItMattersSection";
 import FaqSection from "@/components/view-details/niro-sivanathan/FaqSection";
 
@@ -18,7 +19,9 @@ export default function NiroSivanathanViewDetailsPage() {
       <EventModulesSection />
       <EarnCertificateSection />
       <UpcomingEventDetailsSection currentName="Prof. Niro Sivanathan" />
-      <WhyItMattersSection />
+      <ShowMoreSection>
+        <WhyItMattersSection />
+      </ShowMoreSection>
       <FaqSection />
     </main>
   );
