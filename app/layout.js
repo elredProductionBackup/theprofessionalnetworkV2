@@ -26,6 +26,13 @@ export const metadata = {
   metadataBase: new URL("https://theprofessionalnetwork.vercel.app"),
   title: "The Professionals Network",
   description: "A network of ambitious professionals",
+
+  // Google Search Console verification — Next.js renders this as
+  // <meta name="google-site-verification" content="..." /> in the <head>
+  verification: {
+    google: "DLkptU6iMYGB3h5mKKA1cKoqUv0QkTSM3_pNBJL7AbA",
+  },
+
   openGraph: {
     title: "The Professionals Network",
     description: "A network of ambitious professionals",
@@ -53,7 +60,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      {/* No manual <head> — Next injects all metadata into <head> itself. */}
       <body
         className={`${brittany.variable} ${geistSans.variable} ${geistMono.variable} ${inter.variable} ${interTight.variable} ${playfair.variable} antialiased`}
       >

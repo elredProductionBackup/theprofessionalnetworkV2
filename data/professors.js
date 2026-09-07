@@ -148,8 +148,9 @@ export const professors = [
   },
   {
     name: "Prof. Niro Sivanathan",
-    showInClips: true, 
-    date: "4th September, Friday",
+    showInClips: false,
+    showInSessions: false,
+    date: "5th September, Saturday",
     topic: "Negotiations, Influence, and Decision-making",
     school: "London Business School",
     image: "/professor-profile/niro.png",
