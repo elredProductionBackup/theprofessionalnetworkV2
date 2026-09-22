@@ -103,7 +103,7 @@ export default function EventModulesSection({ eventCode = "TPN-LIQ-02AUG2026" } 
                 Online Session <span style={{ color: ONLINE_RED }}>Access</span>
               </h3>
               <p className="font-inter mx-auto mt-2 max-w-sm text-center text-[14px] leading-[1.5] text-[#67686B]">
-                Our online sessions are now available. Check out the details and sign up today.
+                Get instant access to the complete session, learning resources, and certificate upon enrollment.
               </p>
 
               <div className="mt-6 inline-flex rounded-full p-1" style={{ backgroundColor: "#F6DFE2" }}>

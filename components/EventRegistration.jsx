@@ -314,7 +314,7 @@ export default function EventRegistration() {
                 Online Session <span style={{ color: ONLINE_RED }}>Access</span>
               </h3>
               <p className="font-inter mt-2 max-w-sm text-[14px] sm:text-[18px] leading-[1.5] text-[#67686B]">
-                Our online sessions are now available. Check out the details and sign up today.
+                Get instant access to the complete session, learning resources, and certificate upon enrollment.
               </p>
 
               <div className="mt-5">
