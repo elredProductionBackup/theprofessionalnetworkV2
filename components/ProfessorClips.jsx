@@ -61,14 +61,6 @@ const ProfessorClips = () => {
       ref={sectionRef}
       className="relative w-full overflow-hidden px-4 py-14 sm:px-8 flex items-center"
     >
-      {/* keyframes injected once, scoped by unique names */}
-      <style>{`
-        @keyframes scFadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
-        @keyframes scPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.55); } 50% { box-shadow: 0 0 0 14px rgba(239,68,68,0); } }
-        .sc-reveal { opacity: 0; }
-        .sc-reveal.in { animation: scFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards; }
-      `}</style>
-
       <div className="mx-auto max-w-6xl">
         {/* Heading */}
         <div className={`sc-reveal ${inView ? "in" : ""} text-center flex flex-col gap-[20px]`}>

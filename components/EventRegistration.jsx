@@ -14,11 +14,19 @@ import {
   Check,
   ScrollText,
   Link as LinkIcon,
+  Users,
+  BookOpen,
 } from "lucide-react";
 import { RED, COLLEGE_DISCLAIMER, speaker } from "@/data/eventRegistration";
 import SpeakerRecapCard from "./SpeakerRecapCard";
 
 const ONLINE_RED = "#C01823";
+
+const SESSION_STATS = [
+  { icon: Clock, value: "2hrs 15min", label: "Duration" },
+  { icon: Users, value: "1000+", label: "learners" },
+  { icon: BookOpen, value: "11", label: "chapters" },
+];
 
 const TIERS = {
   single: {
@@ -304,7 +312,7 @@ export default function EventRegistration() {
 
             {/* Right: pricing card */}
             <div className="flex justify-center lg:justify-end">
-              <div className="flex w-full max-w-[320px] flex-col items-center rounded-2xl bg-white px-6 pt-5 pb-8 text-center shadow-sm lg:mr-27.5" style={{ border: "1px solid #C0182333" }}>
+              <div className="flex w-full max-w-[400px] flex-col items-center rounded-2xl bg-white px-6 pt-5 pb-8 text-center shadow-sm lg:mr-27.5" style={{ border: "1px solid #C0182333" }}>
                 <div className="inline-flex rounded-full p-1" style={{ backgroundColor: "#F6DFE2" }}>
                   <button
                     type="button"
@@ -342,6 +350,23 @@ export default function EventRegistration() {
                 >
                   Get Access
                 </button>
+
+                <div
+                  className="mt-6 flex w-full items-stretch justify-between border-t pt-5"
+                  style={{ borderColor: "#C0182333" }}
+                >
+                  {SESSION_STATS.map((s, i) => (
+                    <div
+                      key={s.label}
+                      className="flex flex-1 flex-col items-center gap-1 px-2"
+                      style={i !== 0 ? { borderLeft: "1px solid #C0182333" } : undefined}
+                    >
+                      <s.icon className="h-4 w-4" style={{ color: ONLINE_RED }} />
+                      <p className="font-inter text-[13px] font-bold text-slate-900">{s.value}</p>
+                      <p className="font-inter text-[11px] text-[#67686B]">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
