@@ -93,12 +93,12 @@ export default function EventModulesSection({ eventCode = "TPN-LIQ-02AUG2026" } 
                 <img src="/icons/home_card_icon.svg" alt="" className="h-7 w-auto" />
               </div>
 
-              <p
+              {/* <p
                 className="font-inter mt-3 text-[12px] font-bold uppercase tracking-wide"
                 style={{ color: ONLINE_RED }}
               >
                 Upcoming
-              </p>
+              </p> */}
               <h3 className="font-inter mt-1 text-[20px] font-bold leading-[1.3] text-slate-900 sm:text-[24px]">
                 Online Session <span style={{ color: ONLINE_RED }}>Access</span>
               </h3>

@@ -1,4 +1,3 @@
-'use client';
 import SpeakerRecapCard from "@/components/SpeakerRecapCard";
 import { professors } from "@/data/professors";
 import { RED } from "@/data/eventRegistration";
@@ -21,13 +20,6 @@ const clips = [
 ];
 
 export default function HeroSection() {
-  const openApply = () =>
-    window.dispatchEvent(
-      new CustomEvent("openApplyPopup", {
-        detail: { ticketCode: "SU-VIRTUAL" },
-      })
-    );
-
   return (
     <section className="relative overflow-hidden bg-[#FDF4F4]">
       <div
@@ -50,29 +42,6 @@ export default function HeroSection() {
             <p className="font-inter mt-6 max-w-[546px] text-[16px] font-normal leading-[1.4] tracking-normal text-[#231F20]">
               Negotiation today goes far beyond reaching an agreement. Leaders must navigate competing interests, influence stakeholders, understand power dynamics, and make sound decisions when the stakes are high.
             </p>
-
-            <div className="mt-6 flex flex-wrap items-center gap-5">
-              <div>
-                <p className="font-inter text-[15px] font-medium leading-[1.4] text-[#231F20]">Single User</p>
-                <p className="font-inter text-[22px] font-bold leading-[1.3]" style={{ color: RED }}>INR 5 k</p>
-              </div>
-
-              <div className="h-10 w-px bg-[#67686B80]" />
-
-              <div>
-                <p className="font-inter text-[15px] font-medium leading-[1.4] text-[#231F20]">Enterprise</p>
-                <p className="font-inter text-[22px] font-bold leading-[1.3]" style={{ color: RED }}>INR 10 k</p>
-              </div>
-
-              <button
-                type="button"
-                onClick={openApply}
-                className="font-inter cursor-pointer rounded-full border-2 px-6.25 py-2.5 text-[20px] font-semibold transition hover:bg-rose-50 sm:ml-10"
-                style={{ borderColor: RED, color: RED }}
-              >
-                Get Access
-              </button>
-            </div>
           </div>
 
           {/* Right: recap video + speaker card — reuses the same card, pointed at Niro's data */}
