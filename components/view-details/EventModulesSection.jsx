@@ -103,7 +103,7 @@ export default function EventModulesSection({ eventCode = "TPN-LIQ-02AUG2026" } 
                 Online Session <span style={{ color: ONLINE_RED }}>Access</span>
               </h3>
               <p className="font-inter mx-auto mt-2 max-w-sm text-center text-[14px] leading-[1.5] text-[#67686B]">
-                Get instant access to the complete session, learning resources, and certificate upon enrollment.
+                Get instant access to the complete session, learning resources, and certificate after completion.
               </p>
 
               <div className="mt-6 inline-flex rounded-full p-1" style={{ backgroundColor: "#F6DFE2" }}>
@@ -153,12 +153,12 @@ export default function EventModulesSection({ eventCode = "TPN-LIQ-02AUG2026" } 
                 {SESSION_STATS.map((s, i) => (
                   <div
                     key={s.label}
-                    className="flex flex-1 flex-col items-center gap-1 px-2"
+                    className="flex flex-1 flex-col items-center gap-1 px-1 sm:px-2"
                     style={i !== 0 ? { borderLeft: "1px solid #C0182333" } : undefined}
                   >
-                    <s.icon className="h-5 w-5" style={{ color: ONLINE_RED }} />
-                    <p className="font-inter text-[17px] font-bold text-slate-900">{s.value}</p>
-                    <p className="font-inter text-[14px] text-[#67686B]">{s.label}</p>
+                    <s.icon className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: ONLINE_RED }} />
+                    <p className="font-inter whitespace-nowrap text-[14px] font-bold text-slate-900 sm:text-[17px]">{s.value}</p>
+                    <p className="font-inter whitespace-nowrap text-[11px] text-[#67686B] sm:text-[14px]">{s.label}</p>
                   </div>
                 ))}
               </div>

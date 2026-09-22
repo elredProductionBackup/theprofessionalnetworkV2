@@ -314,7 +314,7 @@ export default function EventRegistration() {
                 Online Session <span style={{ color: ONLINE_RED }}>Access</span>
               </h3>
               <p className="font-inter mt-2 max-w-sm text-[14px] sm:text-[18px] leading-[1.5] text-[#67686B]">
-                Get instant access to the complete session, learning resources, and certificate upon enrollment.
+                Get instant access to the complete session, learning resources, and certificate after completion.
               </p>
 
               <div className="mt-5">
@@ -375,12 +375,12 @@ export default function EventRegistration() {
                 {SESSION_STATS.map((s, i) => (
                   <div
                     key={s.label}
-                    className="flex flex-1 flex-col items-center gap-1 px-2"
+                    className="flex flex-1 flex-col items-center gap-1 px-1 sm:px-2"
                     style={i !== 0 ? { borderLeft: "1px solid #C0182333" } : undefined}
                   >
-                    <s.icon className="h-5 w-5" style={{ color: ONLINE_RED }} />
-                    <p className="font-inter text-[17px] font-bold text-slate-900">{s.value}</p>
-                    <p className="font-inter text-[14px] text-[#67686B]">{s.label}</p>
+                    <s.icon className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: ONLINE_RED }} />
+                    <p className="font-inter whitespace-nowrap text-[14px] font-bold text-slate-900 sm:text-[17px]">{s.value}</p>
+                    <p className="font-inter whitespace-nowrap text-[11px] text-[#67686B] sm:text-[14px]">{s.label}</p>
                   </div>
                 ))}
               </div>
