@@ -304,17 +304,17 @@ export default function EventRegistration() {
                 <img src="/icons/home_card_icon.svg" alt="" className="h-8 w-auto" />
               </div>
 
-              <p
-                className="font-inter mt-4 text-[13px] font-bold uppercase tracking-wide"
-                style={{ color: ONLINE_RED }}
-              >
-                Upcoming
-              </p>
+                {/* <p
+                  className="font-inter mt-4 text-[13px] font-bold uppercase tracking-wide"
+                  style={{ color: ONLINE_RED }}
+                >
+                  Upcoming
+                </p> */}
               <h3 className="font-inter mt-1 text-[20px] font-bold leading-[1.3] text-slate-900 sm:text-[26px] md:text-[30px]">
                 Online Session <span style={{ color: ONLINE_RED }}>Access</span>
               </h3>
               <p className="font-inter mt-2 max-w-sm text-[14px] sm:text-[18px] leading-[1.5] text-[#67686B]">
-                Our online sessions are now available. Check out the details and sign up today.
+                Get instant access to the complete session, learning resources, and certificate upon enrollment.
               </p>
 
               <div className="mt-5">
