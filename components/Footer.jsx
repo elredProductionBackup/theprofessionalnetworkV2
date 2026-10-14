@@ -279,7 +279,6 @@ const Footer = () => {
       </p>
     </div>
 
-          {/* Trademark Info */}
           <div className="px-[24px] py-[24px] md:mt-0 md:p-10 border-b md:border-b-0 md:border-r border-[#E6E6E6] flex flex-col justify-center font-inter-display">
             <p className="text-[17px] tracking-[-1px] leading-[120%] text-[#8a8a91]">
               <Image
