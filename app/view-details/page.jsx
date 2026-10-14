@@ -18,7 +18,7 @@ export default function ViewDetailsPage() {
       <KeyTakeawaysSection />
       <EventModulesSection />
       <EarnCertificateSection />
-      <UpcomingEventDetailsSection currentName="Prof. Oded Netzer" />
+      {/* <UpcomingEventDetailsSection currentName="Prof. Oded Netzer" /> */}
       <ShowMoreSection>
         <WhyItMattersSection />
       </ShowMoreSection>

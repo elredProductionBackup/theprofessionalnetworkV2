@@ -168,7 +168,7 @@ export const professors = [
 
   {
     name: "Goutam Challagalla",
-    showInClips: true,
+    showInClips: false,
     date: "17th October, Sunday",
     topic: "Turn conventional thinking on sustainability on its head to make money with it",
     highlightWords: 4,

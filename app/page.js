@@ -54,7 +54,7 @@ export default function Home() {
     <main className="min-h-screen">
       <CoverflowHero />
       <EventRegistration />
-      <CalendarAhead />
+      {/* <CalendarAhead /> */}
       <ProfessorClips />
       {/* <Membership /> */}
     </main>
