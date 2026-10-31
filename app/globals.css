@@ -1,138 +1,220 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
 
+/* "pin" = big enough screen to pin the home gallery and scroll it sideways */
+@custom-variant pin (@media (min-width: 1024px) and (min-height: 600px));
 
-
+/* ------------------------------------------------------------------ *
+ *  Design tokens — neutral paper, ink, and the logo's red + gray.
+ * ------------------------------------------------------------------ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --paper: #f6f6f5;      /* page background */
+  --surface: #ffffff;    /* cards, panels */
+  --ink: #18181b;        /* primary text */
+  --ink-2: #57585c;      /* secondary text (logo gray, a touch darker) */
+  --ink-3: #8e8f94;      /* muted text */
+  --line: #e6e6e4;       /* hairlines */
+  --mist: #dcdcda;       /* image placeholders */
+  --red: #c01823;        /* logo red */
+  --red-deep: #9e121b;
+  --red-wash: #fbeeef;
 
-@font-face {
-  font-family: 'Inter Display';
-  src: url('/assets/ttf/InterDisplay-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Inter Display';
-  src: url('/assets/ttf/InterDisplay-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Inter Display';
-  src: url('/assets/ttf/InterDisplay-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Inter Display';
-  src: url('/assets/ttf/InterDisplay-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Inter Display';
-  src: url('/assets/ttf/InterDisplay-ExtraBold.ttf') format('truetype');
-  font-weight: 800;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Kepler Std';
-  src: url('/fonts/Kepler%20Std%20Medium.otf') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Kepler";
-  src: url("/fonts/KeplerStd-ScnItSubh.otf") format("opentype");
-  font-weight: 500;
-  font-style: italic;
-}
-
-.font-kepler {
-  font-family: "Kepler", serif;
-}
-
-@font-face {
-  font-family: "Mencken Std";
-  src: url("/fonts/Mencken-Std-.otf") format("opentype");
-  font-weight: 700;
-  font-style: normal;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-inter: var(--font-inter);
-  --font-inter-display: 'Inter Display', sans-serif;
-  --font-serif: var(--font-serif);
-  --font-kepler: 'Kepler Std', serif;
-  --font-mencken: 'Mencken Std', serif;
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-mist: var(--mist);
+  --color-red: var(--red);
+  --color-red-deep: var(--red-deep);
+  --color-red-wash: var(--red-wash);
+
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: white;
-  color: var(--foreground);
-}
-
-@layer utilities {
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fade-in-up {
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-}
-
-.signature {
-  font-family: var(--font-brittany);
-}
-
-@keyframes scFadeUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to { opacity: 1; transform: none; }
-}
-
-@keyframes scPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.55); }
-  50% { box-shadow: 0 0 0 14px rgba(239, 68, 68, 0); }
-}
-
-.sc-reveal { opacity: 0; }
-.sc-reveal.in { animation: scFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
 *::-webkit-scrollbar{
   display: none;
 }
-.no-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  font-feature-settings: "ss01", "cv11";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--red) 16%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
+@layer components {
+  /* ---------- Type ---------- */
+  .display {
+    font-weight: 560;
+    letter-spacing: -0.045em;
+    line-height: 1.04;
+    text-wrap: balance;
+  }
+  .heading {
+    font-weight: 540;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+  .num {
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .lede {
+    font-size: clamp(17px, 1.4vw, 19px);
+    line-height: 1.65;
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+  .fine {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--ink-3);
+  }
+
+  /* Type scale */
+  .t-hero { font-size: clamp(38px, 4.6vw, 64px); }
+  .t-h1 { font-size: clamp(36px, 4.2vw, 56px); }
+  .t-h2 { font-size: clamp(28px, 3vw, 40px); }
+  .t-h3 { font-size: clamp(21px, 1.8vw, 24px); }
+
+  /* ---------- Layout ---------- */
+  .wrap {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: clamp(20px, 4vw, 40px);
+  }
+  .section {
+    padding-block: clamp(88px, 11vw, 160px);
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 48px;
+    padding-inline: 22px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 520;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.3s var(--ease-out), color 0.3s var(--ease-out),
+      border-color 0.3s var(--ease-out), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-red { background: var(--red); color: #fff; }
+  .btn-red:hover { background: var(--red-deep); }
+  .btn-ink { background: var(--ink); color: #fff; }
+  .btn-ink:hover { background: #303036; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 16%, transparent);
+  }
+  .btn-ghost:hover { box-shadow: inset 0 0 0 1px var(--ink); }
+  .btn-sm { height: 40px; padding-inline: 18px; font-size: 14px; }
+
+  /* Underline that draws in */
+  .link {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.4s var(--ease-out), color 0.2s;
+  }
+  .link:hover { background-size: 100% 1px; }
+  .link-red {
+    color: var(--red);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  .link-red:hover { color: var(--red-deep); }
+
+  /* Gray placeholder for images/videos not added yet */
+  .placeholder {
+    background-color: var(--mist);
+    background-image: radial-gradient(120% 90% at 30% 0%, rgb(255 255 255 / 0.4), transparent 60%);
+  }
+}
+
+/* ---------- Reveal on scroll (components/fx/Reveal.jsx) ---------- */
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal-ready [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Hero photo columns ---------- */
+@keyframes marquee-up { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(0, -50%, 0); } }
+@keyframes marquee-down { from { transform: translate3d(0, -50%, 0); } to { transform: translate3d(0, 0, 0); } }
+@keyframes marquee-left { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+
+@keyframes priceIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ---------- Lenis ---------- */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal-ready [data-reveal] { opacity: 1; transform: none; }
+}
+.signature,
+.about-mencken {
+  font-family: "mencken-std", "Mencken Std", Georgia, "Times New Roman", serif !important;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }

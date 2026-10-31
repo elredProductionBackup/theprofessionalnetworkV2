@@ -1,28 +1,21 @@
-import HeroSection from "@/components/view-details/HeroSection";
-import KeyTakeawaysSection from "@/components/view-details/KeyTakeawaysSection";
-import EventModulesSection from "@/components/view-details/EventModulesSection";
-import EarnCertificateSection from "@/components/view-details/EarnCertificateSection";
-import UpcomingEventDetailsSection from "@/components/view-details/UpcomingEventDetailsSection";
-import ShowMoreSection from "@/components/view-details/ShowMoreSection";
-import WhyItMattersSection from "@/components/view-details/WhyItMattersSection";
-import FaqSection from "@/components/view-details/FaqSection";
+import CoursePage from "@/components/course/CoursePage";
+import DeepLinkScroll from "@/components/fx/DeepLinkScroll";
+import JsonLd from "@/components/seo/JsonLd";
+import { quantitativeIntuition as course, faqs } from "@/data/courses";
+import { pageMetadata, courseLd, faqLd, breadcrumbLd } from "@/lib/seo";
 
-export const metadata = {
-  title: "Event Details | The Professionals Network",
-};
+export const metadata = pageMetadata({
+  title: `Quantitative Intuition course with ${course.professor.name}`,
+  description: `${course.summary} Online leadership course, ${course.facts[0].value}, with a certificate of completion.`,
+  path: course.href,
+});
 
 export default function ViewDetailsPage() {
   return (
-    <main>
-      <HeroSection />
-      <KeyTakeawaysSection />
-      <EventModulesSection />
-      <EarnCertificateSection />
-      {/* <UpcomingEventDetailsSection currentName="Prof. Oded Netzer" /> */}
-      <ShowMoreSection>
-        <WhyItMattersSection />
-      </ShowMoreSection>
-      <FaqSection />
-    </main>
+    <>
+      <JsonLd data={[courseLd(course), faqLd(faqs), breadcrumbLd([{ name: course.shortTitle, path: course.href }])]} />
+      <DeepLinkScroll />
+      <CoursePage course={course} />
+    </>
   );
 }

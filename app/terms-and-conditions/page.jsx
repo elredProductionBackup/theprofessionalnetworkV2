@@ -1,296 +1,189 @@
-"use client";
-
-import React from "react";
+import { pageMetadata, breadcrumbLd } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import Link from "next/link";
 import LegalDoc from "@/components/legal/LegalDoc";
+import { SITE } from "@/data/site";
 
-const link = "text-[#c01823] underline underline-offset-2 hover:opacity-80";
+export const metadata = pageMetadata({
+  title: "Terms of Use",
+  description: "Terms for buying and watching online courses on The Professionals Network.",
+  path: "/terms-and-conditions",
+});
 
 const SECTIONS = [
   {
-    num: "01",
     id: "agreement",
-    title: "Agreement to these Terms",
-    blocks: [
-      {
-        body: [
-          { p: `These Terms form a binding agreement between you and Rextone Digital Pvt. Ltd. If you do not agree to any part of these Terms, you should not apply for membership, register for an event, or make a payment.` },
-          { p: `Where these Terms and the Governing Charter address the same subject, the Governing Charter prevails in matters of membership standards, conduct, and governance, and these Terms prevail in matters of website use, payments, and consumer-facing policies.` },
-        ],
-      },
+    title: "Agreement to these terms",
+    body: [
+      `These Terms of Use form a binding agreement between you and ${SITE.company} ("we", "us"), which operates The Professionals Network. They apply when you browse our website, buy a course, or watch course content. If you don't agree with any part of these Terms, please don't purchase or use our courses.`,
     ],
   },
   {
-    num: "02",
     id: "definitions",
     title: "Definitions",
-    blocks: [
+    body: [
       {
-        body: [
-          {
-            p: (
-              <>
-                In these Terms, <strong className="text-[#333336] font-semibold">“TPN”, “the Network”, “we”, “us”</strong> and{" "}
-                <strong className="text-[#333336] font-semibold">“our”</strong> refer to The Professionals Network, a network
-                trademarked and operated by Rextone Digital Pvt. Ltd.{" "}
-                <strong className="text-[#333336] font-semibold">“You”</strong> and{" "}
-                <strong className="text-[#333336] font-semibold">“Member”</strong> refer to any person who applies for, is
-                granted, or holds membership, or who registers for or attends an Event.{" "}
-                <strong className="text-[#333336] font-semibold">“Event”</strong> means any programme, gathering, session, or
-                activity organised by the Network. <strong className="text-[#333336] font-semibold">“Advisory Council”</strong>{" "}
-                has the meaning given in the Governing Charter.
-              </>
-            ),
-          },
+        list: [
+          { lead: "Course:", t: "a recorded online learning programme offered on our platform, including its videos, materials, and any certificate." },
+          { lead: "Learner:", t: "the individual who registers for and is granted access to a Course." },
+          { lead: "Plan:", t: "the type of access purchased: Single user (one Learner) or Enterprise (up to the number of Learners stated at purchase)." },
+          { lead: "Access period:", t: "the time during which a Learner may stream a Course, as stated at purchase (currently 3 months from the date of purchase)." },
         ],
       },
     ],
   },
   {
-    num: "03",
     id: "who-we-are",
-    title: "Who We Are",
-    blocks: [
-      {
-        body: [
-          { p: `The Professionals Network is a curated peer-learning community for professional leaders. It is one amongst several networks trademarked and operated by Rextone Digital Pvt. Ltd., a company incorporated in India with its office at 16, Yashodham Center, Film City Road, Goregaon (E), Mumbai 400063, Maharashtra, India.` },
-        ],
-      },
+    title: "Who we are",
+    body: [
+      `The Professionals Network offers online courses taught by faculty from leading business schools. It is one amongst several networks trademarked and operated by ${SITE.company}, a company incorporated in India with its office at ${SITE.address.join(" ")}`,
     ],
   },
   {
-    num: "04",
     id: "eligibility",
-    title: "Eligibility & Membership",
-    blocks: [
+    title: "Eligibility and your account",
+    body: [
+      "You must be at least 18 years old to purchase a Course. You agree that the information you provide at checkout is true, accurate, and complete, and that you'll keep it up to date.",
+      "Access is tied to the email address you register with. You are responsible for keeping your access details confidential and for all activity under your access.",
+    ],
+  },
+  {
+    id: "purchases",
+    title: "Purchases, pricing, and payment",
+    body: [
+      "Prices are shown in Indian Rupees on the Course page before you pay, together with whether taxes are included. Where taxes are not included, applicable GST is added at checkout.",
+      "Payments are processed by third-party payment providers, including any EMI options they offer. By paying, you also agree to the payment provider's terms. We do not store your full card or bank details.",
+      "We may change prices for future purchases at any time. A change in price doesn't affect a purchase you have already completed.",
+    ],
+  },
+  {
+    id: "licence",
+    title: "Your access and licence",
+    body: [
+      "On successful payment we grant you a limited, personal, non-exclusive, non-transferable licence to stream the Course for your own learning during the Access period.",
       {
-        body: [
-          { p: `Membership is available only to individuals who are at least 18 years of age and who meet the eligibility criteria set out in the Governing Charter. Membership is personal to you, is non-transferable, and does not confer any ownership interest in the Network or in Rextone Digital Pvt. Ltd.` },
-          { p: `Meeting the eligibility criteria does not guarantee membership. Selection is discretionary and rests with the Advisory Council. Membership does not renew automatically and continues only for the period for which fees have been paid and membership has been confirmed.` },
+        list: [
+          { lead: "Single user plans", t: "are for one named Learner only. Access details may not be shared." },
+          { lead: "Enterprise plans", t: "cover the number of named Learners stated at purchase (currently up to 5). Each Learner must be registered individually." },
+          "When the Access period ends, access to the Course closes automatically.",
         ],
       },
     ],
   },
   {
-    num: "05",
-    id: "applications",
-    title: "Applications, Selection & Renewal",
-    blocks: [
-      {
-        body: [
-          { p: `Applications are made by invitation or by application through channels designated by the Network. You agree that all information you provide is true, accurate, and complete, and that you will keep it updated. Providing false or misleading information is grounds for rejection or termination.` },
-          {
-            p: (
-              <>
-                We may accept or decline any application at our discretion and are not obliged to give reasons. Where an
-                application is declined before a membership has commenced, any fee collected for that membership will be
-                refunded in accordance with our{" "}
-                <Link href="/cancellation-and-refund" className={link}>Cancellation &amp; Refund Policy</Link>.
-              </>
-            ),
-          },
-        ],
-      },
+    id: "acceptable-use",
+    title: "Acceptable use",
+    body: [
+      "You agree not to download, record, screen-capture, copy, redistribute, publicly screen, sell, or share any Course content or access; not to use Course content to train or build any AI system; and not to attempt to bypass any access controls or disrupt the platform.",
+      "We may suspend or end access, without refund, where we reasonably believe these rules have been broken.",
     ],
   },
   {
-    num: "06",
-    id: "fees",
-    title: "Fees & Payment",
-    blocks: [
-      {
-        body: [
-          { p: `Membership fees and event registration fees are set by the Advisory Council and are communicated to you before payment. All fees are quoted in Indian Rupees unless stated otherwise and are inclusive of applicable taxes only where expressly stated; otherwise taxes are charged additionally as required by law.` },
-          { p: `Unless expressly stated, fees are exclusive of airfare, local transfers, hotel accommodation, and other incidental expenses, which are borne by you.` },
-          { p: `Payments are processed through third-party payment providers. By making a payment you also agree to the terms of the relevant payment provider. We do not store your full card or bank credentials. Failure to pay fees by the stipulated date may result in suspension or termination of membership.` },
-        ],
-      },
-    ],
-  },
-  {
-    num: "07",
-    id: "conduct",
-    title: "Member Conduct",
-    blocks: [
-      {
-        body: [
-          { p: `Your conduct as a Member is governed by the Code of Conduct and Community Standards in the Governing Charter. In summary, you agree to engage with integrity and respect, to honour confidentiality, not to solicit other Members without invitation, and not to use the Network or its brand for unauthorised commercial, political, or promotional purposes.` },
-          { p: `In connection with our website, you further agree not to attempt to gain unauthorised access, disrupt its operation, upload malicious code, scrape or harvest data, or use it in any manner that violates applicable law.` },
-        ],
-      },
-    ],
-  },
-  {
-    num: "08",
     id: "ip",
-    title: "Intellectual Property",
-    blocks: [
-      {
-        body: [
-          { p: `The Professionals Network name, logo, marks, website, and all content and materials are owned by or licensed to Rextone Digital Pvt. Ltd. and are protected by law. You may identify yourself as a Member in professional contexts, but you may not otherwise use, reproduce, or associate the brand with any activity without prior written approval, as set out in the Governing Charter.` },
-        ],
-      },
+    title: "Intellectual property",
+    body: [
+      `All Course content, the website, and The Professionals Network name and marks are owned by or licensed to ${SITE.company} and its faculty partners, and are protected by law. Nothing in these Terms transfers any ownership to you.`,
     ],
   },
   {
-    num: "09",
-    id: "confidentiality",
-    title: "Confidentiality",
-    blocks: [
-      {
-        body: [
-          { p: `Discussions, information, and materials shared within the Network are confidential and must not be disclosed outside the Network without express consent. These obligations survive the termination or expiry of your membership. Full terms are set out in the Governing Charter.` },
-        ],
-      },
+    id: "faculty",
+    title: "Faculty and institutions",
+    body: [
+      "Institution names appear only to indicate the faculty member's affiliation. Our Courses are independently produced and are not affiliated with, endorsed by, or sponsored by those institutions unless we say so expressly.",
+      "Views expressed in a Course are those of the faculty member and do not necessarily reflect the views of any institution or of The Professionals Network.",
     ],
   },
   {
-    num: "10",
-    id: "third-party",
-    title: "Third-Party Services",
-    blocks: [
-      {
-        body: [
-          { p: `Our website and services rely on third parties, including payment processors, hosting providers, and analytics tools. Our website may also link to external sites. We are not responsible for the content, policies, or practices of any third party, and your dealings with them are at your own risk.` },
-        ],
-      },
+    id: "certificates",
+    title: "Certificates",
+    body: [
+      "Where a Course offers a certificate, it is a certificate of completion issued by The Professionals Network. It is not a degree, diploma, academic credit, or credential issued by any university or institution.",
     ],
   },
   {
-    num: "11",
+    id: "refunds",
+    title: "Cancellations and refunds",
+    body: [
+      <>
+        Cancellations and refunds are governed by our{" "}
+        <Link href="/cancellation-and-refund" className="link-red">
+          Cancellation &amp; Refund Policy
+        </Link>
+        , which forms part of these Terms.
+      </>,
+    ],
+  },
+  {
+    id: "availability",
+    title: "Availability and changes to courses",
+    body: [
+      "We aim to keep the platform available at all times but don't guarantee uninterrupted access, for example during maintenance or outages at our hosting or video providers. We may update or improve Course content during your Access period.",
+    ],
+  },
+  {
     id: "disclaimers",
     title: "Disclaimers",
-    blocks: [
-      {
-        body: [
-          { p: `Our services are provided on an “as is” and “as available” basis. Any information, insight, analysis, or opinion presented at an Event represents the views of the individual contributor alone; we do not verify or endorse such content and make no warranty as to its accuracy, completeness, or commercial viability.` },
-          { p: `You are expected to exercise independent judgement and to seek professional advice before acting on any information or opportunity encountered through the Network. Nothing on our website or at any Event constitutes legal, financial, tax, or investment advice.` },
-        ],
-      },
+    body: [
+      "Courses are provided for general educational purposes on an \"as is\" and \"as available\" basis. Nothing in a Course is legal, financial, tax, investment, or other professional advice, and results from applying what you learn are not guaranteed. Please use your own judgment and seek professional advice where appropriate.",
     ],
   },
   {
-    num: "12",
     id: "liability",
-    title: "Limitation of Liability",
-    blocks: [
-      {
-        body: [
-          { p: `To the fullest extent permitted by applicable law, Rextone Digital Pvt. Ltd., its founder, management, affiliates, and representatives shall not be liable for any indirect, consequential, incidental, or special damages, including loss of profits, revenue, data, or use, arising out of or in connection with your membership or participation in any Event, whether in contract, tort, statute, or otherwise.` },
-          { p: `By registering for and attending any Event, you voluntarily accept the risks inherent in participation and release and hold us harmless from liability for injury, loss, or damage sustained in connection with the Event, howsoever caused, as set out in the Governing Charter.` },
-        ],
-      },
+    title: "Limitation of liability",
+    body: [
+      `To the fullest extent permitted by law, ${SITE.company}, its directors, staff, faculty partners, and affiliates are not liable for any indirect, incidental, special, or consequential loss, including loss of profits, revenue, or data, arising from your use of the website or any Course. Our total liability for any claim is limited to the amount you paid for the Course concerned.`,
     ],
   },
   {
-    num: "13",
     id: "indemnity",
     title: "Indemnity",
-    blocks: [
-      {
-        body: [
-          { p: `You agree to indemnify and hold harmless Rextone Digital Pvt. Ltd. and its representatives against any claims, demands, losses, or proceedings brought by third parties arising out of or connected with your participation in the Network, your breach of these Terms, or your violation of any law or third-party right.` },
-        ],
-      },
+    body: [
+      `You agree to indemnify ${SITE.company} against claims, losses, and costs arising from your breach of these Terms or your misuse of Course content.`,
     ],
   },
   {
-    num: "14",
-    id: "termination",
-    title: "Suspension & Termination",
-    blocks: [
-      {
-        body: [
-          {
-            p: (
-              <>
-                We may suspend or terminate your membership or access where you breach these Terms or the Governing Charter,
-                fail to pay fees, or engage in conduct incompatible with membership, in accordance with the enforcement
-                process in the Governing Charter. You may choose not to renew your membership at any time. The consequences
-                of cancellation and any refunds are governed by our{" "}
-                <Link href="/cancellation-and-refund" className={link}>Cancellation &amp; Refund Policy</Link>.
-              </>
-            ),
-          },
-        ],
-      },
-    ],
-  },
-  {
-    num: "15",
     id: "changes",
-    title: "Changes to these Terms",
-    blocks: [
-      {
-        body: [
-          { p: `We may amend these Terms from time to time. The updated version will be posted on this page with a revised “last updated” date and takes effect from the date of posting. Your continued use of our services after a change constitutes acceptance of the amended Terms.` },
-        ],
-      },
+    title: "Changes to these terms",
+    body: [
+      "We may update these Terms from time to time. The updated version will be posted on this page with a new \"last updated\" date. The Terms in force when you made a purchase continue to apply to that purchase.",
     ],
   },
   {
-    num: "16",
     id: "law",
-    title: "Governing Law & Disputes",
-    blocks: [
-      {
-        body: [
-          { p: `These Terms are governed by and construed in accordance with the laws of India. Any dispute arising out of or in connection with these Terms or your membership shall be resolved by arbitration seated in Mumbai, India, under the Arbitration and Conciliation Act, 1996 (as amended), before a sole arbitrator. Subject to arbitration, the courts at Mumbai shall have exclusive jurisdiction.` },
-        ],
-      },
+    title: "Governing law and disputes",
+    body: [
+      "These Terms are governed by the laws of India. Any dispute arising from them shall be resolved by arbitration seated in Mumbai under the Arbitration and Conciliation Act, 1996, before a sole arbitrator. Subject to this, the courts at Mumbai have exclusive jurisdiction.",
     ],
   },
   {
-    num: "17",
     id: "contact",
     title: "Contact",
-    blocks: [
-      {
-        body: [
-          {
-            p: (
-              <>
-                For any questions about these Terms, contact us at{" "}
-                <a href="mailto:info@theprofessionals.network" className={link}>info@theprofessionals.network</a>{" "}
-                or write to Rextone Digital Pvt. Ltd., 16, Yashodham Center, Film City Road, Goregaon (E),
-                Mumbai 400063, Maharashtra, India. Full contact details are on our{" "}
-                <Link href="/contact-us" className={link}>Contact Us</Link> page.
-              </>
-            ),
-          },
-        ],
-      },
+    body: [
+      <>
+        Questions about these Terms? Write to{" "}
+        <a href={`mailto:${SITE.email}`} className="link-red">
+          {SITE.email}
+        </a>{" "}
+        or visit our{" "}
+        <Link href="/contact-us" className="link-red">
+          contact page
+        </Link>
+        .
+      </>,
     ],
   },
 ];
 
 export default function TermsPage() {
   return (
+    <>
+      <JsonLd data={breadcrumbLd([{ name: "Terms of Use", path: "/terms-and-conditions" }])} />
     <LegalDoc
-      title="Terms & Conditions"
-      meta={["Last updated 17 August 2026", "Governed by the laws of India", "17 Sections"]}
-      lead={
-        <>
-          These Terms &amp; Conditions (“Terms”) govern your access to and use of the website, membership, programmes, and
-          events of The Professionals Network. By applying for membership, registering for an event, making a payment, or
-          otherwise using our services, you agree to these Terms. Please read them together with our{" "}
-          <Link href="/privacy-policy" className={link}>Privacy Policy</Link>,{" "}
-          <Link href="/cancellation-and-refund" className={link}>Cancellation &amp; Refund Policy</Link>, and the{" "}
-          <Link href="/governing-charter" className={link}>Governing Charter</Link>, which are incorporated into these Terms
-          by reference.
-        </>
-      }
+      title="Terms of Use"
+      updated="15 October 2026"
+      intro="The rules for buying and watching courses on The Professionals Network."
       sections={SECTIONS}
-      footnote={
-        <>
-          These Terms are issued by The Professionals Network, a network trademarked and operated by Rextone Digital
-          Pvt. Ltd. For questions relating to these Terms, contact{" "}
-          <a href="mailto:info@theprofessionals.network" className="text-[#c01823] underline underline-offset-2">
-            info@theprofessionals.network
-          </a>
-          .
-        </>
-      }
     />
+    </>
   );
 }

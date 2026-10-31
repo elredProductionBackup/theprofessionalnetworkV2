@@ -1,62 +1,44 @@
-// development
-import Membership from "@/components/Membership";
-import CalendarAhead from "@/components/CalendarAhead";
-import ProfessorClips from "@/components/ProfessorClips";
-import CoverflowHero from "@/components/Tagline";
-import EventRegistration from "@/components/EventRegistration";
-import Calendar from "@/components/Calendar";
+import Hero from "@/components/home/Hero";
+import FeaturedCourse from "@/components/home/FeaturedCourse";
+import GallerySection from "@/components/home/GallerySection";
+import Clips from "@/components/home/Clips";
+import Speakers from "@/components/home/Speakers";
+import FaqBlock from "@/components/home/FaqBlock";
+import ClosingCta from "@/components/home/ClosingCta";
+import DeepLinkScroll from "@/components/fx/DeepLinkScroll";
+import JsonLd from "@/components/seo/JsonLd";
+import { quantitativeIntuition as course, faqs } from "@/data/courses";
+import { SITE } from "@/data/site";
+import { pageMetadata, courseLd, faqLd } from "@/lib/seo";
 
-export const dynamic = "force-dynamic"; // ensures OG variant isn't statically cached
+export const dynamic = "force-dynamic"; // keeps the ?details=open OG variant uncached
 
 export async function generateMetadata({ searchParams }) {
-  const params = await searchParams; // Next 15 promise / Next 14 plain obj — await works for both
+  const params = await searchParams;
   const isOpen = params?.details === "open";
-
-  const ogImage = isOpen
-    ? "https://res.cloudinary.com/dtrv7p3gg/image/upload/v1784875852/Frame_2147231362_1_stgrwj.webp"
-    : "https://res.cloudinary.com/dtrv7p3gg/image/upload/v1784877679/tpn-og_tzzoym.webp";
-
-  const title = "The Professionals Network";
-  const description = "A network of ambitious professionals";
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      url: "https://theprofessionalnetwork.vercel.app",
-      siteName: "Professional Network",
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: "Professionals Network",
-          type: "image/webp",
-        },
-      ],
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [ogImage],
-    },
-  };
+  return pageMetadata({
+    title: `${SITE.name} | Online courses from world-class professors`,
+    absoluteTitle: true,
+    description: SITE.description,
+    path: "/",
+    image: isOpen
+      ? "https://res.cloudinary.com/dtrv7p3gg/image/upload/v1784875852/Frame_2147231362_1_stgrwj.webp"
+      : SITE.ogImage,
+  });
 }
-
-console.log('deployed')
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <CoverflowHero />
-      <EventRegistration />
-      {/* <CalendarAhead /> */}
-      <ProfessorClips />
-      {/* <Membership /> */}
+    <main>
+      <JsonLd data={[courseLd(course), faqLd(faqs.slice(0, 5))]} />
+      <DeepLinkScroll />
+      <Hero />
+      <FeaturedCourse course={course} />
+      <GallerySection />
+      <Clips course={course} />
+      <Speakers />
+      <FaqBlock />
+      <ClosingCta course={course} />
     </main>
   );
 }

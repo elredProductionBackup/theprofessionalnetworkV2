@@ -2,11 +2,10 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { RxCross2 } from "react-icons/rx";
 import { useRouter } from "next/navigation";
+import { SITE } from "@/data/site";
 
-const ACCENT = "#C8202E";
-
+/* Shown after a successful payment. */
 const ThankYouPopup = ({ open, onClose, logo }) => {
   const router = useRouter();
 
@@ -18,100 +17,56 @@ const ThankYouPopup = ({ open, onClose, logo }) => {
   return (
     <AnimatePresence>
       {open && (
-        <div className="fixed inset-0 z-[120] flex items-center justify-center p-4">
-          {/* Backdrop */}
+        <div className="fixed inset-0 z-[120] flex items-center justify-center p-4" data-lenis-prevent>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            className="absolute inset-0 bg-ink/30 backdrop-blur-sm"
             onClick={onClose}
           />
-
-          {/* Content */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="thanks-title"
+            initial={{ opacity: 0, scale: 0.96, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative z-10 w-full max-w-[460px] max-h-[92vh] overflow-y-auto rounded-[28px] bg-white shadow-2xl [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            exit={{ opacity: 0, scale: 0.96, y: 16 }}
+            transition={{ type: "spring", damping: 28, stiffness: 300 }}
+            className="relative z-10 w-full max-w-[460px] rounded-[28px] bg-surface p-8 text-center shadow-[0_40px_120px_-40px_rgba(22,23,27,0.5)] sm:p-10"
           >
-            <div className="relative px-6 py-9 sm:px-10 sm:py-11">
-              {/* Close Button */}
-              <button
-                onClick={onClose}
-                aria-label="Close"
-                className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full bg-neutral-100 text-neutral-500 transition-colors hover:bg-neutral-200 cursor-pointer"
-              >
-                <RxCross2 className="h-4 w-4" />
-              </button>
+            <button
+              onClick={onClose}
+              aria-label="Close"
+              className="absolute right-5 top-5 grid h-9 w-9 cursor-pointer place-items-center rounded-full bg-paper text-ink transition-colors hover:bg-line"
+            >
+              <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" aria-hidden="true">
+                <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+              </svg>
+            </button>
 
-              {/* Checkmark with sparkles */}
-              <div className="mx-auto flex justify-center">
-                <svg width="150" height="120" viewBox="0 0 150 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  {/* Circle outline */}
-                  <circle cx="75" cy="60" r="42" stroke={ACCENT} strokeOpacity="0.45" strokeWidth="3" />
-                  {/* Check */}
-                  <path
-                    d="M56 61.5L69 74L95 46"
-                    stroke={ACCENT}
-                    strokeWidth="8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  {/* Sparkles / confetti dashes */}
-                  <g fill={ACCENT} fillOpacity="0.7">
-                    <path d="M40 22 l2.2 4.6 4.6 2.2 -4.6 2.2 -2.2 4.6 -2.2 -4.6 -4.6 -2.2 4.6 -2.2 z" />
-                    <path d="M112 32 l1.6 3.4 3.4 1.6 -3.4 1.6 -1.6 3.4 -1.6 -3.4 -3.4 -1.6 3.4 -1.6 z" />
-                    <path d="M118 78 l1.6 3.4 3.4 1.6 -3.4 1.6 -1.6 3.4 -1.6 -3.4 -3.4 -1.6 3.4 -1.6 z" />
-                    <path d="M32 82 l1.6 3.4 3.4 1.6 -3.4 1.6 -1.6 3.4 -1.6 -3.4 -3.4 -1.6 3.4 -1.6 z" />
-                  </g>
-                  <g stroke={ACCENT} strokeOpacity="0.55" strokeWidth="3" strokeLinecap="round">
-                    <line x1="122" y1="52" x2="130" y2="49" />
-                    <line x1="26" y1="52" x2="18" y2="49" />
-                    <line x1="98" y1="16" x2="102" y2="9" />
-                    <line x1="52" y1="100" x2="49" y2="107" />
-                  </g>
-                </svg>
-              </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            {logo && <img src={logo} alt="" className="mx-auto mb-5 h-10 object-contain" />}
 
-              {/* Heading */}
-              <h2
-                style={{ color: ACCENT }}
-                className="mt-5 text-center font-serif font-bold text-[42px] leading-[1.05] sm:text-[48px]"
-              >
-                Thank You for Registering!
-              </h2>
+            <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-red text-white ring-8 ring-red-wash">
+              <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" aria-hidden="true">
+                <path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
 
-              {/* Body copy with dividers */}
-              <div className="mx-auto mt-7 max-w-[380px] text-center">
-                <p className="text-[15px] leading-relaxed text-neutral-700">
-                  Your registration for <span className="font-semibold text-neutral-900">The Professionals Network</span> has
-                  been submitted successfully.
-                </p>
+            <h2 id="thanks-title" className="heading mt-7 text-[36px] text-ink">You&apos;re enrolled</h2>
+            <p className="mx-auto mt-4 max-w-[34ch] text-[16px] leading-relaxed text-ink-2">
+              Your access details are on their way to your email. If you don&apos;t see them soon, check your spam
+              folder or write to{" "}
+              <a href={`mailto:${SITE.email}`} className="link-red">
+                {SITE.email}
+              </a>
+              .
+            </p>
 
-                <div className="mx-auto my-5 h-[1px] w-24 bg-red-300" />
-
-                <p className="text-[15px] leading-relaxed text-neutral-700">
-                  Our team has received your details and will connect with you shortly with the next steps.
-                </p>
-
-                <div className="mx-auto my-5 h-[1px] w-24 bg-red-300" />
-
-                <p className="text-[15px] leading-relaxed text-neutral-700">
-                  We look forward to welcoming you to our community of professionals.
-                </p>
-              </div>
-
-              {/* Home button */}
-              <button
-                onClick={goHome}
-                style={{ backgroundColor: ACCENT }}
-                className="mt-8 w-full rounded-full py-3.5 text-base font-semibold text-white transition-all hover:brightness-110 active:scale-[0.99] cursor-pointer"
-              >
-                Home
-              </button>
-            </div>
+            <button onClick={goHome} className="btn btn-ink mt-8 w-full">
+              Back to home
+            </button>
           </motion.div>
         </div>
       )}

@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# The Professionals Network — online courses
 
-## Getting Started
-
-First, run the development server:
+Next.js 16 (App Router) + Tailwind v4. Light theme, Geist (self-hosted via Fontsource).
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Where to change things
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+| What | File |
+| --- | --- |
+| Every image / video URL (empty = gray placeholder) | `data/media.js` |
+| Gallery + hero photos, categories, alt text | `data/gallery.js` |
+| Live domain for SEO (canonical, sitemap, OG) | env `NEXT_PUBLIC_SITE_URL` |
+| Course content, prices, ticket codes, FAQs | `data/courses.js` |
+| Speakers section (people, bios, photos, "joining soon") | `data/speakers.js` |
+| Contact details, socials, nav, footer policy links | `data/site.js` |
+| Switch 3D / tilt / smooth scroll on or off | `FEATURES` in `data/site.js` |
+| Colours, fonts, buttons | `app/globals.css` (tokens at the top) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Adding media
+Paste a full URL into `data/media.js`. Images and videos (`.mp4`, `.webm`, `.mov`) are detected automatically.
+Set `logo` to `"/assets/thepn-logo.svg"` (or any URL) to replace the text wordmark.
 
-## Learn More
+### Adding a speaker
+Copy one object in `speakers` in `data/speakers.js`, change the text and photo URL. Lower `upcoming.count`
+(or set it to 0 to hide the "joining soon" line). The section title and intro are in `SPEAKERS_SECTION`.
+For their course, copy the `quantitativeIntuition` object in `data/courses.js` and add it to `courses`.
 
-To learn more about Next.js, take a look at the following resources:
+## Effects (all optional, switches in `FEATURES`, `data/site.js`)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Hero photo columns** (`heroPhotos`) — `components/home/PhotoColumns.jsx`. Two columns drift in opposite
+  directions (one sideways row on mobile) with soft eased fades top and bottom; hovering eases the speed down.
+  Photos are the items marked `hero: true` in `data/gallery.js`.
+- **Gallery** — home: `components/gallery/HorizontalGallery.jsx` (pinned horizontal scroll with chapters,
+  parallax and a progress bar; swipe row on mobile). `/gallery`: `EditorialGallery.jsx` (magazine layout).
+  Both open photos in `Lightbox.jsx`.
+- **"View" cursor** (`viewCursor`) — `components/fx/ViewCursor.jsx`. Add `data-cursor="View"` to anything.
+- **Scroll reveal** (`reveal`) — `components/fx/Reveal.jsx`. Add `data-reveal` to any element.
+- **Certificate tilt** (`tilt`) — `components/fx/Tilt.jsx`.
+- **Smooth scroll** (`smoothScroll`) — `components/fx/SmoothScroll.jsx` (Lenis).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Images from Cloudinary are resized and served as AVIF/WebP automatically (`lib/image.js`).
 
-## Deploy on Vercel
+## SEO
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Every page uses `pageMetadata()` from `lib/seo.js`: title, description, canonical URL, Open Graph, Twitter card.
+- Structured data (JSON-LD): Organization + WebSite on every page, Course + FAQPage on home and `/view-details`,
+  FAQPage on `/faqs`, ImageGallery on `/gallery`, BreadcrumbList on inner pages.
+- `app/sitemap.js`, `app/robots.js`, `app/manifest.js`. Payment pages are `noindex`.
+- **Set `NEXT_PUBLIC_SITE_URL`** to the live domain in Vercel, or canonical URLs will point at the vercel.app address.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Checkout
+
+`components/ApplyPopup.jsx` — restyled, logic unchanged. It still posts to
+`NEXT_PUBLIC_PAYMENT_BASE_URL/tpnEvent/registerAndInitiatePayment/html` with the same payload, and reads
+`?apply=true`, `?ref=` and `?ticketCode=` from the URL. Any button can open it:
+
+```js
+window.dispatchEvent(new CustomEvent("openApplyPopup", { detail: { eventCode, ticketCode } }));
+```
+
+Payment return routes (`/payment/*`, `/event/*`, `/tpnEvent/payment/return/*`) are unchanged.
+
+## Deep links (QR codes / mailers) still work
+- Pricing: `/#preview-price` or `/?section=pricing`
+- Videos: `/#event-videos` or `/?section=videos`
+- OG variant: `/?details=open`
+
+## Removed
+Membership section, Governing Charter, membership FAQs, career page, sessions page, Niro Sivanathan page,
+old event popups/calendars. Old URLs redirect (see `next.config.mjs`).

@@ -1,180 +1,114 @@
-"use client";
-
-import React from "react";
+import { pageMetadata, breadcrumbLd } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import Link from "next/link";
 import LegalDoc from "@/components/legal/LegalDoc";
+import { SITE } from "@/data/site";
 
-const link = "text-[#c01823] underline underline-offset-2 hover:opacity-80";
+export const metadata = pageMetadata({
+  title: "Cancellation & Refund Policy",
+  description: "When you can cancel an online course purchase, when refunds apply, and how to request one.",
+  path: "/cancellation-and-refund",
+});
 
 const SECTIONS = [
   {
-    num: "01",
     id: "overview",
     title: "Overview",
-    blocks: [
+    body: [
+      "Our courses are digital and access is delivered as soon as payment is confirmed. Because of this, purchases are final once access has been granted, except in the situations described below. Nothing in this policy limits any refund you are entitled to under applicable law.",
+    ],
+  },
+  {
+    id: "eligible",
+    title: "When you can get a refund",
+    body: [
       {
-        body: [
-          {
-            p: (
-              <>
-                Fees payable to the Network fall into two broad categories:{" "}
-                <strong className="text-[#333336] font-semibold">annual membership fees</strong> and{" "}
-                <strong className="text-[#333336] font-semibold">event registration fees</strong>. Different terms apply to
-                each. Refunds, where available, are made to the original payment method.
-              </>
-            ),
-          },
+        list: [
+          { lead: "Duplicate payment:", t: "if you were charged more than once for the same purchase, we refund the extra payment in full." },
+          { lead: "Access not delivered:", t: "if you paid but we're unable to give you access to the course, and we can't fix it within 7 days of you telling us, we refund the purchase in full." },
+          { lead: "Course withdrawn:", t: "if we withdraw a course before your access period ends, we refund a fair amount for the unused portion, or offer access to another course if you prefer." },
         ],
       },
     ],
   },
   {
-    num: "02",
-    id: "membership-fees",
-    title: "Membership Fees",
-    blocks: [
+    id: "not-eligible",
+    title: "When refunds don't apply",
+    body: [
       {
-        body: [
-          { p: `If your application is declined before your membership commences, any membership fee collected will be refunded in full.` },
-          { p: `Once membership has been confirmed and access has been granted, membership fees are generally non-refundable, as the value of membership, curated access, and community placement is delivered across the membership term. Where a Member’s application is withdrawn or membership is cancelled by mutual agreement shortly after confirmation and before any Event or benefit has been availed, the Advisory Council may, at its discretion, approve a partial refund. Nothing in this Policy limits any refund you are entitled to under applicable law.` },
+        list: [
+          "You change your mind after access has been granted.",
+          "You didn't watch the course, or didn't finish it, within your access period.",
+          "Your access was suspended for breaking our Terms of Use, such as sharing access details.",
+          "Problems caused by your own device, browser, or internet connection.",
         ],
       },
     ],
   },
   {
-    num: "03",
-    id: "event-cancellation",
-    title: "Event Registration — Cancellation by You",
-    blocks: [
-      {
-        body: [
-          { p: `Cancellation of an event registration by a Member is subject to the cancellation schedule, administrative fees, and refund amounts published by the Network for that specific Event. Because each Event differs in scale, venue commitments, and lead time, the applicable schedule is communicated at the time of registration and forms part of your agreement for that Event.` },
-          { p: `In the absence of a specific published schedule for an Event, requests to cancel should be made as early as possible; refunds for late cancellations may be limited or unavailable where costs have already been committed on your behalf.` },
-        ],
-      },
+    id: "cancelling",
+    title: "Cancelling a purchase",
+    body: [
+      "If your payment is still pending, or you completed checkout by mistake and haven't yet received access, write to us straight away. If access hasn't been granted, we'll cancel the purchase and refund you in full.",
     ],
   },
   {
-    num: "04",
-    id: "network-cancellation",
-    title: "Cancellation by the Network",
-    blocks: [
-      {
-        body: [
-          { p: `If the Network cancels an Event, registration fees will be refunded in accordance with the refund schedule published for that Event. The Network does not guarantee a full refund in all circumstances of a Network-initiated cancellation.` },
-          { p: `The Network shall bear no liability for the cancellation, postponement, or curtailment of any Event caused by circumstances beyond its reasonable control, including natural disasters, armed conflict, civil unrest, government restrictions, pandemics, or public-health emergencies.` },
-        ],
-      },
+    id: "enterprise",
+    title: "Enterprise plans",
+    body: [
+      "Enterprise plans are treated as one purchase. Learners can't be removed for a partial refund once access has been granted. Before access has been granted, you may change the named Learners by writing to us.",
     ],
   },
   {
-    num: "05",
-    id: "non-refundable",
-    title: "Non-Refundable Costs",
-    blocks: [
-      {
-        body: [
-          { p: `Membership fees and event registration fees are exclusive of airfare, local transfers, hotel accommodation, and other incidental expenses, which are borne by you. The Network is not responsible for refunding these costs in any circumstances, including where an Event is cancelled or postponed. Members are advised to purchase travel and trip-cancellation insurance.` },
-        ],
-      },
+    id: "how-to",
+    title: "How to request a refund",
+    body: [
+      <>
+        Email{" "}
+        <a href={`mailto:${SITE.email}?subject=Refund%20request`} className="link-red">
+          {SITE.email}
+        </a>{" "}
+        with the subject &ldquo;Refund request&rdquo;, your registered email address, the transaction ID, and the
+        reason for your request. We aim to respond within 2 business days.
+      </>,
     ],
   },
   {
-    num: "06",
-    id: "transfers",
-    title: "Transfers",
-    blocks: [
-      {
-        body: [
-          { p: `Membership is personal and non-transferable. A Member may not transfer an event registration to another person unless confirmed in writing by the Network’s management team, and any applicable transfer fee has been paid.` },
-        ],
-      },
+    id: "processing",
+    title: "How refunds are paid",
+    body: [
+      "Approved refunds are made to the original payment method and are usually initiated within 7–10 business days of approval. The time for the amount to reach your account then depends on your bank or card issuer and the payment provider.",
     ],
   },
   {
-    num: "07",
-    id: "how-to-request",
-    title: "How to Request a Cancellation or Refund",
-    blocks: [
-      {
-        body: [
-          {
-            p: (
-              <>
-                To request a cancellation or refund, email{" "}
-                <a href="mailto:info@theprofessionals.network" className={link}>info@theprofessionals.network</a> from the
-                email address associated with your membership or registration, stating your name, the membership or Event
-                concerned, the payment reference, and the reason for your request. We will acknowledge your request and
-                confirm the outcome and any applicable amount.
-              </>
-            ),
-          },
-        ],
-      },
-    ],
-  },
-  {
-    num: "08",
-    id: "refund-timeline",
-    title: "Refund Method & Timeline",
-    blocks: [
-      {
-        body: [
-          { p: `Approved refunds are processed to the original payment method. Once approved, refunds are typically initiated within 7–10 business days. The time taken for the amount to reflect in your account thereafter depends on your bank or card issuer and the payment provider.` },
-          {
-            note: `Note for the Network: confirm this 7–10 business-day window matches what your payment gateway and finance process actually support, and adjust if needed before publishing, then remove this note.`,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    num: "09",
     id: "contact",
-    title: "Contact",
-    blocks: [
-      {
-        body: [
-          {
-            p: (
-              <>
-                For any questions about cancellations or refunds, contact us at{" "}
-                <a href="mailto:info@theprofessionals.network" className={link}>info@theprofessionals.network</a>. Full
-                details are on our <Link href="/contact-us" className={link}>Contact Us</Link> page.
-              </>
-            ),
-          },
-        ],
-      },
+    title: "Questions",
+    body: [
+      <>
+        See our{" "}
+        <Link href="/terms-and-conditions" className="link-red">
+          Terms of Use
+        </Link>{" "}
+        or{" "}
+        <Link href="/contact-us" className="link-red">
+          contact us
+        </Link>
+        .
+      </>,
     ],
   },
 ];
 
-export default function CancellationRefundPage() {
+export default function RefundPage() {
   return (
+    <>
+      <JsonLd data={breadcrumbLd([{ name: "Cancellation & Refund Policy", path: "/cancellation-and-refund" }])} />
     <LegalDoc
       title="Cancellation & Refund"
-      meta={["Last updated 17 August 2026", "Governed by the laws of India", "9 Sections"]}
-      lead={
-        <>
-          This Cancellation &amp; Refund Policy explains what happens if a membership or event registration with The
-          Professionals Network is cancelled, and when refunds apply. It should be read together with our{" "}
-          <Link href="/terms-and-conditions" className={link}>Terms &amp; Conditions</Link> and the{" "}
-          <Link href="/governing-charter" className={link}>Governing Charter</Link>. Because membership is selective and
-          event capacity is planned in advance, some fees are non-refundable, as set out below.
-        </>
-      }
+      updated="15 October 2026"
+      intro="When you can cancel a course purchase, when you can get your money back, and how to ask."
       sections={SECTIONS}
-      footnote={
-        <>
-          This Cancellation &amp; Refund Policy is issued by The Professionals Network, a network trademarked and operated
-          by Rextone Digital Pvt. Ltd. For questions, contact{" "}
-          <a href="mailto:info@theprofessionals.network" className="text-[#c01823] underline underline-offset-2">
-            info@theprofessionals.network
-          </a>
-          .
-        </>
-      }
     />
+    </>
   );
 }

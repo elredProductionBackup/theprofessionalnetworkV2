@@ -1,140 +1,79 @@
-"use client";
-
-import React from "react";
+import { pageMetadata, breadcrumbLd } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import Link from "next/link";
 import LegalDoc from "@/components/legal/LegalDoc";
+import { SITE } from "@/data/site";
 
-const link = "text-[#c01823] underline underline-offset-2 hover:opacity-80";
+export const metadata = pageMetadata({
+  title: "Shipping & Delivery Policy",
+  description: "Our courses are delivered online. How and when you receive access after payment.",
+  path: "/shipping-and-exchange",
+});
 
 const SECTIONS = [
   {
-    num: "01",
-    id: "nature",
-    title: "Nature of Our Services",
-    blocks: [
-      {
-        body: [
-          { p: `What we offer is access and participation: membership of a curated community, and registration for programmes, sessions, and events. These are services delivered digitally and in person, not tangible goods dispatched by courier or post.` },
-        ],
-      },
+    id: "digital",
+    title: "Digital products only",
+    body: [
+      "Everything we sell is an online course delivered over the internet. We don't sell or ship physical goods, so no shipping charges apply. Any reference to shipping in a payment or checkout flow doesn't apply to our courses.",
     ],
   },
   {
-    num: "02",
-    id: "no-shipment",
-    title: "No Physical Shipment",
-    blocks: [
+    id: "delivery",
+    title: "How you receive your course",
+    body: [
+      "Once your payment is confirmed, we send your access details to the email address you registered with. The course streams online, so there's nothing to download or install.",
       {
-        body: [
-          { p: `As we do not sell physical products, no goods are shipped, and no shipping charges apply. Any references to “shipping” in a payment or checkout flow are not applicable to our services.` },
+        list: [
+          { lead: "Usually within minutes:", t: "most learners receive their access email shortly after payment." },
+          { lead: "At most 24–48 hours:", t: "occasionally confirmation from the payment provider takes longer. If you have not received access within 48 hours, please contact us." },
         ],
       },
+      "Please check your spam or promotions folder before writing to us, and make sure the email address you entered at checkout is correct.",
     ],
   },
   {
-    num: "03",
-    id: "membership-delivery",
-    title: "Delivery of Membership",
-    blocks: [
-      {
-        body: [
-          { p: `Once your membership is confirmed and payment is successfully received, your membership access and any associated onboarding information are delivered electronically to the email address you provide. Please ensure your contact details are accurate and check your inbox, including spam or promotions folders, for our communications.` },
-        ],
-      },
+    id: "access-period",
+    title: "Access period",
+    body: [
+      "Your access period starts on the date of purchase and is shown on the course page (currently 3 months). For Enterprise plans, each registered Learner receives their own access email.",
     ],
   },
   {
-    num: "04",
-    id: "event-access",
-    title: "Event Access",
-    blocks: [
-      {
-        body: [
-          { p: `For events and programmes, confirmation of your registration and the relevant joining details, such as venue, schedule, or access links, are sent electronically to your registered email. Access to in-person events is provided at the designated venue on the scheduled dates, subject to the applicable event terms.` },
-        ],
-      },
-    ],
+    id: "certificates",
+    title: "Certificates",
+    body: ["Certificates of completion are digital and are made available to download once you complete the course. No printed certificate is shipped."],
   },
   {
-    num: "05",
-    id: "timelines",
-    title: "Delivery Timelines",
-    blocks: [
-      {
-        body: [
-          { p: `Confirmation of a successful payment is ordinarily sent by email promptly and, in most cases, within 24–48 hours. Membership onboarding and event details are shared in line with the relevant programme or event schedule. If you have paid and not received confirmation within a reasonable time, please contact us so we can assist.` },
-        ],
-      },
-    ],
-  },
-  {
-    num: "06",
-    id: "exchanges",
+    id: "exchange",
     title: "Exchanges",
-    blocks: [
-      {
-        body: [
-          {
-            p: (
-              <>
-                As our offerings are services rather than physical goods, exchanges do not apply. Changes to a membership
-                or event registration, including transfers between events or persons where permitted, are handled under
-                our <Link href="/cancellation-and-refund" className={link}>Cancellation &amp; Refund Policy</Link> and the
-                applicable event terms.
-              </>
-            ),
-          },
-        ],
-      },
-    ],
-  },
-  {
-    num: "07",
-    id: "contact",
-    title: "Contact",
-    blocks: [
-      {
-        body: [
-          {
-            p: (
-              <>
-                If you have not received access after a successful payment, or have any question about delivery, contact
-                us at{" "}
-                <a href="mailto:info@theprofessionals.network" className={link}>info@theprofessionals.network</a>. Full
-                details are on our <Link href="/contact-us" className={link}>Contact Us</Link> page.
-              </>
-            ),
-          },
-        ],
-      },
+    body: [
+      <>
+        Because courses are digital, they can&apos;t be returned or exchanged once access has been granted. If something has
+        gone wrong with your purchase, see our{" "}
+        <Link href="/cancellation-and-refund" className="link-red">
+          Cancellation &amp; Refund Policy
+        </Link>{" "}
+        or write to{" "}
+        <a href={`mailto:${SITE.email}`} className="link-red">
+          {SITE.email}
+        </a>
+        .
+      </>,
     ],
   },
 ];
 
-export default function ShippingExchangePage() {
+export default function ShippingPage() {
   return (
+    <>
+      <JsonLd data={breadcrumbLd([{ name: "Shipping & Delivery Policy", path: "/shipping-and-exchange" }])} />
     <LegalDoc
-      title="Shipping & Exchange"
-      meta={["Last updated 17 August 2026", "Governed by the laws of India", "7 Sections"]}
-      lead={
-        <>
-          The Professionals Network provides membership, peer-learning programmes, and events. We do not sell or ship
-          physical products. This page explains how access and services are delivered after a successful payment.
-          Cancellations and refunds are governed separately by our{" "}
-          <Link href="/cancellation-and-refund" className={link}>Cancellation &amp; Refund Policy</Link>.
-        </>
-      }
+      title="Shipping & Delivery"
+      updated="15 October 2026"
+      intro="Our courses are delivered online. Here's how and when you get access."
       sections={SECTIONS}
-      footnote={
-        <>
-          This Shipping &amp; Exchange Policy is issued by The Professionals Network, a network trademarked and operated by
-          Rextone Digital Pvt. Ltd. For questions, contact{" "}
-          <a href="mailto:info@theprofessionals.network" className="text-[#c01823] underline underline-offset-2">
-            info@theprofessionals.network
-          </a>
-          .
-        </>
-      }
     />
+    </>
   );
 }
