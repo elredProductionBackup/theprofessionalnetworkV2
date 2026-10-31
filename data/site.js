@@ -38,7 +38,7 @@ export const SITE = {
     "business school professors online",
   ],
   description:
-    "Online courses taught by professors from the world's leading business schools. Watch at your own pace and earn a certificate.",
+    "Access relevant courses taught by professors from some of the world’s leading universities. Learn at your own pace, deepen your expertise in areas that matter to you, and earn a certificate upon completion.",
   email: "info@theprofessionals.network",
   phone: "+91 81081 15508",
   phoneHref: "tel:+918108115508",
