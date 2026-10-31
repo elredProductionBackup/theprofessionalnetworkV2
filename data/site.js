@@ -22,7 +22,7 @@ export const SITE = {
   shortName: "TPN",
   // Set NEXT_PUBLIC_SITE_URL to your live domain (used for SEO: canonical URLs, sitemap, OG tags).
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://theprofessionalnetwork.vercel.app").replace(/\/$/, ""),
-  logo: "/assets/thePN-logo.svg",
+  logo: "https://res.cloudinary.com/dtrv7p3gg/image/upload/v1793443337/thePN-logo_fr7phz.svg",
   ogImage: "https://res.cloudinary.com/dtrv7p3gg/image/upload/v1784877679/tpn-og_tzzoym.webp",
   locale: "en_IN",
   keywords: [
