@@ -23,12 +23,12 @@ export default function Hero() {
 Learn at your own pace, deepen your expertise in areas that matter to you, and earn a certificate upon completion.
           </p>
 
-          {/* <div className="mt-10 flex flex-wrap items-center gap-3">
+          <div className="mt-10 flex flex-wrap items-center gap-3">
             <ScrollToPricing className="btn btn-red">Enroll now</ScrollToPricing>
             <Link href={course.href} className="btn btn-ghost">
               View the course
             </Link>
-          </div> */}
+          </div>
         </div>
 
         <PhotoColumns />

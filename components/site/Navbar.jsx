@@ -11,8 +11,8 @@ import { PRICING_ID } from "@/components/ui/ScrollToPricing";
 
 /* ------------------------------------------------------------------ *
  *  Header + hamburger menu (same menu on desktop and mobile).
- *  - Header glides up and fades out after you scroll down a little, and
- *    slides back in when you scroll up (eased, no flicker).
+ *  - Header is always pinned to the top; it gets a frosted background
+ *    once you scroll a little.
  *  - Menu slides in from the right; links stagger in.
  *  - Only transform/opacity are animated, so it stays at 60fps.
  * ------------------------------------------------------------------ */
@@ -21,7 +21,6 @@ export default function Navbar() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
   const [lastPath, setLastPath] = useState(pathname);
   const buttonRef = useRef(null);
   const firstLinkRef = useRef(null);
@@ -32,42 +31,10 @@ export default function Navbar() {
     setOpen(false);
   }
 
-  // Scroll state: frosted background + hide on scroll down.
-  // Uses the distance scrolled in one direction (not single frames), so the
-  // header doesn't flicker on tiny scroll wobbles or trackpad jitter.
+  // Scroll state: frosted background once the page is scrolled.
   useEffect(() => {
-    let lastY = window.scrollY;
-    let travel = 0; // + while scrolling down, - while scrolling up
-    let ticking = false;
-    const HIDE_AFTER = 56; // px scrolled down before it slides away
-    const SHOW_AFTER = 24; // px scrolled up before it comes back
-    const TOP_ZONE = 120; // always visible near the top of the page
-
-    const update = () => {
-      ticking = false;
-      const y = window.scrollY;
-      const delta = y - lastY;
-      lastY = y;
-      setScrolled(y > 8);
-
-      if (y < TOP_ZONE) {
-        travel = 0;
-        setHidden(false);
-        return;
-      }
-      if (delta === 0) return;
-      // reset the counter when the direction changes
-      travel = Math.sign(delta) === Math.sign(travel) ? travel + delta : delta;
-      if (travel > HIDE_AFTER) setHidden(true);
-      else if (travel < -SHOW_AFTER) setHidden(false);
-    };
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
-    };
-    update();
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -103,13 +70,9 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[transform,translate,scale,opacity,background-color,box-shadow] will-change-transform ${
-          hidden && !open
-            ? // hiding: slow, eased glide upwards while fading out
-              "pointer-events-none -translate-y-[110%] opacity-0 duration-[800ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
-            : // showing: a little quicker, settles softly
-              "translate-y-0 opacity-100 duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
-        } ${scrolled && !open ? "bg-paper/85 shadow-[0_1px_0_var(--line)] backdrop-blur-xl" : "bg-transparent"}`}
+        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-300 ease-[var(--ease-out)] ${
+          scrolled && !open ? "bg-paper/85 shadow-[0_1px_0_var(--line)] backdrop-blur-xl" : "bg-transparent"
+        }`}
       >
         <div className="wrap flex h-[76px] items-center justify-between gap-6">
           <Logo height={32} />
