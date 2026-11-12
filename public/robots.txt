@@ -1,0 +1,8 @@
+User-Agent: *
+Allow: /
+Disallow: /payment
+Disallow: /event/
+Disallow: /tpnEvent/
+
+Host: https://theprofessionals.network
+Sitemap: https://theprofessionals.network/sitemap.xml
