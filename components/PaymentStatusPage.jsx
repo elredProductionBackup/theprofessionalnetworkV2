@@ -5,6 +5,8 @@ import { Toaster } from 'react-hot-toast';
 import { Check, X, ShieldCheck, Clock, Home, Loader2 } from 'lucide-react';
 import { usePaymentStatus } from '@/lib/usePaymentStatus';
 import ThankYouPopup from './ThankYouPopup';
+import CompleteProfile from './CompleteProfile';
+import { trackPurchase, readPendingCheckout, clearPendingCheckout } from '@/lib/tracking';
 
 function PaymentStatusContent() {
   const router = useRouter();
@@ -12,6 +14,7 @@ function PaymentStatusContent() {
   const txnid = searchParams.get('txnid') || '—';
   const [isVisible, setIsVisible] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   const { status, details } = usePaymentStatus(txnid !== '—' ? txnid : null);
 
   const formattedAmount = details?.amount != null
@@ -23,11 +26,38 @@ function PaymentStatusContent() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Payment confirmed: send the Purchase to Meta / LinkedIn / GA4 / HubSpot
+  // (once per txnid), then either ask for the details we skipped at
+  // checkout or show the thank-you popup as before.
   useEffect(() => {
     if (status !== 'success') return;
+    const pending = readPendingCheckout();
+    trackPurchase({
+      txnid: txnid !== '—' ? txnid : null,
+      amount: details?.amount,
+      currency: details?.currency || 'INR',
+      email: details?.attendee?.email || pending?.email,
+      eventCode: details?.eventCode || pending?.eventCode,
+      ticketCode: details?.ticketCode || pending?.ticketCode,
+    });
+
+    if (pending?.needsProfile) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setShowProfile(true);
+      return;
+    }
+    clearPendingCheckout();
     const timer = setTimeout(() => setShowThankYou(true), 3000);
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
+
+  const profileDone = () => {
+    clearPendingCheckout();
+    setShowProfile(false);
+    setShowThankYou(true);
+  };
+  const profileEmail = details?.attendee?.email || readPendingCheckout()?.email;
 
   const statusConfig = {
     pending: {
@@ -80,7 +110,7 @@ function PaymentStatusContent() {
       `}} />
 
       {/* Main Card */}
-      <main className="w-full max-w-[440px] bg-surface rounded-[28px] ring-1 ring-line shadow-[0_40px_80px_-50px_rgba(22,23,27,0.4)] p-6 sm:p-8 relative z-10 mx-auto">
+      <main className={`w-full ${showProfile ? 'max-w-[540px]' : 'max-w-[440px]'} bg-surface rounded-[28px] ring-1 ring-line shadow-[0_40px_80px_-50px_rgba(22,23,27,0.4)] p-6 sm:p-8 relative z-10 mx-auto`}>
 
         <div className={`transition-all duration-500 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           {/* Status Icon */}
@@ -148,8 +178,15 @@ function PaymentStatusContent() {
             </dl>
           </div>
 
+          {/* Details skipped at checkout (short checkout) */}
+          {showProfile && (
+            <div className="mb-5 border-t border-line pt-5">
+              <CompleteProfile email={profileEmail} txnid={txnid} onDone={profileDone} />
+            </div>
+          )}
+
           {/* Actions */}
-          <div className="space-y-2">
+          <div className={`space-y-2 ${showProfile ? 'hidden' : ''}`}>
             <button
               type="button"
               onClick={() => router.push('/')}

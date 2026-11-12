@@ -1,25 +1,34 @@
 'use client';
 
 import Script from "next/script";
+import { TRACKING } from "@/lib/tracking";
 
+/* LinkedIn Insight Tag (official snippet). The window.lintrk queue is
+ * defined straight away, so conversion events sent from lib/tracking.js
+ * before the tag has downloaded are kept and sent once it loads. */
 export default function LinkedinInsight() {
+  const id = TRACKING.linkedinPartnerId;
+  if (!id) return null;
   return (
     <>
       <Script
-        id="linkedin-insight-1"
+        id="linkedin-insight"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
-            _linkedin_partner_id = "10536265";
+            _linkedin_partner_id = "${id}";
             window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
             window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+            (function(l) {
+              if (!l) { window.lintrk = function(a,b){ window.lintrk.q.push([a,b]) }; window.lintrk.q = []; }
+              var s = document.getElementsByTagName("script")[0];
+              var b = document.createElement("script");
+              b.type = "text/javascript"; b.async = true;
+              b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+              s.parentNode.insertBefore(b, s);
+            })(window.lintrk);
           `,
         }}
-      />
-      <Script
-        id="linkedin-insight-2"
-        strategy="afterInteractive"
-        src="https://snap.licdn.com/li.lms-analytics/insight.min.js"
       />
       <noscript>
         <img
@@ -27,7 +36,7 @@ export default function LinkedinInsight() {
           width="1"
           style={{ display: "none" }}
           alt=""
-          src="https://px.ads.linkedin.com/collect/?pid=10536265&fmt=gif"
+          src={`https://px.ads.linkedin.com/collect/?pid=${id}&fmt=gif`}
         />
       </noscript>
     </>

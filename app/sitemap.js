@@ -3,6 +3,7 @@ import { absoluteUrl } from "@/lib/seo";
 const ROUTES = [
   { path: "/", priority: 1, changeFrequency: "weekly" },
   { path: "/view-details", priority: 0.9, changeFrequency: "weekly" },
+  { path: "/preview", priority: 0.8, changeFrequency: "monthly" },
   { path: "/gallery", priority: 0.7, changeFrequency: "monthly" },
   { path: "/about", priority: 0.6, changeFrequency: "monthly" },
   { path: "/faqs", priority: 0.6, changeFrequency: "monthly" },

@@ -39,6 +39,13 @@ export const MEDIA = {
   odedConversationPoster:
     "https://res.cloudinary.com/dtrv7p3gg/image/upload/v1792092978/odedxsg_ae0wif.png",
 
+  /* Free preview (/preview) -------------------------------------- */
+  // Chapter 1 of the course (about 10–12 min), unlocked after sign-up.
+  // Paste the .mp4 URL here. Empty = gray placeholder.
+  previewChapter1: "",
+  // Still shown behind the sign-up form. Empty = the course trailer poster.
+  previewChapter1Poster: "",
+
   /* Course page ---------------------------------------------------- */
   // A real certificate image. When empty, a built-in sample card is shown.
   certificate: "",

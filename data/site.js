@@ -7,6 +7,9 @@
  *    tilt          → light 3D tilt on the certificate preview
  *    viewCursor    → "View" bubble that follows the cursor over photos
  *    smoothScroll  → Lenis inertia scrolling
+ *    shortCheckout → Single-user checkout asks only name, email and phone;
+ *                    the address etc. is collected after payment.
+ *                    Set to false to bring back the full form.
  * ------------------------------------------------------------------ */
 
 export const FEATURES = {
@@ -15,6 +18,7 @@ export const FEATURES = {
   tilt: true,
   viewCursor: true,
   smoothScroll: true,
+  shortCheckout: true,
 };
 
 export const SITE = {
@@ -66,6 +70,7 @@ export const COLLEGE_DISCLAIMER =
 export const NAV = [
   { label: "Home", href: "/" },
   { label: "Course", href: "/view-details" },
+  { label: "Free preview", href: "/preview" },
   { label: "Gallery", href: "/gallery" },
   { label: "Speakers", href: "/#speakers" },
   { label: "About", href: "/about" },

@@ -7,6 +7,14 @@ import toast, { Toaster } from "react-hot-toast";
 
 import { useSearchParams } from 'next/navigation';
 import ThankYouPopup from './ThankYouPopup';
+import FormField from './ui/FormField';
+import { INDIAN_STATES } from '@/data/indianStates';
+import { FEATURES } from '@/data/site';
+import { utmPayload } from '@/lib/attribution';
+import { trackCheckoutOpened, trackCheckoutSubmitted, savePendingCheckout } from '@/lib/tracking';
+
+// Sent as utm_campaign when a buyer arrives without campaign tags (kept from the old form).
+const DEFAULT_CAMPAIGN = "aug2026";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const PAYMENT_BASE_URL = process.env.NEXT_PUBLIC_PAYMENT_BASE_URL;
@@ -14,46 +22,7 @@ const PAYMENT_BASE_URL = process.env.NEXT_PUBLIC_PAYMENT_BASE_URL;
 const DUPLICATE_MSG =
   "You have already submitted an application using this email address. Please use a different email address to apply again.";
 
-// Indian States + Union Territories — used by the "State" dropdown.
-const INDIAN_STATES = [
-  "Andhra Pradesh",
-  "Arunachal Pradesh",
-  "Assam",
-  "Bihar",
-  "Chhattisgarh",
-  "Goa",
-  "Gujarat",
-  "Haryana",
-  "Himachal Pradesh",
-  "Jharkhand",
-  "Karnataka",
-  "Kerala",
-  "Madhya Pradesh",
-  "Maharashtra",
-  "Manipur",
-  "Meghalaya",
-  "Mizoram",
-  "Nagaland",
-  "Odisha",
-  "Punjab",
-  "Rajasthan",
-  "Sikkim",
-  "Tamil Nadu",
-  "Telangana",
-  "Tripura",
-  "Uttar Pradesh",
-  "Uttarakhand",
-  "West Bengal",
-  // Union Territories
-  "Andaman and Nicobar Islands",
-  "Chandigarh",
-  "Dadra and Nagar Haveli and Daman and Diu",
-  "Delhi",
-  "Jammu and Kashmir",
-  "Ladakh",
-  "Lakshadweep",
-  "Puducherry",
-];
+
 
 const TICKET_PLAN_LABELS = {
   "SU-VIRTUAL": "Single user, online access",
@@ -115,11 +84,23 @@ const ApplyPopupContent = () => {
   const isEnterprise = formData.ticketCode?.startsWith("ENT");
   const isSingle = formData.ticketCode?.startsWith("SU");
 
+  // Short checkout: personal plans ask only for name, email and phone here.
+  // The address and other details are asked for after payment
+  // (components/CompleteProfile.jsx). Enterprise keeps the full form for the
+  // GST invoice. Switch off with FEATURES.shortCheckout in data/site.js.
+  const isShort = FEATURES.shortCheckout && !isEnterprise;
+
   // Prefer exact per-ticket rules; fall back to plan-type rules so newly minted
   // (or dummy) ticket codes still enforce the right required fields.
   const fieldRules =
     REQUIRED_FIELD_RULES[formData.ticketCode] ||
     (isEnterprise ? ENTERPRISE_FIELD_RULES : isSingle ? SINGLE_FIELD_RULES : DEFAULT_FIELD_RULES);
+
+  // Checkout started → Meta InitiateCheckout, LinkedIn, GA4 (once per opening).
+  useEffect(() => {
+    if (isOpen) trackCheckoutOpened({ eventCode: formData.eventCode, ticketCode: formData.ticketCode });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, formData.ticketCode]);
 
   // URL param check
   useEffect(() => {
@@ -218,10 +199,9 @@ const ApplyPopupContent = () => {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const utm = {};
-      new URLSearchParams(window.location.search).forEach((value, key) => {
-        if (key.startsWith("utm_")) utm[key] = value;
-      });
+      // Campaign tags from the ad link, saved when the visitor first landed
+      // (lib/attribution.js), so each sale is credited to the right ad.
+      const utm = utmPayload(DEFAULT_CAMPAIGN);
 
       const payload = {
         eventCode: formData.eventCode,
@@ -242,15 +222,26 @@ const ApplyPopupContent = () => {
         websiteURL: formData.websiteURL,
         gstin: formData.gstNumber,
         referalID: formData.referalID,
-        utm: {
-          utm_source: "",
-          utm_campaign: "aug2026"
-        },
+        utm,
       };
 
-      const res = await axios.post(`${PAYMENT_BASE_URL}/tpnEvent/registerAndInitiatePayment/html`, payload);
+      // Remember the plan for the payment-return page (Purchase event, and
+      // whether we still need to ask for the address).
+      savePendingCheckout({
+        eventCode: formData.eventCode,
+        ticketCode: formData.ticketCode,
+        email: formData.email,
+        firstname: formData.firstname,
+        needsProfile: isShort,
+      });
 
-     
+      // HubSpot + Meta + GA4 run alongside the payment request, so the
+      // visitor doesn't wait any longer than before.
+      const [res] = await Promise.all([
+        axios.post(`${PAYMENT_BASE_URL}/tpnEvent/registerAndInitiatePayment/html`, payload),
+        trackCheckoutSubmitted(formData).catch(() => {}),
+      ]);
+
       document.open();
       document.write(res.data);
       document.close();
@@ -321,7 +312,11 @@ const ApplyPopupContent = () => {
 
               <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col">
                 <div className="flex-1 overflow-y-auto overscroll-contain px-6 py-7 sm:px-9">
-                  <p className="mb-6 text-[14px] text-ink-3">Fields marked * are required. Your access details will be sent to this email.</p>
+                  <p className="mb-6 text-[14px] text-ink-3">
+                    {isShort
+                      ? "Just your name, email and phone before payment. Your access details will be sent to this email."
+                      : "Fields marked * are required. Your access details will be sent to this email."}
+                  </p>
 
                   {/* Required fields depend on the selected plan */}
                   <div className="grid grid-cols-1 gap-x-5 gap-y-5 md:grid-cols-2">
@@ -329,6 +324,9 @@ const ApplyPopupContent = () => {
                     <FormField label="Last name*" autoComplete="family-name" minLength={2} value={formData.lastname} onChange={(v) => handleChange("lastname", v)} />
                     <FormField label="Email*" type="email" autoComplete="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" value={formData.email} onChange={(v) => handleChange("email", v)} />
                     <FormField label="Contact number*" type="tel" autoComplete="tel" inputMode="tel" pattern="[0-9]*" value={formData.contact} onChange={(v) => handleChange("contact", v)} />
+
+                    {/* Everything below is only asked here for Enterprise (or when shortCheckout is off) */}
+                    {!isShort && (<>
                     <FormField label={`LinkedIn profile${fieldRules.linkedIn ? "*" : ""}`} placeholder="linkedin.com/in/yourname" pattern="(https?://)?([\w-]+\.)?linkedin\.com/.*" title="Enter a valid LinkedIn URL (e.g. linkedin.com/in/yourname)" value={formData.linkedIn} onChange={(v) => handleChange("linkedIn", v)} />
 
                     <FormField
@@ -375,6 +373,7 @@ const ApplyPopupContent = () => {
                         onChange={(v) => handleChange("gstNumber", v.replace(/[^a-zA-Z0-9]/g, "").toUpperCase())}
                       />
                     )}
+                    </>)}
                   </div>
                 </div>
 
@@ -394,51 +393,6 @@ const ApplyPopupContent = () => {
         )}
       </AnimatePresence>
     </>
-  );
-};
-
-/* Light, labelled form field. A "*" in the label marks it required. */
-const DEFAULT_OPTIONS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10+"];
-
-const FormField = ({ label, isSelect = false, options, type = "text", value, onChange, ...rest }) => {
-  const id = React.useId();
-  const required = label.includes("*");
-  const text = label.replace("*", "");
-  const field =
-    "h-12 w-full rounded-[12px] bg-paper px-4 text-[16px] text-ink ring-1 ring-transparent outline-none transition-[box-shadow,background-color] duration-200 placeholder:text-ink-3 hover:ring-line focus:bg-surface focus:ring-2 focus:ring-ink";
-
-  return (
-    <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="text-[14px] font-medium text-ink">
-        {text}
-        {required && <span className="text-red"> *</span>}
-      </label>
-      {isSelect ? (
-        <div className="relative">
-          <select
-            id={id}
-            required={required}
-            value={value ?? ""}
-            onChange={(e) => onChange(e.target.value)}
-            className={`${field} cursor-pointer appearance-none pr-10 ${value ? "" : "text-ink-3"}`}
-          >
-            <option value="" disabled>
-              Select
-            </option>
-            {(options && options.length ? options : DEFAULT_OPTIONS).map((opt) => (
-              <option key={opt} value={opt} className="text-ink">
-                {opt}
-              </option>
-            ))}
-          </select>
-          <svg viewBox="0 0 20 20" className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-3" fill="none" aria-hidden="true">
-            <path d="m5 8 5 5 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
-      ) : (
-        <input id={id} type={type} required={required} value={value ?? ""} onChange={(e) => onChange(e.target.value)} className={field} {...rest} />
-      )}
-    </div>
   );
 };
 

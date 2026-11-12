@@ -28,6 +28,19 @@ export const quantitativeIntuition = {
   trailer: MEDIA.courseTrailer,
   trailerPoster: MEDIA.courseTrailerPoster,
 
+  // Free preview at /preview: chapter 1, unlocked with name + email.
+  preview: {
+    href: "/preview",
+    chapterLabel: "Chapter 1 of 11",
+    duration: "About 10 to 12 minutes",
+    video: MEDIA.previewChapter1,
+    poster: MEDIA.previewChapter1Poster || MEDIA.courseTrailerPoster,
+    // Shown when chapter 1 ends: the question the next chapter answers.
+    // Edit to match how chapter 1 actually closes.
+    nextQuestion: "Before you reach for the data, what problem are you actually trying to solve?",
+    nextAnswer: "Chapter 2, Framing the problem, shows you how to answer that.",
+  },
+
   facts: [
     { label: "Running time", value: "2 hrs 15 min" },
     { label: "Modules", value: "11" },

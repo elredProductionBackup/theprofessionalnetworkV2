@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ScrollToPricing from "@/components/ui/ScrollToPricing";
 
 export default function ClosingCta({ course }) {
@@ -8,7 +9,14 @@ export default function ClosingCta({ course }) {
         <p className="lede mx-auto mt-6 max-w-[46ch]">
           {course.facts[0].value} with {course.professor.name}, with three months to watch and rewatch.
         </p>
-        <ScrollToPricing className="btn btn-red mt-10">Enroll now</ScrollToPricing>
+        <div className="mt-10 flex flex-wrap justify-center gap-3">
+          <ScrollToPricing className="btn btn-red">Enroll now</ScrollToPricing>
+          {course.preview && (
+            <Link href={course.preview.href} className="btn btn-ghost">
+              Watch chapter 1 free
+            </Link>
+          )}
+        </div>
       </div>
     </section>
   );

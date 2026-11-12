@@ -1,5 +1,6 @@
 import CoursePage from "@/components/course/CoursePage";
 import DeepLinkScroll from "@/components/fx/DeepLinkScroll";
+import TrackViewContent from "@/components/course/TrackViewContent";
 import JsonLd from "@/components/seo/JsonLd";
 import { quantitativeIntuition as course, faqs } from "@/data/courses";
 import { pageMetadata, courseLd, faqLd, breadcrumbLd } from "@/lib/seo";
@@ -15,6 +16,7 @@ export default function ViewDetailsPage() {
     <>
       <JsonLd data={[courseLd(course), faqLd(faqs), breadcrumbLd([{ name: course.shortTitle, path: course.href }])]} />
       <DeepLinkScroll />
+      <TrackViewContent eventCode={course.eventCode} ticketCode={course.tiers[0].ticketCode} />
       <CoursePage course={course} />
     </>
   );

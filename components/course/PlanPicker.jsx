@@ -52,6 +52,11 @@ export default function PlanPicker({ course, id, className = "" }) {
       <button type="button" onClick={checkout} className="btn btn-red mt-7 w-full">
         Enroll for {plan.price}
       </button>
+      {course.preview && (
+        <Link href={course.preview.href} className="btn btn-ghost mt-2.5 w-full">
+          Watch chapter 1 free
+        </Link>
+      )}
 
       <ul className="mt-7 space-y-3 border-t border-line pt-6">
         {course.includes.map((item) => (

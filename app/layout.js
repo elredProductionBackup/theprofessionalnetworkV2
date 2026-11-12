@@ -10,6 +10,8 @@ import Reveal from "@/components/fx/Reveal";
 import ViewCursor from "@/components/fx/ViewCursor";
 import MetaPixel from "@/components/MetaPixel";
 import LinkedinInsight from "@/components/LinkedinInsight";
+import HubSpotTracking from "@/components/HubSpotTracking";
+import RouteTracking from "@/components/RouteTracking";
 import JsonLd from "@/components/seo/JsonLd";
 import { SITE } from "@/data/site";
 import { organizationLd, websiteLd } from "@/lib/seo";
@@ -74,6 +76,7 @@ export default function RootLayout({ children }) {
           Skip to content
         </a>
         <MetaPixel />
+        <RouteTracking />
         <SmoothScroll />
         <Reveal />
         <ViewCursor />
@@ -86,6 +89,7 @@ export default function RootLayout({ children }) {
         <ApplyPopup />
 
         <LinkedinInsight />
+        <HubSpotTracking />
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-9T6P0J7FS0" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`

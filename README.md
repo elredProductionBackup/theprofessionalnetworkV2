@@ -14,7 +14,8 @@ npm run dev
 | Every image / video URL (empty = gray placeholder) | `data/media.js` |
 | Gallery + hero photos, categories, alt text | `data/gallery.js` |
 | Live domain for SEO (canonical, sitemap, OG) | env `NEXT_PUBLIC_SITE_URL` |
-| Course content, prices, ticket codes, FAQs | `data/courses.js` |
+| Course content, prices, ticket codes, FAQs, free-preview copy | `data/courses.js` |
+| Tracking ids (Meta, LinkedIn, HubSpot) | env, see `.env.example` |
 | Speakers section (people, bios, photos, "joining soon") | `data/speakers.js` |
 | Contact details, socials, nav, footer policy links | `data/site.js` |
 | Switch 3D / tilt / smooth scroll on or off | `FEATURES` in `data/site.js` |
@@ -52,9 +53,14 @@ Images from Cloudinary are resized and served as AVIF/WebP automatically (`lib/i
 - `app/sitemap.js`, `app/robots.js`, `app/manifest.js`. Payment pages are `noindex`.
 - **Set `NEXT_PUBLIC_SITE_URL`** to the live domain in Vercel, or canonical URLs will point at the vercel.app address.
 
+## Checkout, free preview, tracking
+
+See **TRACKING.md**: short checkout (`FEATURES.shortCheckout`), the free preview at `/preview`,
+campaign tags, Meta / LinkedIn / GA4 / HubSpot events, and the setup checklist. Env vars: `.env.example`.
+
 ## Checkout
 
-`components/ApplyPopup.jsx` — restyled, logic unchanged. It still posts to
+`components/ApplyPopup.jsx` — restyled. It still posts to
 `NEXT_PUBLIC_PAYMENT_BASE_URL/tpnEvent/registerAndInitiatePayment/html` with the same payload, and reads
 `?apply=true`, `?ref=` and `?ticketCode=` from the URL. Any button can open it:
 
