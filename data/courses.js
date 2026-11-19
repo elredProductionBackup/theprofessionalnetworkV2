@@ -13,7 +13,8 @@ const oded = getSpeaker("oded-netzer");
 export const quantitativeIntuition = {
   slug: "quantitative-intuition",
   href: "/view-details",
-  eventCode: "TPN-LIQ-02AUG2026",
+  // Fallback only: the live eventCode comes from getEventDetails.
+  eventCode: "TPN-QI-COURSE",
   professor: oded,
 
   title: "Leadership Intelligence in an AI Era: Developing Quantitative Intuition",
@@ -28,12 +29,12 @@ export const quantitativeIntuition = {
   trailer: MEDIA.courseTrailer,
   trailerPoster: MEDIA.courseTrailerPoster,
 
-  // Free preview at /preview: chapter 1, unlocked with name + email.
+  // Free preview at /preview: chapter 1, unlocked with name + email + phone.
+  // The video link is in lib/previewVideo.js (server only).
   preview: {
     href: "/preview",
     chapterLabel: "Chapter 1 of 11",
     duration: "About 10 to 12 minutes",
-    video: MEDIA.previewChapter1,
     poster: MEDIA.previewChapter1Poster || MEDIA.courseTrailerPoster,
     // Shown when chapter 1 ends: the question the next chapter answers.
     // Edit to match how chapter 1 actually closes.
@@ -52,6 +53,7 @@ export const quantitativeIntuition = {
     {
       id: "single",
       label: "Single user",
+      // price / note / seats: fallback copy, replaced by live data from getEventDetails.
       price: "₹5,000",
       note: "Including all taxes. Interest-free EMI available.",
       seats: "For one learner",

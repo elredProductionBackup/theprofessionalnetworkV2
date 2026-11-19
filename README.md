@@ -55,13 +55,17 @@ Images from Cloudinary are resized and served as AVIF/WebP automatically (`lib/i
 
 ## Checkout, free preview, tracking
 
-See **TRACKING.md**: short checkout (`FEATURES.shortCheckout`), the free preview at `/preview`,
+See **TRACKING.md**: short checkout, the free preview at `/preview`,
 campaign tags, Meta / LinkedIn / GA4 / HubSpot events, and the setup checklist. Env vars: `.env.example`.
 
 ## Checkout
 
-`components/ApplyPopup.jsx` — restyled. It still posts to
-`NEXT_PUBLIC_PAYMENT_BASE_URL/tpnEvent/registerAndInitiatePayment/html` with the same payload, and reads
+`components/ApplyPopup.jsx` asks for name, email and phone, posts to
+`NEXT_PUBLIC_PAYMENT_BASE_URL/tpnEvent/registerAndInitiatePayment` (same payload keys as before) and opens
+Razorpay with the `checkoutOptions` it returns (`lib/razorpay.js`). After payment it goes to
+`/tpnEvent/payment/return/success`, which confirms the payment and offers the optional invoice form
+(`components/InvoiceSection.jsx`). Prices on the pricing card and in checkout come live from
+`/tpnEvent/getEventDetails` (no params; `lib/eventDetails.js`, hooks in `lib/useEventDetails.js`). Sold out, closed and unavailable states come from the same response. It reads
 `?apply=true`, `?ref=` and `?ticketCode=` from the URL. Any button can open it:
 
 ```js

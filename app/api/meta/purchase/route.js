@@ -55,6 +55,9 @@ export async function POST(request) {
   if (String(payment?.status || "").toLowerCase() !== "success") return skip("payment not successful", 409);
 
   const attendee = payment.attendee || {};
+  const eventCode = payment.eventDetails?.eventCode || payment.eventCode;
+  const ticketCode = payment.ticketDetails?.ticketCode || payment.ticketCode;
+  const contentId = eventCode && ticketCode ? `${eventCode}:${ticketCode}` : null;
   const phone = normalisePhone(attendee.contact || attendee.phone || attendee.mobile);
   const ip = (request.headers.get("x-forwarded-for") || "").split(",")[0].trim();
 
@@ -81,7 +84,7 @@ export async function POST(request) {
       currency: payment.currency || "INR",
       order_id: txnid,
       content_type: "product",
-      ...(payment.eventCode && payment.ticketCode && { content_ids: [`${payment.eventCode}:${payment.ticketCode}`] }),
+      ...(contentId && { content_ids: [contentId] }),
     },
   };
 

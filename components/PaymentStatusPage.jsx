@@ -2,10 +2,10 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Toaster } from 'react-hot-toast';
-import { Check, X, ShieldCheck, Clock, Home, Loader2 } from 'lucide-react';
+import { Check, X, ShieldCheck, Clock, Home, Loader2, PlayCircle, Users } from 'lucide-react';
 import { usePaymentStatus } from '@/lib/usePaymentStatus';
 import ThankYouPopup from './ThankYouPopup';
-import CompleteProfile from './CompleteProfile';
+import InvoiceSection from './InvoiceSection';
 import { trackPurchase, readPendingCheckout, clearPendingCheckout } from '@/lib/tracking';
 
 function PaymentStatusContent() {
@@ -15,7 +15,17 @@ function PaymentStatusContent() {
   const [isVisible, setIsVisible] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
-  const { status, details } = usePaymentStatus(txnid !== '—' ? txnid : null);
+  // Razorpay payment id, added to the URL by the checkout (ApplyPopup); shown on the receipt only.
+  const paymentId = searchParams.get('razorpay_payment_id');
+  const { status, details, refresh } = usePaymentStatus(txnid !== '—' ? txnid : null);
+
+  // getStatus result: eventDetails, ticketDetails, attendee, lmsAccess, invoice…
+  const eventCode = details?.eventDetails?.eventCode || details?.eventCode;
+  const ticketCode = details?.ticketDetails?.ticketCode || details?.ticketCode;
+  const lms = details?.lmsAccess;
+  const paymentMode = details?.paymentMode
+    ? (details.paymentMode.length <= 4 ? details.paymentMode.toUpperCase() : details.paymentMode.replace(/^./, (c) => c.toUpperCase()))
+    : null;
 
   const formattedAmount = details?.amount != null
     ? new Intl.NumberFormat('en-IN', { style: 'currency', currency: details.currency || 'INR', maximumFractionDigits: 2 }).format(details.amount)
@@ -37,18 +47,14 @@ function PaymentStatusContent() {
       amount: details?.amount,
       currency: details?.currency || 'INR',
       email: details?.attendee?.email || pending?.email,
-      eventCode: details?.eventCode || pending?.eventCode,
-      ticketCode: details?.ticketCode || pending?.ticketCode,
+      eventCode: eventCode || pending?.eventCode,
+      ticketCode: ticketCode || pending?.ticketCode,
     });
 
-    if (pending?.needsProfile) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setShowProfile(true);
-      return;
-    }
-    clearPendingCheckout();
-    const timer = setTimeout(() => setShowThankYou(true), 3000);
-    return () => clearTimeout(timer);
+    // Every successful payment gets the invoice section (generate / download),
+    // even when this page is opened in another tab.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setShowProfile(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
 
@@ -57,7 +63,6 @@ function PaymentStatusContent() {
     setShowProfile(false);
     setShowThankYou(true);
   };
-  const profileEmail = details?.attendee?.email || readPendingCheckout()?.email;
 
   const statusConfig = {
     pending: {
@@ -150,16 +155,28 @@ function PaymentStatusContent() {
                 <dt className="text-ink-3 font-medium">Transaction ID</dt>
                 <dd className="text-ink font-semibold break-all text-right">{txnid}</dd>
               </div>
+              {details?.ticketDetails?.label && (
+                <div className="flex justify-between items-center gap-3">
+                  <dt className="text-ink-3 font-medium shrink-0">Plan</dt>
+                  <dd className="text-ink font-semibold text-right">{details.ticketDetails.label}</dd>
+                </div>
+              )}
+              {(details?.paymentReference || paymentId) && (
+                <div className="flex justify-between items-center">
+                  <dt className="text-ink-3 font-medium">{details?.paymentReference ? 'Payment reference' : 'Payment ID'}</dt>
+                  <dd className="text-ink font-semibold break-all text-right">{details?.paymentReference || paymentId}</dd>
+                </div>
+              )}
               {details?.attendee?.email && (
                 <div className="flex justify-between items-center">
                   <dt className="text-ink-3 font-medium">Email</dt>
                   <dd className="text-ink font-semibold break-all text-right">{details.attendee.email}</dd>
                 </div>
               )}
-              {details?.paymentMode && (
+              {paymentMode && (
                 <div className="flex justify-between items-center">
-                  <dt className="text-ink-3 font-medium">Payment Method</dt>
-                  <dd className="text-ink font-semibold">{details.paymentMode}</dd>
+                  <dt className="text-ink-3 font-medium">Payment method</dt>
+                  <dd className="text-ink font-semibold">{paymentMode}</dd>
                 </div>
               )}
               {status === 'failed' && details?.errorMessage && (
@@ -178,19 +195,31 @@ function PaymentStatusContent() {
             </dl>
           </div>
 
-          {/* Details skipped at checkout (short checkout) */}
-          {showProfile && (
+          {/* Invoice: generate / preview / download (components/InvoiceSection.jsx) */}
+          {status === 'success' && showProfile && (
             <div className="mb-5 border-t border-line pt-5">
-              <CompleteProfile email={profileEmail} txnid={txnid} onDone={profileDone} />
+              <InvoiceSection payment={details} onRefresh={refresh} onSkip={profileDone} />
             </div>
           )}
 
           {/* Actions */}
-          <div className={`space-y-2 ${showProfile ? 'hidden' : ''}`}>
+          <div className="space-y-2">
+            {status === 'success' && lms?.loginUrl && (
+              <a href={lms.loginUrl} target="_blank" rel="noopener noreferrer" className="btn btn-red w-full">
+                <PlayCircle className="w-4 h-4" />
+                {lms.alreadyHadAccess ? 'Go to your courses' : 'Start learning'}
+              </a>
+            )}
+            {status === 'success' && lms?.manageTeamUrl && (
+              <a href={lms.manageTeamUrl} target="_blank" rel="noopener noreferrer" className="btn btn-ghost w-full">
+                <Users className="w-4 h-4" />
+                Manage team access
+              </a>
+            )}
             <button
               type="button"
               onClick={() => router.push('/')}
-              className="btn btn-ink w-full"
+              className={`btn w-full ${status === 'success' && lms?.loginUrl ? 'btn-ghost' : 'btn-ink'}`}
             >
               <Home className="w-4 h-4" />
               Back to home

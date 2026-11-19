@@ -40,15 +40,14 @@ export const MEDIA = {
     "https://res.cloudinary.com/dtrv7p3gg/image/upload/v1792092978/odedxsg_ae0wif.png",
 
   /* Free preview (/preview) -------------------------------------- */
-  // Chapter 1 of the course (about 10–12 min), unlocked after sign-up.
-  // Paste the .mp4 URL here. Empty = gray placeholder.
-  previewChapter1: "",
+  // The chapter 1 video link is NOT here: it lives in lib/previewVideo.js
+  // (server only), so it's only handed out after the name + email + phone sign-up.
   // Still shown behind the sign-up form. Empty = the course trailer poster.
-  previewChapter1Poster: "",
+  previewChapter1Poster: "https://res.cloudinary.com/dtrv7p3gg/image/upload/v1795071706/Leadership_Intelligence_in_an_AI_Era_1_on7euq.png",
 
   /* Course page ---------------------------------------------------- */
   // A real certificate image. When empty, a built-in sample card is shown.
-  certificate: "",
+  certificate: "https://res.cloudinary.com/dtrv7p3gg/image/upload/v1795076490/Certificate_Letter_landscape_2x_2_1_vxtsya.png",
 
   /* About page ----------------------------------------------------- */
   aboutHero: "",

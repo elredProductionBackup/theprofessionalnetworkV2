@@ -4,27 +4,52 @@ What changed, what to switch on, and what the backend developer needs to confirm
 
 ## 1. Shorter checkout
 
-Single-user checkout (`SU-*` tickets) now asks only for **first name, last name, email and phone**.
-Enterprise keeps the full form (GST invoice needs company, GSTIN and address).
+Checkout asks every plan for only **name, email and phone**, then opens Razorpay
+(`registerAndInitiatePayment` → `checkoutOptions`).
 
-The rest (address, city, state, pincode, company, title, experience, LinkedIn) is asked on the
-payment-success page in a "One last step" card (`components/CompleteProfile.jsx`). City and state
-are required there; the buyer can skip.
+The invoice lives on the payment-success page (`components/InvoiceSection.jsx`, API in `lib/invoice.js`),
+driven by `getStatus` → `registrationCode` and `invoice { status, invoiceNumber, token, requestBy }`:
 
-- Switch: `FEATURES.shortCheckout` in `data/site.js`. Set to `false` to bring back the old form instantly.
-- The payload to `registerAndInitiatePayment/html` keeps every key; skipped fields are sent as `""`.
+- Invoice issued → invoice number with **Preview** (each PDF page drawn as a full-width image with pdf.js,
+  `components/InvoicePreview.jsx`, same on phones and desktops) and **Download** (saved as a file, no redirect). If no billing details were added yet (`requestBy` is null): "Add billing details".
+- Not issued → "Need a GST invoice?" → **Generate invoice** → form → `POST /tpnEvent/invoice/request`
+  `{ registrationCode, token, address, city, state, pincode, country, placeId }` (+ `companyName`, `gstin`
+  for Enterprise, see `SEND_COMPANY_FIELDS`), then the PDF from `GET /tpnEvent/invoice/download`.
+- Single user: address, city, pincode, state. Enterprise adds company name and GSTIN. Google Maps fills
+  city, pincode, state and placeId; the state also pre-fills from the GSTIN.
+- `lmsAccess.loginUrl` → **Start learning** button; `lmsAccess.manageTeamUrl` → **Manage team access**.
+
+- The payload to `registerAndInitiatePayment` keeps every key; fields not asked are sent as `""`.
 
 ## 2. Free preview — `/preview`
 
-Chapter 1 behind a two-field sign-up (name, email). After sign-up the chapter plays inline; when it
-ends, the frame turns into the question chapter 2 answers, with **Enroll** and **Watch again**.
+Chapter 1 behind a sign-up: **name, email and mobile number**. The form posts to
+`/api/preview-lead`, which saves the row to a Google Sheet and only then sends back the video link.
+When the chapter ends, the frame turns into the question chapter 2 answers, with **Enroll** and **Watch again**.
 
-- Video: paste the chapter 1 `.mp4` URL into `previewChapter1` in `data/media.js`.
+- Video: paste the chapter 1 `.mp4` link into `lib/previewVideo.js` (or set `PREVIEW_VIDEO_URL` in Vercel).
+  It's server-only, so the link isn't in the page until someone signs up.
 - Copy (end-of-chapter question, duration): `preview` in `data/courses.js`.
 - Linked from: the menu ("Free preview"), every pricing card, and the closing call-to-action on home.
-- Sign-ups go to the HubSpot **preview** form → build the email series as a HubSpot workflow (below).
-- Returning visitors skip the form (remembered in the browser). The gate is a marketing gate, not DRM:
-  anyone determined can find the video URL. Don't use it for paid content.
+- Sign-up fires Meta `Lead`, LinkedIn "lead", GA4 `generate_lead` and the HubSpot **preview** form
+  (firstname, lastname, email, course, stage, UTMs) → build the email series as a HubSpot workflow.
+  Playing it fires `PreviewStarted` (Meta custom, GA4 `preview_start`); finishing it fires `PreviewCompleted`.
+- Returning visitors skip the form (remembered in the browser). It's a marketing gate, not DRM:
+  once someone has the link they can share it. Don't use it for paid content.
+
+### Google Sheet setup (one time)
+
+1. Create a Google Sheet → **Extensions → Apps Script**. Replace everything with
+   `scripts/google-sheets-preview-leads.gs`.
+2. In that script, change `SECRET` to a long random string.
+3. **Deploy → New deployment → Web app**. Execute as **Me**, access **Anyone**. Authorize, copy the
+   URL ending in `/exec`.
+4. In Vercel: `GOOGLE_SHEET_WEBHOOK_URL` = that URL, `GOOGLE_SHEET_SECRET` = the same secret. Redeploy.
+
+Rows land in a "Preview leads" tab: time (IST), name, email, phone, UTM source/medium/campaign/content/term,
+page, referrer, browser. If the sheet isn't set up or is down, visitors still get the video and the error
+shows in Vercel → Logs. After changing the script, use **Manage deployments → Edit → New version** so the
+URL stays the same.
 
 ## 3. Campaign tags (UTMs)
 
@@ -51,7 +76,8 @@ https://theprofessionals.network/preview?utm_source=linkedin&utm_medium=paid_soc
 | Checkout form opens | `InitiateCheckout` (value, INR) | checkout conversion | `begin_checkout` | — |
 | Checkout submitted | `AddPaymentInfo` | — | `add_payment_info` | **checkout** |
 | Payment confirmed | `Purchase` (amount paid, `eventID: purchase_<txnid>`) | purchase conversion | `purchase` | **purchase** |
-| Preview sign-up | `Lead` | lead conversion | `generate_lead` | **preview** |
+| Preview sign-up (name, email, phone) | `Lead` | lead conversion | `generate_lead` | **preview** (+ Google Sheet) |
+| Preview played | `PreviewStarted` (custom) | — | `preview_start` | — |
 | Preview watched to the end | `PreviewCompleted` (custom) | — | `preview_complete` | — |
 | Details after payment | — | — | — | **profile** |
 
@@ -106,12 +132,16 @@ and preview campaigns for **Lead**. Build a custom audience from `PreviewComplet
 
 ## 6. For the backend developer — please confirm
 
-1. `registerAndInitiatePayment/html` accepts `SU-VIRTUAL` registrations with empty `address`, `city`,
-   `state`, `pincode`. If it rejects them, either relax that validation or set `shortCheckout: false`.
+1. `registerAndInitiatePayment` accepts `SU-*` and `ENT-*` registrations with empty `address`, `city`,
+   `state`, `pincode`, `companyName`, `gstin`.
+1a. Razorpay (`redirectMode: false`): the success page polls `getStatus?txnid=…` (txnid only).
+   `getStatus` must return `success` once the payment is captured (Razorpay webhook
+   `payment.captured` / `order.paid` on the backend). Otherwise the page stays on "Confirming payment".
 2. All five `utm_*` keys inside `utm` are stored (previously only `utm_source` and `utm_campaign` were sent).
-3. Optional: an endpoint to save the post-payment details against the registration; put its URL in
-   `NEXT_PUBLIC_PROFILE_UPDATE_URL` (POST JSON: `txnid, email, address, city, state, pincode,
-   companyName, userTitle, exp, linkedIn`). Until then they're stored in HubSpot only.
+3. `invoice/request` accepts `companyName` and `gstin` for Enterprise (not in the shared body). If it
+   rejects unknown keys, set `SEND_COMPANY_FIELDS = false` in `lib/invoice.js`.
+3a. `invoice/download` must allow CORS from the site's domain (the PDF is fetched by the page, not opened
+   in a new tab) and send `Content-Type: application/pdf`; `Content-Disposition` sets the file name.
 4. Invoices: state now arrives after payment (or not at all if skipped). Check with the accountant
    how place of supply should be set for B2C invoices without a state.
 5. Recommended next step: the success page already triggers a server-side Meta Purchase
@@ -127,6 +157,6 @@ and preview campaigns for **Lead**. Build a custom audience from `PreviewComplet
    You should see `InitiateCheckout`; the form has four fields.
 2. Submit: the payment request (DevTools → Network) carries `utm.utm_campaign = "qa"`; HubSpot shows
    a new "TPN checkout" submission with the UTMs.
-3. Complete a test payment: `Purchase` fires on the success page, "One last step" appears, HubSpot
+3. Complete a test payment: `Purchase` fires on the success page, "Need a GST invoice?" appears, HubSpot
    gets "TPN purchase" then "TPN profile".
-4. `/preview`: sign up → `Lead` + "TPN preview" submission; the chapter plays.
+4. `/preview`: enter name, email + phone → `Lead` + "TPN preview" submission fire, a row appears in the Google Sheet, the chapter plays.
